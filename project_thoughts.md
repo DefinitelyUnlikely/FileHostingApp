@@ -44,6 +44,8 @@ file - Create a file. Get all files?
 file/id - Get a file, delete a file, update a file. 
 search?queryparams=something&queryparam2=something2 - a search endpoint, that should look through all your files and return those with matching regex
 
+user endpoints are needed, but IdentityCore solves alot of that, so I'll have to read up and see exactly what's needed there.
+
 # Thoughts on frontend
 
 I'll go with a backend first approach, meaning once I am done with the backend, I'll do the frontend (and then iterate as needed). 
