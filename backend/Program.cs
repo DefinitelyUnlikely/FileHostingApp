@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Backend.Data;
 
-namespace backend;
+namespace Backend;
 
 public class Program
 {
@@ -9,10 +10,17 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
+        builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(DatabaseConfig.connectionString));
+        builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
+
+        builder.Services.AddIdentityCore<IdentityUser>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddApiEndpoints();
+
         builder.Services.AddAuthorization();
 
         builder.Services.AddControllers();
+
 
         var app = builder.Build();
 
