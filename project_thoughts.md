@@ -26,18 +26,22 @@ a primary key, probably a GUID/UUID.
 a foreign key, pointing to which folder is the parent of the file. I think this is the easiest way to create a perceived structure. 
 A column that indicates the files extension
 a column containing the file itself, or well, the bytes that makes up the file. 
+possibly the complete 'path' of the file, if it turns out just using parent folder id is too cumbersome/resource demanding. 
 
 
 **A table for folders:**
-An id
+An id, GUID.
 an id of the parent folder, if it has one. No parent id will make me assume the path is the top level directory.
 
 ## API / Endpoints
 
 What endpoints do I need? 
 
-One endpoint should probably be folder/id, which can be used to get the folder and all the items and subfolders it containts. 
-Another endpoint should probably be file/id, that can be used to download, delete, update. 
+folder - Create. 
+folder/id - Delete a folder, read contents of a folder. update the content of a folder. 
+file - Create a file. Get all files? 
+file/id - Get a file, delete a file, update a file. 
+search?queryparams=something&queryparam2=something2 - a search endpoint, that should look through all your files and return those with matching regex
 
 # Thoughts on frontend
 
