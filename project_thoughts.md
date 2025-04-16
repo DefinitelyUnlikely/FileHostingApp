@@ -41,4 +41,5 @@ Another endpoint should probably be file/id, that can be used to download, delet
 
 # Thoughts on frontend
 
-I'll use Angular, as we have used regular HTML/CSS/JS and React in prior projects. I want to try out a new thing.
+I'll go with a backend first approach, meaning once I am done with the backend, I'll do the frontend (and then iterate as needed). 
+So, I'll not decide on anything directly, but React or Angular seems like the current candidates for a frontend.
