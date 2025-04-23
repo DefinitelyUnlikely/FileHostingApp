@@ -2,9 +2,9 @@ namespace Backend.Interfaces;
 
 public interface IFileRepository
 {
-    public Task<bool> SaveFileAsync();
-    public Task<Models.File> GetFileAsync();
-    public Task<ICollection<Models.File>> GetAllFilesAsync();
-    public Task<bool> UpdateFile(Models.File file);
-    public Task<bool> DeleteFile(Models.File file);
+    public Task<bool> SaveAsync(Models.File file);
+    public Task<Models.File> GetAsync(Guid fileId);
+    public Task<ICollection<Models.File>> GetAllAsync();
+    public Task<bool> UpdateAsync(Models.File file);
+    public Task<bool> DeleteAsync(Models.File file);
 }
