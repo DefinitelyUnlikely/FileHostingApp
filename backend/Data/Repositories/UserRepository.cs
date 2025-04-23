@@ -1,1 +1,3 @@
-namespace Backend.Data.Repos;
+using Backend.Interfaces;
+
+namespace Backend.Data.Repositories;

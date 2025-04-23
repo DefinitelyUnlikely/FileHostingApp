@@ -28,11 +28,20 @@ No parent id will make me assume the file is at the top level, should be shown d
 A column that indicates the files extension
 a column containing the file itself, or well, the bytes that makes up the file. 
 possibly the complete 'path' of the file, if it turns out just using parent folder id is too cumbersome/resource demanding. 
+and a name.
 
 
 **A table for folders:**
 An id, GUID.
 an id of the parent folder, if it has one. No parent id will make me assume the path is the top level directory.
+A name field.
+
+I think this should cover it - as my thought process is that folders simply exist and needs to know their parent folder at best. The files 
+needs to know which folder it is inside, about the extension etc.
+
+How do I represent this using EntityFramework? Files will have a property Folder of type Folder. (Name these File and Folder entity?).
+I guess I can add a collection of files to the folder? But that isn't quite correct for a folder, as a folder could also have folders as children. 
+Do I connect the folder model to a collection of Files and a collection of Folders? I guess so.
 
 ## API / Endpoints
 
