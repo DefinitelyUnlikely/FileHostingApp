@@ -152,10 +152,10 @@ public class FileService(IFileRepository fileRepository) : IFileService
             }
 
             //update the tracked file
-            file.Name = DTO.Name is not null ? DTO.Name : file.Name;
-            file.Extension = DTO.Extension is not null ? DTO.Extension : file.Extension;
-            file.FileData = DTO.FileData is not null ? DTO.FileData : file.FileData;
-            file.FolderId = DTO.FolderId is not null ? DTO.FolderId : file.FolderId;
+            file.Name = DTO.Name ?? file.Name;
+            file.Extension = DTO.Extension ?? file.Extension;
+            file.FileData = DTO.FileData ?? file.FileData;
+            file.FolderId = DTO.FolderId ?? file.FolderId;
 
             return await fileRepository.UpdateAsync(file);
 
