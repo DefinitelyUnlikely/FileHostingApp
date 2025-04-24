@@ -29,7 +29,9 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
     {
         try
         {
-            return await context.Folders.ToListAsync();
+            return await context.Folders
+                        .Include(f => f.SubFolders)
+                        .ToListAsync();
         }
         catch (Exception e)
         {
@@ -43,7 +45,9 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
     {
         try
         {
-            return await context.Folders.FirstOrDefaultAsync(f => f.Id == folderId);
+            return await context.Folders
+                        .Include(f => f.SubFolders)
+                        .FirstOrDefaultAsync(f => f.Id == folderId);
         }
         catch (Exception e)
         {
