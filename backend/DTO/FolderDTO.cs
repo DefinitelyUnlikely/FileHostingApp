@@ -9,4 +9,6 @@ public class FolderDTO
     public Models.Folder? ParentFolder { get; set; }
 
     public ICollection<Models.Folder>? SubFolders { get; set; }
+
+    public string? UserId { get; set; }
 }

@@ -12,4 +12,5 @@ public class FileDTO
     public DateTime? UpdatedAt { get; set; }
 
     public Guid? FolderId { get; set; }
+    public string? UserId { get; set; }
 }
