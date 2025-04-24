@@ -11,12 +11,12 @@ public class FileService(IFileRepository fileRepository) : IFileService
         try
         {
             // Validate fileDTO for required parameters
-            if (fileDTO.Name is null || fileDTO.Extension is null || fileDTO.FileData is null)
+            if (fileDTO.Name is null || fileDTO.Extension is null || fileDTO.FileData is null || fileDTO.UserId is null)
             {
                 return false;
             }
 
-            Models.File file = new() { Name = fileDTO.Name, Extension = fileDTO.Extension, FileData = fileDTO.FileData, FolderId = fileDTO.FolderId };
+            Models.File file = new() { Name = fileDTO.Name, Extension = fileDTO.Extension, FileData = fileDTO.FileData, FolderId = fileDTO.FolderId, UserId = fileDTO.UserId };
 
             return await fileRepository.SaveAsync(file);
 
