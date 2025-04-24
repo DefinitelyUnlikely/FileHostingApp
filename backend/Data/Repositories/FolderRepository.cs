@@ -53,15 +53,30 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
 
     /// <summary>A method that takes a Folder entity object and saves it to the current context.</summary>
     /// <returns>A boolean value indicating if the save was successful or not.</returns>
-    public Task<bool> SaveAsync(Folder folder)
+    public async Task<bool> SaveAsync(Folder folder)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await context.Folders.AddAsync(folder);
+            return await context.SaveChangesAsync() != 0;
+        }
+        catch (Exception e)
+        {
+            throw new Exception("\\FolderRepository\\SaveAsync: " + e.Message);
+        }
     }
 
-    /// <summary>A method that takes a tracked Folder entity object and saves it to the context.</summary>
-    /// <returns>A boolean value indicating if the save was successful or not.</returns>
-    public Task<bool> UpdateAsync(Folder folder)
+    /// <summary>A method that calls SaveChangesAsync.</summary>
+    /// <returns>A boolean value indicating if the save changed anything or not.</returns>
+    public async Task<bool> UpdateAsync(Folder folder)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await context.SaveChangesAsync() != 0;
+        }
+        catch (Exception e)
+        {
+            throw new Exception("\\FolderRepository\\UpdatetAsync: " + e.Message);
+        }
     }
 }
