@@ -8,31 +8,67 @@ public class FolderService : IFolderService
 {
     public Task<bool> CreateAsync(FolderDTO folderDTO)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception("\\FolderService\\CreateAsync: " + e.Message);
+        }
     }
 
     public Task<bool> DeleteAsync(Guid folderId)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception("\\FolderService\\DeleteAsync: " + e.Message);
+        }
     }
 
-    public Task<ICollection<Folder>> GetAllAsync()
+    public Task<ICollection<FolderDTO>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception("\\FolderService\\GetAllAsync: " + e.Message);
+        }
     }
 
-    public Task<Folder> GetAsync(Guid folderId)
+    public Task<FolderDTO?> GetAsync(Guid folderId)
     {
-        throw new NotImplementedException();
-    }
+        try
+        {
 
-    public Task<Folder> GetByNameAsync(string name)
-    {
-        throw new NotImplementedException();
+        }
+        catch (Exception e)
+        {
+            throw new Exception("\\FolderService\\GetAsync: " + e.Message);
+        }
     }
 
     public Task<bool> UpdateAsync(FolderDTO folderDTO)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception("\\FolderRepository\\UpdateAsync: " + e.Message);
+
+
+
+
+
+
+        }
     }
 }

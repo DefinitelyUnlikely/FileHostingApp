@@ -7,26 +7,73 @@ public class FileService : IFileService
 {
     public Task<bool> CreateAsync(FileDTO fileDTO)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception("\\FileService\\CreateAsync: " + e.Message);
+        }
     }
 
     public Task<bool> DeleteAsync(Guid fileId)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception("\\FileService\\DeleteAsync: " + e.Message);
+        }
     }
 
-    public Task<ICollection<Models.File>> GetAllAsync()
+    public Task<ICollection<FileDTO>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception("\\FileService\\GetAllAsync: " + e.Message);
+        }
     }
 
-    public Task<Models.File> GetAsync(Guid fileId)
+    public Task<FileDTO?> GetByIdAsync(Guid fileId)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception("\\FileService\\GetByIdAsync: " + e.Message);
+        }
+    }
+
+    public Task<FileDTO?> GetByNameAsync(Guid fileId)
+    {
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception("\\FileService\\GetByNameAsync: " + e.Message);
+        }
     }
 
     public Task<bool> UpdateAsync(FileDTO fileDTO)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception("\\FileService\\UpdateAsync: " + e.Message);
+        }
     }
 }
