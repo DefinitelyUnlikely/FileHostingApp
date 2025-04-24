@@ -78,11 +78,27 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
     }
 
-    public Task<FileDTO?> GetByIdAsync(Guid fileId)
+    public async Task<FileDTO?> GetByIdAsync(Guid fileId)
     {
         try
         {
+            var file = await fileRepository.GetByIdAsync(fileId);
 
+            if (file is null)
+            {
+                return null;
+            }
+
+            return new FileDTO
+            {
+                Id = file.Id,
+                Name = file.Name,
+                Extension = file.Extension,
+                FileData = file.FileData,
+                CreatedAt = file.CreatedAt,
+                UpdatedAt = file.UpdatedAt,
+                FolderId = file.FolderId,
+            };
         }
         catch (Exception e)
         {
@@ -90,11 +106,27 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
     }
 
-    public Task<FileDTO?> GetByNameAsync(Guid fileId)
+    public async Task<FileDTO?> GetByNameAsync(string fileName)
     {
         try
         {
+            var file = await fileRepository.GetByNameAsync(fileName);
 
+            if (file is null)
+            {
+                return null;
+            }
+
+            return new FileDTO
+            {
+                Id = file.Id,
+                Name = file.Name,
+                Extension = file.Extension,
+                FileData = file.FileData,
+                CreatedAt = file.CreatedAt,
+                UpdatedAt = file.UpdatedAt,
+                FolderId = file.FolderId,
+            };
         }
         catch (Exception e)
         {
@@ -102,10 +134,30 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
     }
 
-    public Task<bool> UpdateAsync(FileDTO fileDTO)
+    public async Task<bool> UpdateAsync(FileDTO DTO)
     {
         try
         {
+            // validate that we know what file we want to update.
+            if (DTO.Id is null)
+            {
+                return false;
+            }
+
+            var file = await fileRepository.GetByIdAsync((Guid)DTO.Id);
+
+            if (file is null)
+            {
+                return false;
+            }
+
+            //update the tracked file
+            file.Name = DTO.Name is not null ? DTO.Name : file.Name;
+            file.Extension = DTO.Extension is not null ? DTO.Extension : file.Extension;
+            file.FileData = DTO.FileData is not null ? DTO.FileData : file.FileData;
+            file.FolderId = DTO.FolderId is not null ? DTO.FolderId : file.FolderId;
+
+            return await fileRepository.UpdateAsync(file);
 
         }
         catch (Exception e)
