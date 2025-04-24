@@ -67,7 +67,7 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
     }
 
     /// <summary>A method that calls SaveChangesAsync.</summary>
-    /// <returns>A boolean value indicating if the save changed anything or not.</returns>
+    /// <returns>A boolean value indicating if the save changed any entries or not.</returns>
     public async Task<bool> UpdateAsync(Folder folder)
     {
         try
