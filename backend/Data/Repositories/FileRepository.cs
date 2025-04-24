@@ -21,14 +21,14 @@ public class FileRepository : IFileRepository
 
     /// <summary>A method that gets and returns a file by specified Id.</summary>
     /// <returns>A single file entity object.</returns>
-    public Task<Models.File> GetAsync(Guid fileId)
+    public Task<Models.File?> GetAsync(Guid fileId)
     {
         throw new NotImplementedException();
     }
 
     /// <summary>A method that gets and returns a file by specified name.</summary>
     /// <returns>A single file entity object.</returns>
-    public Task<Models.File> GetByNameAsync(string name)
+    public Task<Models.File?> GetByNameAsync(string name)
     {
         throw new NotImplementedException();
     }
