@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 
 namespace Backend.Models;
 
@@ -15,5 +15,8 @@ public class File
 
     public Guid? FolderId { get; set; }
     public Folder? Folder { get; set; }
+
+    public required string UserId { get; set; }
+    public required IdentityUser User { get; set; }
 
 }

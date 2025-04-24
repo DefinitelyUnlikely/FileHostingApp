@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace Backend.Models;
 
 public class Folder
@@ -9,5 +11,8 @@ public class Folder
     public Folder? ParentFolder { get; set; }
 
     public ICollection<Folder> SubFolders { get; set; } = [];
+
+    public required string UserId { get; set; }
+    public required IdentityUser User { get; set; }
 
 }
