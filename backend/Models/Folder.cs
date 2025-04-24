@@ -10,13 +10,4 @@ public class Folder
 
     public ICollection<Folder> SubFolders { get; set; } = [];
 
-    public Folder() { }
-
-    public Folder(string name, Folder? parentFolder)
-    {
-        Name = name;
-        ParentFolder = parentFolder;
-        ParentFolderId = parentFolder?.Id;
-    }
-
 }

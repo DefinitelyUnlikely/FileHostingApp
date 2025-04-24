@@ -12,5 +12,4 @@ public class FileDTO
     public DateTime? UpdatedAt { get; set; }
 
     public Guid? FolderId { get; set; }
-    public Models.Folder? Folder { get; set; }
 }

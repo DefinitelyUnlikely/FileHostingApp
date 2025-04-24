@@ -1,14 +1,24 @@
 using Backend.DTO;
 using Backend.Interfaces;
+using Backend.Models;
 
 namespace Backend.Services;
 
-public class FileService : IFileService
+public class FileService(IFileRepository fileRepository) : IFileService
 {
-    public Task<bool> CreateAsync(FileDTO fileDTO)
+    public async Task<bool> CreateAsync(FileDTO fileDTO)
     {
         try
         {
+            // Validate fileDTO for required parameters
+            if (fileDTO.Name is null || fileDTO.Extension is null || fileDTO.FileData is null)
+            {
+                return false;
+            }
+
+            Models.File file = new() { Name = fileDTO.Name, Extension = fileDTO.Extension, FileData = fileDTO.FileData, FolderId = fileDTO.FolderId };
+
+            return await fileRepository.SaveAsync(file);
 
         }
         catch (Exception e)
@@ -17,10 +27,18 @@ public class FileService : IFileService
         }
     }
 
-    public Task<bool> DeleteAsync(Guid fileId)
+    public async Task<bool> DeleteAsync(Guid fileId)
     {
         try
         {
+            var file = await fileRepository.GetByIdAsync(fileId);
+
+            if (file is null)
+            {
+                return false;
+            }
+
+            return await fileRepository.DeleteAsync(file);
 
         }
         catch (Exception e)
@@ -29,11 +47,30 @@ public class FileService : IFileService
         }
     }
 
-    public Task<ICollection<FileDTO>> GetAllAsync()
+    public async Task<ICollection<FileDTO>> GetAllAsync()
     {
         try
         {
+            ICollection<FileDTO> returnList = [];
+            ICollection<Models.File> files = await fileRepository.GetAllAsync();
 
+            foreach (Models.File file in files)
+            {
+                returnList.Add(
+                    new FileDTO
+                    {
+                        Id = file.Id,
+                        Name = file.Name,
+                        Extension = file.Extension,
+                        FileData = file.FileData,
+                        CreatedAt = file.CreatedAt,
+                        UpdatedAt = file.UpdatedAt,
+                        FolderId = file.FolderId,
+                    }
+                 );
+            }
+
+            return returnList;
         }
         catch (Exception e)
         {

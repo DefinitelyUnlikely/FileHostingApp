@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Backend.Data;
+using Backend.Interfaces;
+using Backend.Services;
+using Backend.Data.Repositories;
 
 namespace Backend;
 
@@ -16,6 +19,12 @@ public class Program
         builder.Services.AddIdentityCore<IdentityUser>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddApiEndpoints();
+
+        builder.Services.AddScoped<IFolderRepository, FolderRepository>();
+        builder.Services.AddScoped<IFileRepository, FileRepository>();
+
+        builder.Services.AddSingleton<IFolderService, FolderService>();
+        builder.Services.AddSingleton<IFileService, FileService>();
 
         builder.Services.AddAuthorization();
 
