@@ -14,7 +14,7 @@ public class FolderService : IFolderService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FolderService\\CreateAsync: " + e.Message);
+            throw new Exception("\\FolderService\\CreateAsync\\ " + e.Message);
         }
     }
 
@@ -26,7 +26,7 @@ public class FolderService : IFolderService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FolderService\\DeleteAsync: " + e.Message);
+            throw new Exception("\\FolderService\\DeleteAsync\\ " + e.Message);
         }
     }
 
@@ -38,7 +38,7 @@ public class FolderService : IFolderService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FolderService\\GetAllAsync: " + e.Message);
+            throw new Exception("\\FolderService\\GetAllAsync\\ " + e.Message);
         }
     }
 
@@ -50,7 +50,7 @@ public class FolderService : IFolderService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FolderService\\GetAsync: " + e.Message);
+            throw new Exception("\\FolderService\\GetAsync\\ " + e.Message);
         }
     }
 
@@ -62,7 +62,7 @@ public class FolderService : IFolderService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FolderRepository\\UpdateAsync: " + e.Message);
+            throw new Exception("\\FolderRepository\\UpdateAsync\\ " + e.Message);
 
 
 

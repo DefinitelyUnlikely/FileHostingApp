@@ -23,7 +23,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FileService\\CreateAsync: " + e.Message);
+            throw new Exception("\\FileService\\CreateAsync\\ " + e.Message);
         }
     }
 
@@ -43,7 +43,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FileService\\DeleteAsync: " + e.Message);
+            throw new Exception("\\FileService\\DeleteAsync\\ " + e.Message);
         }
     }
 
@@ -74,7 +74,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FileService\\GetAllAsync: " + e.Message);
+            throw new Exception("\\FileService\\GetAllAsync\\ " + e.Message);
         }
     }
 
@@ -86,7 +86,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FileService\\GetByIdAsync: " + e.Message);
+            throw new Exception("\\FileService\\GetByIdAsync\\ " + e.Message);
         }
     }
 
@@ -98,7 +98,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FileService\\GetByNameAsync: " + e.Message);
+            throw new Exception("\\FileService\\GetByNameAsync\\ " + e.Message);
         }
     }
 
@@ -110,7 +110,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FileService\\UpdateAsync: " + e.Message);
+            throw new Exception("\\FileService\\UpdateAsync\\ " + e.Message);
         }
     }
 }
