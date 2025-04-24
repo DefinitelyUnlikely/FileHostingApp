@@ -7,9 +7,9 @@ namespace Backend.Interfaces;
 // as for the DTO: Remember to make most fields nullable.
 public interface IFileService
 {
-    public Task<bool> CreateAsync();
+    public Task<bool> CreateAsync(DTO.FileDTO fileDTO);
     public Task<Models.File> GetAsync(Guid fileId);
     public Task<ICollection<Models.File>> GetAllAsync();
-    public Task<bool> UpdateAsync();
+    public Task<bool> UpdateAsync(DTO.FileDTO fileDTO);
     public Task<bool> DeleteAsync(Guid fileId);
 }
