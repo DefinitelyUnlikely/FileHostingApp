@@ -10,6 +10,9 @@ public class File
 
     public required byte[] FileData { get; set; }
 
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedAt { get; set; } = null;
+
     public Guid? FolderId { get; set; }
     public Folder? Folder { get; set; }
 
@@ -22,7 +25,6 @@ public class File
         Extension = extension;
         FileData = fileData;
         Folder = folder;
-
         FolderId = folder?.Id;
     }
 
