@@ -21,9 +21,9 @@ public class FileRepository(ApplicationDbContext context) : IFileRepository
         }
     }
 
-    /// <summary>A method that gets and returns all files in the current context.</summary>
+    /// <summary>A method that gets and returns all files in the current context for a specified user.</summary>
     /// <returns>An ICollection of all file entity objects.</returns>
-    public async Task<ICollection<Models.File>> GetAllAsync()
+    public async Task<ICollection<Models.File>> GetAllUserFilesAsync(string userId)
     {
         try
         {
@@ -37,7 +37,7 @@ public class FileRepository(ApplicationDbContext context) : IFileRepository
 
     /// <summary>A method that gets and returns a file by specified Id.</summary>
     /// <returns>A single file entity object.</returns>
-    public async Task<Models.File?> GetByIdAsync(Guid fileId)
+    public async Task<Models.File?> GetByIdAsync(string fileId)
     {
         try
         {

@@ -18,7 +18,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
     }
 
-    public async Task<bool> DeleteAsync(Guid fileId)
+    public async Task<bool> DeleteAsync(string fileId)
     {
         try
         {
@@ -30,7 +30,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
     }
 
-    public async Task<ICollection<FileDTO>> GetAllAsync()
+    public async Task<ICollection<FileDTO>> GetAllUserFilesAsync(string userId)
     {
         try
         {
@@ -42,7 +42,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
     }
 
-    public async Task<FileDTO?> GetByIdAsync(Guid fileId)
+    public async Task<FileDTO?> GetByIdAsync(string fileId)
     {
         try
         {

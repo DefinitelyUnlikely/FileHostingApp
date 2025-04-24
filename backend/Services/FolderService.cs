@@ -18,7 +18,7 @@ public class FolderService : IFolderService
         }
     }
 
-    public Task<bool> DeleteAsync(Guid folderId)
+    public Task<bool> DeleteAsync(string folderId)
     {
         try
         {
@@ -30,7 +30,7 @@ public class FolderService : IFolderService
         }
     }
 
-    public Task<ICollection<FolderDTO>> GetAllAsync()
+    public Task<ICollection<FolderDTO>> GetAllUserFoldersAsync(string userId)
     {
         try
         {
@@ -42,7 +42,7 @@ public class FolderService : IFolderService
         }
     }
 
-    public Task<FolderDTO?> GetAsync(Guid folderId)
+    public Task<FolderDTO?> GetAsync(string folderId)
     {
         try
         {

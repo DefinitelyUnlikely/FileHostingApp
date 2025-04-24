@@ -25,7 +25,7 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
 
     /// <summary>A method that gets and returns all folders in the current context.</summary>
     /// <returns>An ICollection of all folder entity objects.</returns>
-    public async Task<ICollection<Folder>> GetAllAsync()
+    public async Task<ICollection<Folder>> GetAllUserFoldersAsync(string userId)
     {
         try
         {
@@ -41,7 +41,7 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
 
     /// <summary>A method that gets and returns a folder by specified Id.</summary>
     /// <returns>A single Folder entity object.</returns>
-    public async Task<Folder?> GetAsync(Guid folderId)
+    public async Task<Folder?> GetAsync(string folderId)
     {
         try
         {
