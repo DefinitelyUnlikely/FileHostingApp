@@ -10,85 +10,55 @@ public class FileRepository(ApplicationDbContext context) : IFileRepository
     /// <returns>A boolean value indicating if the deletion was successful or not.</returns>
     public async Task<bool> DeleteAsync(Models.File file)
     {
-        try
-        {
-            context.Files.Remove(file);
-            return await context.SaveChangesAsync() != 0;
-        }
-        catch (Exception e)
-        {
-            throw new Exception("\\FileRepository\\DeleteAsync: " + e.Message);
-        }
+
+        context.Files.Remove(file);
+        return await context.SaveChangesAsync() != 0;
+
     }
 
     /// <summary>A method that gets and returns all files in the current context for a specified user.</summary>
     /// <returns>An ICollection of all file entity objects.</returns>
     public async Task<ICollection<Models.File>> GetAllUserFilesAsync(string userId)
     {
-        try
-        {
-            return await context.Files.ToListAsync();
-        }
-        catch (Exception e)
-        {
-            throw new Exception("\\FileRepository\\GetAllAsync: " + e.Message);
-        }
+
+        return await context.Files.ToListAsync();
+
     }
 
     /// <summary>A method that gets and returns a file by specified Id.</summary>
     /// <returns>A single file entity object.</returns>
     public async Task<Models.File?> GetByIdAsync(string fileId)
     {
-        try
-        {
-            return await context.Files.FirstOrDefaultAsync(f => f.Id == fileId);
-        }
-        catch (Exception e)
-        {
-            throw new Exception("\\FileRepository\\GetByIdAsync: " + e.Message);
-        }
+
+        return await context.Files.FirstOrDefaultAsync(f => f.Id == fileId);
+
     }
 
     /// <summary>A method that gets and returns a file by specified name.</summary>
     /// <returns>A single file entity object.</returns>
     public async Task<Models.File?> GetByNameAsync(string name)
     {
-        try
-        {
-            return await context.Files.FirstOrDefaultAsync(f => f.Name == name);
-        }
-        catch (Exception e)
-        {
-            throw new Exception("\\FileRepository\\GetByNameAsync: " + e.Message);
-        }
+
+        return await context.Files.FirstOrDefaultAsync(f => f.Name == name);
+
     }
 
     /// <summary>A method that takes a file entity object and saves it to the current context.</summary>
     /// <returns>A boolean value indicating if the save was successful or not.</returns>
     public async Task<bool> SaveAsync(Models.File file)
     {
-        try
-        {
-            await context.Files.AddAsync(file);
-            return await context.SaveChangesAsync() != 0;
-        }
-        catch (Exception e)
-        {
-            throw new Exception("\\FileRepository\\SaveAsync: " + e.Message);
-        }
+
+        await context.Files.AddAsync(file);
+        return await context.SaveChangesAsync() != 0;
+
     }
 
     /// <summary>A method that takes a tracked file entity object and saves it to the context.</summary>
     /// <returns>A boolean value indicating if the save changed any entries or not.</returns>
     public async Task<bool> UpdateAsync(Models.File file)
     {
-        try
-        {
-            return await context.SaveChangesAsync() != 0;
-        }
-        catch (Exception e)
-        {
-            throw new Exception("\\FileRepository\\UpdateAsync: " + e.Message);
-        }
+
+        return await context.SaveChangesAsync() != 0;
+
     }
 }
