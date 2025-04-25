@@ -23,7 +23,7 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
         }
     }
 
-    /// <summary>A method that gets and returns all folders in the current context.</summary>
+    /// <summary>A method that gets and returns all folders in the current context for a specified user.</summary>
     /// <returns>An ICollection of all folder entity objects.</returns>
     public async Task<ICollection<Folder>> GetAllUserFoldersAsync(string userId)
     {
