@@ -1,4 +1,5 @@
 using Backend.DTO;
+using Backend.Exceptions;
 using Backend.Interfaces;
 using Backend.Models;
 
@@ -14,7 +15,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FileService\\CreateAsync\\ " + e.Message);
+            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -26,7 +27,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FileService\\DeleteAsync\\ " + e.Message);
+            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -38,7 +39,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FileService\\GetAllAsync\\ " + e.Message);
+            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -50,7 +51,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FileService\\GetByIdAsync\\ " + e.Message);
+            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -62,7 +63,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FileService\\GetByNameAsync\\ " + e.Message);
+            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -74,7 +75,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FileService\\UpdateAsync\\ " + e.Message);
+            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
         }
     }
 }

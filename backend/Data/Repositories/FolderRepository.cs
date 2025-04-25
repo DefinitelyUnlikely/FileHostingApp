@@ -26,7 +26,6 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
         return await context.Folders
                     .Include(f => f.SubFolders)
                     .ToListAsync();
-
     }
 
     /// <summary>A method that gets and returns a folder by specified Id.</summary>
@@ -37,7 +36,6 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
         return await context.Folders
                     .Include(f => f.SubFolders)
                     .FirstOrDefaultAsync(f => f.Id == folderId);
-
 
     }
 

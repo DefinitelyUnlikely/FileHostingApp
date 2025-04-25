@@ -1,4 +1,5 @@
 using Backend.DTO;
+using Backend.Exceptions;
 using Backend.Interfaces;
 using Backend.Models;
 
@@ -14,7 +15,7 @@ public class FolderService : IFolderService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FolderService\\CreateAsync\\ " + e.Message);
+            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -26,7 +27,7 @@ public class FolderService : IFolderService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FolderService\\DeleteAsync\\ " + e.Message);
+            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -38,7 +39,7 @@ public class FolderService : IFolderService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FolderService\\GetAllAsync\\ " + e.Message);
+            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -50,7 +51,7 @@ public class FolderService : IFolderService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FolderService\\GetAsync\\ " + e.Message);
+            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -62,13 +63,7 @@ public class FolderService : IFolderService
         }
         catch (Exception e)
         {
-            throw new Exception("\\FolderRepository\\UpdateAsync\\ " + e.Message);
-
-
-
-
-
-
+            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
         }
     }
 }
