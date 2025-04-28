@@ -19,7 +19,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
                 throw new MissingRequiredDataException("Not all required data has been provided.");
             }
 
-            var fileInfo = new FileMeta(fileDTO.Name, fileDTO.Extension, fileDTO.UserId, fileDTO.FolderId);
+            var fileInfo = new FileMeta { Id = Guid.NewGuid(), Name = fileDTO.Name, Extension = fileDTO.Extension, CreatedAt = DateTime.UtcNow, UserId = fileDTO.UserId };
             var fileData = new FileData { Id = Guid.NewGuid(), FileId = fileInfo.Id, Bytes = fileDTO.FileData };
 
             if (!await fileRepository.AddAsync(fileInfo, fileData)) throw new NoChangesSavedException("Nothing was added to the context.");
@@ -37,11 +37,17 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
     }
 
-    public async Task DeleteAsync(string fileId)
+    public async Task DeleteAsync(Guid fileId)
     {
         try
         {
-
+            var file = await fileRepository.GetByIdAsync(fileId) ?? throw new EmptyReturnException("No file with that Id found");
+            await fileRepository.DeleteAsync(file);
+        }
+        catch (EmptyReturnException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (Exception e)
         {
@@ -89,7 +95,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
     }
 
-    public async Task<FileDTO?> GetByIdAsync(string fileId)
+    public async Task<FileDTO?> GetByIdAsync(Guid fileId)
     {
         try
         {
