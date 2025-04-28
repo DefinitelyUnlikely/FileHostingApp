@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Backend.Models;
 
+// We might separarte FileData into its own model.
 public class File
 {
     public required string Id { get; set; }
