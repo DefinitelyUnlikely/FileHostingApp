@@ -13,13 +13,16 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     {
         try
         {
+            // Validate that all required data exists in the DTO
+            if (fileDTO.Name is null || fileDTO.Extension is null || fileDTO.UserId is null || fileDTO.FileData is null)
+            {
+                throw new MissingRequiredDataException("Not all required data has been provided.");
+            }
 
-            var fileInfo = new FileMeta();
+            var fileInfo = new FileMeta(fileDTO.Name, fileDTO.Extension, fileDTO.UserId, fileDTO.FolderId);
+            var fileData = new FileData(fileInfo.Id, fileDTO.FileData);
 
-            var fileData = new FileData();
-
-            if (!await fileRepository.AddAsync(fileInfo, fileData)) throw new NoChangesSavedException("Nothing was added to the context");
-
+            if (!await fileRepository.AddAsync(fileInfo, fileData)) throw new NoChangesSavedException("Nothing was added to the context.");
 
         }
         catch (NoChangesSavedException e)
@@ -53,7 +56,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         {
             var files = (List<FileMeta>)await fileRepository.GetAllUserFilesAsync(userId);
 
-            if (files.Count == 0) throw new EmptyReturnException("The returned list or object is empty");
+            if (files.Count == 0) throw new EmptyReturnException("The returned list or object is empty.");
 
             List<FileDTO> fileDTOs = [];
             foreach (var file in files)
@@ -74,7 +77,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
 
             return fileDTOs;
         }
-        catch (EmptyReturnException)
+        catch (EmptyReturnException e)
         {
             logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
             throw;
@@ -94,7 +97,8 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
         catch (Exception e)
         {
-            throw new RepositoryException(e.Message + "StackTrace" + e.StackTrace);
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
     }
 
@@ -106,7 +110,8 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message + "StackTrace" + e.StackTrace);
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
     }
 
@@ -118,7 +123,8 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message + "StackTrace" + e.StackTrace);
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
     }
 }

@@ -40,7 +40,7 @@ public class FileMeta
         UpdatedAt = CreatedAt;
 
         UserId = userId;
-        FolderId = folderId ?? null;
+        FolderId = folderId;
 
     }
 
