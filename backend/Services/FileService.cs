@@ -19,8 +19,20 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
                 throw new MissingRequiredDataException("Not all required data has been provided.");
             }
 
-            var fileInfo = new FileMeta { Id = Guid.NewGuid(), Name = fileDTO.Name, Extension = fileDTO.Extension, CreatedAt = DateTime.UtcNow, UserId = fileDTO.UserId };
-            var fileData = new FileData { Id = Guid.NewGuid(), FileId = fileInfo.Id, Bytes = fileDTO.FileData };
+            var fileInfo = new FileMeta
+            {
+                Id = Guid.NewGuid(),
+                Name = fileDTO.Name,
+                Extension = fileDTO.Extension,
+                CreatedAt = DateTime.UtcNow,
+                UserId = fileDTO.UserId
+            };
+            var fileData = new FileData
+            {
+                Id = Guid.NewGuid(),
+                FileId = fileInfo.Id,
+                Bytes = fileDTO.FileData
+            };
 
             if (!await fileRepository.AddAsync(fileInfo, fileData)) throw new NoChangesSavedException("No file could be saved.");
 
