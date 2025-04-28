@@ -30,7 +30,7 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
 
     /// <summary>A method that gets and returns a folder by specified Id.</summary>
     /// <returns>A single Folder entity object.</returns>
-    public async Task<Folder?> GetAsync(string folderId)
+    public async Task<Folder?> GetAsync(Guid folderId)
     {
 
         return await context.Folders

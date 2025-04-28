@@ -23,10 +23,10 @@ public class FileRepository(ApplicationDbContext context) : IFileRepository
 
     public async Task<ICollection<FileMeta>> GetAllUserFilesAsync(string userId)
     {
-        return await context.Files.ToListAsync();
+        return await context.Files.Where(f => f.UserId == userId).ToListAsync();
     }
 
-    public async Task<FileMeta?> GetByIdAsync(string fileId, bool includeData = false)
+    public async Task<FileMeta?> GetByIdAsync(Guid fileId, bool includeData = false)
     {
         if (includeData)
         {

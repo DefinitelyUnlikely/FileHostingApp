@@ -20,7 +20,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
             }
 
             var fileInfo = new FileMeta(fileDTO.Name, fileDTO.Extension, fileDTO.UserId, fileDTO.FolderId);
-            var fileData = new FileData(fileInfo.Id, fileDTO.FileData);
+            var fileData = new FileData { Id = Guid.NewGuid(), FileId = fileInfo.Id, Bytes = fileDTO.FileData };
 
             if (!await fileRepository.AddAsync(fileInfo, fileData)) throw new NoChangesSavedException("Nothing was added to the context.");
 
