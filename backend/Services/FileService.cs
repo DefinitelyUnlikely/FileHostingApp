@@ -1,3 +1,5 @@
+using System.Data;
+using System.Reflection;
 using Backend.DTO;
 using Backend.Exceptions;
 using Backend.Interfaces;
@@ -5,21 +7,30 @@ using Backend.Models;
 
 namespace Backend.Services;
 
-public class FileService(IFileRepository fileRepository) : IFileService
+public class FileService(ILogger<FileService> logger, IFileRepository fileRepository) : IFileService
 {
     public async Task CreateAsync(FileDTO fileDTO)
     {
         try
         {
+
             var fileInfo = new FileMeta();
 
             var fileData = new FileData();
 
-            fileRepository.AddAsync();
+            if (!await fileRepository.AddAsync(fileInfo, fileData)) throw new NoChangesSavedException("Nothing was added to the context");
+
+
+        }
+        catch (NoChangesSavedException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message + "StackTrace" + e.StackTrace);
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
     }
 
@@ -31,7 +42,8 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message + "StackTrace" + e.StackTrace);
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
     }
 
@@ -64,11 +76,13 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (EmptyReturnException)
         {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
             throw;
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message + "StackTrace" + e.StackTrace);
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
     }
 

@@ -20,6 +20,11 @@ public class Program
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddApiEndpoints();
 
+        builder.Services.AddLogging(logging =>
+        {
+            logging.AddConsole();
+        });
+
         builder.Services.AddScoped<IFolderRepository, FolderRepository>();
         builder.Services.AddScoped<IFileRepository, FileRepository>();
 
