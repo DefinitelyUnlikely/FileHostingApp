@@ -35,11 +35,36 @@ public class FileService(IFileRepository fileRepository) : IFileService
     {
         try
         {
+            var files = (List<Models.FileInfo>)await fileRepository.GetAllUserFilesAsync(userId);
 
+            if (files.Count == 0) throw new EmptyReturnException("The returned list or object is empty");
+
+            List<FileDTO> fileDTOs = [];
+            foreach (var file in files)
+            {
+                fileDTOs.Add(
+                    new FileDTO
+                    {
+                        Id = file.Id,
+                        Name = file.Name,
+                        Extension = file.Extension,
+                        CreatedAt = file.CreatedAt,
+                        UpdatedAt = file.UpdatedAt,
+                        FolderId = file.FolderId,
+                        UserId = file.UserId,
+                    }
+                );
+            }
+
+            return fileDTOs;
+        }
+        catch (EmptyReturnException)
+        {
+            throw;
         }
         catch (Exception e)
         {
-            throw new RepositoryException(e.Message + "StackTrace" + e.StackTrace);
+            throw new Exception(e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
