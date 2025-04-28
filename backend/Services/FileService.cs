@@ -15,7 +15,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
+            throw new RepositoryException(e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -27,7 +27,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
+            throw new RepositoryException(e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -39,7 +39,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
+            throw new RepositoryException(e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -51,7 +51,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
+            throw new RepositoryException(e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -63,7 +63,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
+            throw new RepositoryException(e.Message + "StackTrace" + e.StackTrace);
         }
     }
 
@@ -75,7 +75,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
         catch (Exception e)
         {
-            throw new RepositoryException("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
+            throw new RepositoryException(e.Message + "StackTrace" + e.StackTrace);
         }
     }
 }
