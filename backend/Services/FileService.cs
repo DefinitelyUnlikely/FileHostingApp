@@ -11,7 +11,11 @@ public class FileService(IFileRepository fileRepository) : IFileService
     {
         try
         {
+            var fileInfo = new FileMeta();
 
+            var fileData = new FileData();
+
+            fileRepository.AddAsync();
         }
         catch (Exception e)
         {
@@ -35,7 +39,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
     {
         try
         {
-            var files = (List<Models.FileInfo>)await fileRepository.GetAllUserFilesAsync(userId);
+            var files = (List<FileMeta>)await fileRepository.GetAllUserFilesAsync(userId);
 
             if (files.Count == 0) throw new EmptyReturnException("The returned list or object is empty");
 

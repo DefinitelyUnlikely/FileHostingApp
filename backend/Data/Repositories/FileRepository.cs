@@ -8,25 +8,25 @@ namespace Backend.Data.Repositories;
 public class FileRepository(ApplicationDbContext context) : IFileRepository
 {
 
-    public async Task<bool> AddAsync(Models.FileInfo fileInfo, FileData fileData)
+    public async Task<bool> AddAsync(FileMeta fileInfo, FileData fileData)
     {
         await context.Files.AddAsync(fileInfo);
         await context.FilesData.AddAsync(fileData);
         return await context.SaveChangesAsync() != 0;
     }
 
-    public async Task<bool> DeleteAsync(Models.FileInfo file)
+    public async Task<bool> DeleteAsync(FileMeta file)
     {
         context.Remove(file);
         return await context.SaveChangesAsync() != 0;
     }
 
-    public async Task<ICollection<Models.FileInfo>> GetAllUserFilesAsync(string userId)
+    public async Task<ICollection<FileMeta>> GetAllUserFilesAsync(string userId)
     {
         return await context.Files.ToListAsync();
     }
 
-    public async Task<Models.FileInfo?> GetByIdAsync(string fileId, bool includeData = false)
+    public async Task<FileMeta?> GetByIdAsync(string fileId, bool includeData = false)
     {
         if (includeData)
         {
@@ -36,7 +36,7 @@ public class FileRepository(ApplicationDbContext context) : IFileRepository
         return await context.Files.FirstOrDefaultAsync(f => f.Id == fileId);
     }
 
-    public async Task<Models.FileInfo?> GetByNameAsync(string name, bool includeData = false)
+    public async Task<FileMeta?> GetByNameAsync(string name, bool includeData = false)
     {
         if (includeData)
         {

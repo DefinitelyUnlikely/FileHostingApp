@@ -5,12 +5,12 @@ namespace Backend.Services;
 
 public class SearchService : ISearchService
 {
-    public Task<ICollection<Models.FileInfo>> FindFilesByDateAsync(DateTime fromDate, DateTime toDate, bool byCreatedDate = true)
+    public Task<ICollection<FileMeta>> FindFilesByDateAsync(DateTime fromDate, DateTime toDate, bool byCreatedDate = true)
     {
         throw new NotImplementedException();
     }
 
-    public Task<ICollection<Models.FileInfo>> FindFilesByTextAsync(string text)
+    public Task<ICollection<FileMeta>> FindFilesByTextAsync(string text)
     {
         throw new NotImplementedException();
     }

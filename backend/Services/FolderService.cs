@@ -7,63 +7,28 @@ namespace Backend.Services;
 
 public class FolderService : IFolderService
 {
-    public Task<bool> CreateAsync(FolderDTO folderDTO)
+    public Task CreateAsync(FolderDTO folderDTO)
     {
-        try
-        {
-
-        }
-        catch (Exception e)
-        {
-            throw new Exception("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
-        }
+        throw new NotImplementedException();
     }
 
-    public Task<bool> DeleteAsync(string folderId)
+    public Task DeleteAsync(string folderId)
     {
-        try
-        {
-
-        }
-        catch (Exception e)
-        {
-            throw new Exception("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
-        }
+        throw new NotImplementedException();
     }
 
     public Task<ICollection<FolderDTO>> GetAllUserFoldersAsync(string userId)
     {
-        try
-        {
-
-        }
-        catch (Exception e)
-        {
-            throw new Exception("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
-        }
+        throw new NotImplementedException();
     }
 
     public Task<FolderDTO?> GetAsync(string folderId)
     {
-        try
-        {
-
-        }
-        catch (Exception e)
-        {
-            throw new Exception("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
-        }
+        throw new NotImplementedException();
     }
 
-    public Task<bool> UpdateAsync(FolderDTO folderDTO)
+    public Task UpdateAsync(FolderDTO folderDTO)
     {
-        try
-        {
-
-        }
-        catch (Exception e)
-        {
-            throw new Exception("Repository error: " + e.Message + "StackTrace" + e.StackTrace);
-        }
+        throw new NotImplementedException();
     }
 }

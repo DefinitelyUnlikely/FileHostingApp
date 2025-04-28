@@ -15,14 +15,14 @@ public class Folder
     public required IdentityUser User { get; set; }
 
     public required ICollection<Folder> SubFolders { get; set; }
-    public required ICollection<Models.FileInfo> Files { get; set; }
+    public required ICollection<FileMeta> Files { get; set; }
 
     // For EF
     public Folder()
     { }
 
     // For new folders
-    public Folder(string name, string userId, string? parentId = null, ICollection<Folder>? subFolders = null, ICollection<Models.FileInfo>? files = null)
+    public Folder(string name, string userId, string? parentId = null, ICollection<Folder>? subFolders = null, ICollection<FileMeta>? files = null)
     {
         Id = Guid.NewGuid().ToString();
         Name = name;
