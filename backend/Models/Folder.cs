@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Backend.Models;
 
@@ -10,20 +11,23 @@ public class Folder
     public string? ParentFolderId { get; set; }
     public Folder? ParentFolder { get; set; }
 
-    public required ICollection<Folder> SubFolders { get; set; }
-
     public required string UserId { get; set; }
     public required IdentityUser User { get; set; }
 
+    public required ICollection<Folder> SubFolders { get; set; }
+    public required ICollection<Models.FileInfo> Files { get; set; }
+
     // For EF
-    public Folder() { }
+    public Folder()
+    { }
 
     // For new folders
-    public Folder(string name, string userId, string? parentId = null, ICollection<Folder>? subFolders = null)
+    public Folder(string name, string userId, string? parentId = null, ICollection<Folder>? subFolders = null, ICollection<Models.FileInfo>? files = null)
     {
         Id = Guid.NewGuid().ToString();
         Name = name;
         ParentFolderId = parentId ?? null;
         SubFolders = subFolders ?? [];
+        Files = files ?? [];
     }
 }

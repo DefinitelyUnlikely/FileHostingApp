@@ -1,11 +1,15 @@
+using Backend.Models;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+
 namespace Backend.Interfaces;
 
 public interface IFileRepository
 {
-    public Task<bool> SaveAsync(Models.File file);
-    public Task<Models.File?> GetByIdAsync(string fileId);
-    public Task<Models.File?> GetByNameAsync(string name);
-    public Task<ICollection<Models.File>> GetAllUserFilesAsync(string userId);
-    public Task<bool> UpdateAsync(Models.File file);
-    public Task<bool> DeleteAsync(Models.File file);
+    public Task<bool> AddAsync(Models.FileInfo fileInfo, FileData fileData);
+    public Task<Models.FileInfo?> GetByIdAsync(string fileId, bool includeData = false);
+    public Task<Models.FileInfo?> GetByNameAsync(string name, bool includeData = false);
+    public Task<ICollection<Models.FileInfo>> GetAllUserFilesAsync(string userId);
+    public Task<bool> UpdateAsync();
+    public Task<bool> DeleteAsync(Models.FileInfo file);
 }
+

@@ -4,13 +4,15 @@ using Microsoft.AspNetCore.Identity;
 namespace Backend.Models;
 
 // We might separarte FileData into its own model.
-public class File
+public class FileInfo
 {
     public required string Id { get; set; }
     public required string Name { get; set; }
+    public long FileSize { get; set; }
     public required string Extension { get; set; }
 
-    public required byte[] FileData { get; set; }
+    public string FileDataId { get; set; }
+    public FileData FileData { get; set; }
 
     public required DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
@@ -22,18 +24,17 @@ public class File
     public IdentityUser? User { get; set; }
 
     // For EF
-    public File()
+    public FileInfo()
     {
     }
 
     // For creating new Files
-    public File(string name, string extension, byte[] data, string userId, string? folderId = null)
+    public FileInfo(string name, string extension, string userId, string? folderId = null)
     {
 
         Id = Guid.NewGuid().ToString();
         Name = name;
         Extension = extension;
-        FileData = data;
 
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = CreatedAt;

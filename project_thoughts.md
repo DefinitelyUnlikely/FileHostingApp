@@ -43,6 +43,9 @@ How do I represent this using EntityFramework? Files will have a property Folder
 I guess I can add a collection of files to the folder? But that isn't quite correct for a folder, as a folder could also have folders as children. 
 Do I connect the folder model to a collection of Files and a collection of Folders? I guess so.
 
+PS. I've decided to split the file table into fileinfo and filedata, more separation of concern and easier to deal with compared to the 
+options of projection and inclusions - as I need to be far more aware of what I have and haven't included in a model at any given time with the latter option. 
+
 ## API / Endpoints
 
 What endpoints do I need? 
