@@ -12,7 +12,7 @@ public class FileMeta
     public required string Extension { get; set; }
 
     public Guid FileDataId { get; set; }
-    public FileData FileData { get; set; }
+    public FileData? FileData { get; set; }
 
     public required DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }

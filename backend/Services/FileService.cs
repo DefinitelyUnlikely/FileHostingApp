@@ -22,7 +22,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
             var fileInfo = new FileMeta { Id = Guid.NewGuid(), Name = fileDTO.Name, Extension = fileDTO.Extension, CreatedAt = DateTime.UtcNow, UserId = fileDTO.UserId };
             var fileData = new FileData { Id = Guid.NewGuid(), FileId = fileInfo.Id, Bytes = fileDTO.FileData };
 
-            if (!await fileRepository.AddAsync(fileInfo, fileData)) throw new NoChangesSavedException("Nothing was added to the context.");
+            if (!await fileRepository.AddAsync(fileInfo, fileData)) throw new NoChangesSavedException("No file could be saved.");
 
         }
         catch (NoChangesSavedException e)
@@ -41,7 +41,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     {
         try
         {
-            var file = await fileRepository.GetByIdAsync(fileId) ?? throw new EmptyReturnException("No file with that Id found");
+            var file = await fileRepository.GetByIdAsync(fileId) ?? throw new EmptyReturnException("No file with that Id was found");
             await fileRepository.DeleteAsync(file);
         }
         catch (EmptyReturnException e)
@@ -99,7 +99,24 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     {
         try
         {
+            var file = await fileRepository.GetByIdAsync(fileId, true) ?? throw new EmptyReturnException("No file with that Id was found.");
 
+            if (file.FileData is null)
+            {
+                throw new Exception("the corresponding filedata was not found or could not be included");
+            }
+
+            return new FileDTO
+            {
+                Id = file.Id,
+                Name = file.Name,
+                Extension = file.Extension,
+                FileData = file.FileData.Bytes,
+                CreatedAt = file.CreatedAt,
+                UpdatedAt = file.UpdatedAt,
+                FolderId = file.FolderId,
+                UserId = file.UserId
+            };
         }
         catch (Exception e)
         {
@@ -112,7 +129,24 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     {
         try
         {
+            var file = await fileRepository.GetByNameAsync(fileName, true) ?? throw new EmptyReturnException("No file with that name was found.");
 
+            if (file.FileData is null)
+            {
+                throw new Exception("the corresponding filedata was not found or could not be included");
+            }
+
+            return new FileDTO
+            {
+                Id = file.Id,
+                Name = file.Name,
+                Extension = file.Extension,
+                FileData = file.FileData.Bytes,
+                CreatedAt = file.CreatedAt,
+                UpdatedAt = file.UpdatedAt,
+                FolderId = file.FolderId,
+                UserId = file.UserId
+            };
         }
         catch (Exception e)
         {
@@ -125,7 +159,12 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     {
         try
         {
-
+            if (!await fileRepository.UpdateAsync()) throw new NoChangesSavedException("File could not be updated.");
+        }
+        catch (NoChangesSavedException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (Exception e)
         {
