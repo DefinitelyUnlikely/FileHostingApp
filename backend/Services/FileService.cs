@@ -7,7 +7,7 @@ namespace Backend.Services;
 
 public class FileService(IFileRepository fileRepository) : IFileService
 {
-    public async Task<bool> CreateAsync(FileDTO fileDTO)
+    public async Task CreateAsync(FileDTO fileDTO)
     {
         try
         {
@@ -19,7 +19,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
     }
 
-    public async Task<bool> DeleteAsync(string fileId)
+    public async Task DeleteAsync(string fileId)
     {
         try
         {
@@ -92,7 +92,7 @@ public class FileService(IFileRepository fileRepository) : IFileService
         }
     }
 
-    public async Task<bool> UpdateAsync(FileDTO DTO)
+    public async Task UpdateAsync(FileDTO DTO)
     {
         try
         {
