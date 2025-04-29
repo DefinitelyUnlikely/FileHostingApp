@@ -11,10 +11,11 @@ public class FolderService(ILogger logger, IFolderRepository folderRepository) :
     {
         try
         {
+
             //Validate DTO
             if (folderDTO.Name is null || folderDTO.UserId is null)
             {
-                throw new MissingRequiredDataException("Not all required data has been supplied.");
+                throw new ArgumentException("Not all required data has been supplied.");
             }
 
             var folder = new Folder
@@ -27,8 +28,18 @@ public class FolderService(ILogger logger, IFolderRepository folderRepository) :
                 Files = [],
             };
 
-            if (!await folderRepository.AddAsync(folder)) throw new NoChangesSavedException("Folder could not be added");
+            if (!await folderRepository.AddAsync(folder)) throw new NoChangesSavedException("No folder has been saved to the database.");
 
+        }
+        catch (ArgumentException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
+        catch (NoChangesSavedException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (Exception e)
         {
@@ -41,7 +52,18 @@ public class FolderService(ILogger logger, IFolderRepository folderRepository) :
     {
         try
         {
-
+            var folder = await folderRepository.GetAsync(folderId) ?? throw new EmptyReturnException("No folder with that Id was found.");
+            if (!await folderRepository.DeleteAsync(folder)) throw new NoChangesSavedException("No folder has been deleted.");
+        }
+        catch (EmptyReturnException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
+        catch (NoChangesSavedException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (Exception e)
         {
@@ -54,7 +76,32 @@ public class FolderService(ILogger logger, IFolderRepository folderRepository) :
     {
         try
         {
+            var folders = await folderRepository.GetAllUserFoldersAsync(userId);
+            if (folders is null || folders.Count == 0) throw new EmptyReturnException("No folders where found for this user");
 
+            List<FolderDTO> returnFolders = [];
+            foreach (var folder in folders)
+            {
+                returnFolders.Add(
+                    new FolderDTO
+                    {
+                        Id = folder.Id,
+                        Name = folder.Name,
+                        ParentFolderId = folder.ParentFolderId,
+                        ParentFolder = folder.ParentFolder,
+                        SubFolders = folder.SubFolders,
+                        UserId = folder.UserId,
+                    }
+                    );
+            }
+
+            return returnFolders;
+
+        }
+        catch (EmptyReturnException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (Exception e)
         {
@@ -67,7 +114,21 @@ public class FolderService(ILogger logger, IFolderRepository folderRepository) :
     {
         try
         {
-
+            var folder = await folderRepository.GetAsync(folderId) ?? throw new EmptyReturnException("No folder was retreived");
+            return new FolderDTO
+            {
+                Id = folder.Id,
+                Name = folder.Name,
+                ParentFolderId = folder.ParentFolderId,
+                ParentFolder = folder.ParentFolder,
+                SubFolders = folder.SubFolders,
+                UserId = folder.UserId,
+            };
+        }
+        catch (EmptyReturnException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (Exception e)
         {

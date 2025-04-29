@@ -19,6 +19,8 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
                 throw new MissingRequiredDataException("Not all required data has been provided.");
             }
 
+            // Might change these touse constructors instead and removing the required keyword
+            // from the properties. Will have to see what I find gives most clarity to the reader of the code.
             var fileInfo = new FileMeta
             {
                 Id = Guid.NewGuid(),
