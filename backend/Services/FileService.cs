@@ -103,17 +103,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
                 throw new Exception("the corresponding filedata was not found or could not be included");
             }
 
-            return new FileDTO
-            {
-                Id = file.Id,
-                Name = file.Name,
-                Extension = file.Extension,
-                FileData = file.FileData.Bytes,
-                CreatedAt = file.CreatedAt,
-                UpdatedAt = file.UpdatedAt,
-                FolderId = file.FolderId,
-                UserId = file.UserId
-            };
+            return FileResponse.FromModel(file);
         }
         catch (Exception e)
         {
@@ -133,17 +123,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
                 throw new Exception("the corresponding filedata was not found or could not be included");
             }
 
-            return new FileDTO
-            {
-                Id = file.Id,
-                Name = file.Name,
-                Extension = file.Extension,
-                FileData = file.FileData.Bytes,
-                CreatedAt = file.CreatedAt,
-                UpdatedAt = file.UpdatedAt,
-                FolderId = file.FolderId,
-                UserId = file.UserId
-            };
+            return FileResponse.FromModel(file);
         }
         catch (Exception e)
         {
@@ -156,8 +136,28 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     {
         try
         {
-            // Get the corresponding file, update it with the new values.
+            if (request.Id is null) throw new ArgumentException("Missing Id");
+            var file = await fileRepository.GetByIdAsync((Guid)request.Id) ?? throw new EmptyReturnException("No file with that Id was found");
+
+            file.Name = request.Name ?? file.Name;
+            file.Extension = request.Extension ?? file.Extension;
+            file.FileData.Bytes = request.FileData ?? file.FileData.Bytes; // Might want to add a getFileData method to our repo
+            file.CreatedAt = request.CreatedAt ?? file.CreatedAt;
+            file.UpdatedAt = DateTime.UtcNow;
+            file.FolderId = request.FolderId ?? file.FolderId;
+
+
             if (!await fileRepository.UpdateAsync()) throw new NoChangesSavedException("File could not be updated.");
+        }
+        catch (ArgumentException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
+        catch (EmptyReturnException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (NoChangesSavedException e)
         {
