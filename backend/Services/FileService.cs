@@ -16,7 +16,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
             // Validate that all required data exists in the DTO
             if (fileDTO.Name is null || fileDTO.Extension is null || fileDTO.UserId is null || fileDTO.FileData is null)
             {
-                throw new MissingRequiredDataException("Not all required data has been provided.");
+                throw new ArgumentException("Not all required data has been provided.");
             }
 
             // Might change these touse constructors instead and removing the required keyword
