@@ -17,12 +17,26 @@ public class FolderRequest
 
 public class FolderResponse
 {
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+
+    public Guid? ParentFolderId { get; set; }
+    public Folder? ParentFolder { get; set; }
+
+    public ICollection<Folder>? SubFolders { get; set; }
+
+    public required string UserId { get; set; }
 
     public static FolderResponse FromModel(Folder folder)
     {
         return new FolderResponse
         {
-
+            Id = folder.Id,
+            Name = folder.Name,
+            UserId = folder.UserId,
+            ParentFolderId = folder.ParentFolderId,
+            ParentFolder = folder.ParentFolder,
+            SubFolders = folder.SubFolders,
         };
     }
 }

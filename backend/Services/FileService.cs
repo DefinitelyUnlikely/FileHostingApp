@@ -13,13 +13,13 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     {
         try
         {
-            // Validate that all required data exists in the DTO
+            // Validate that all required data to create a new file exists in the DTO
             if (request.Name is null || request.Extension is null || request.UserId is null || request.FileData is null)
             {
                 throw new ArgumentException("Not all required data has been provided.");
             }
 
-            // Might change these touse constructors instead and removing the required keyword
+            // Might change these to use constructors instead and removing the required keyword
             // from the properties. Will have to see what I find gives most clarity to the reader of the code.
             var fileInfo = new FileMeta
             {
@@ -78,24 +78,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
 
             if (files.Count == 0) throw new EmptyReturnException("The returned list or object is empty.");
 
-            List<FileResponse> fileDTOs = [];
-            foreach (var file in files)
-            {
-                fileDTOs.Add(
-                    new FileDTO
-                    {
-                        Id = file.Id,
-                        Name = file.Name,
-                        Extension = file.Extension,
-                        CreatedAt = file.CreatedAt,
-                        UpdatedAt = file.UpdatedAt,
-                        FolderId = file.FolderId,
-                        UserId = file.UserId,
-                    }
-                );
-            }
-
-            return fileDTOs;
+            return [.. files.Select(file => FileResponse.FromModel(file))];
         }
         catch (EmptyReturnException e)
         {
