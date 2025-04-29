@@ -41,7 +41,7 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
 
     /// <summary>A method that takes a Folder entity object and saves it to the current context.</summary>
     /// <returns>A boolean value indicating if the save was successful or not.</returns>
-    public async Task<bool> SaveAsync(Folder folder)
+    public async Task<bool> AddAsync(Folder folder)
     {
 
         await context.Folders.AddAsync(folder);

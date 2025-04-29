@@ -5,30 +5,87 @@ using Backend.Models;
 
 namespace Backend.Services;
 
-public class FolderService : IFolderService
+public class FolderService(ILogger logger, IFolderRepository folderRepository) : IFolderService
 {
-    public Task CreateAsync(FolderDTO folderDTO)
+    public async Task CreateAsync(FolderDTO folderDTO)
     {
-        throw new NotImplementedException();
+        try
+        {
+            //Validate DTO
+            if (folderDTO.Name is null || folderDTO.UserId is null)
+            {
+                throw new MissingRequiredDataException("Not all required data has been supplied.");
+            }
+
+            var folder = new Folder
+            {
+                Id = Guid.NewGuid(),
+                Name = folderDTO.Name,
+                ParentFolderId = folderDTO.ParentFolderId,
+                UserId = folderDTO.UserId,
+                SubFolders = [],
+                Files = [],
+            };
+
+            if (!await folderRepository.AddAsync(folder)) throw new NoChangesSavedException("Folder could not be added");
+
+        }
+        catch (Exception e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
     }
 
-    public Task DeleteAsync(string folderId)
+    public async Task DeleteAsync(Guid folderId)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
     }
 
-    public Task<ICollection<FolderDTO>> GetAllUserFoldersAsync(string userId)
+    public async Task<ICollection<FolderDTO>> GetAllUserFoldersAsync(string userId)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
     }
 
-    public Task<FolderDTO?> GetAsync(string folderId)
+    public async Task<FolderDTO?> GetAsync(Guid folderId)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
     }
 
-    public Task UpdateAsync(FolderDTO folderDTO)
+    public async Task UpdateAsync(FolderDTO folderDTO)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
     }
 }

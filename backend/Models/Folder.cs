@@ -12,7 +12,7 @@ public class Folder
     public Folder? ParentFolder { get; set; }
 
     public required string UserId { get; set; }
-    public required IdentityUser User { get; set; }
+    public IdentityUser? User { get; set; }
 
     public required ICollection<Folder> SubFolders { get; set; }
     public required ICollection<FileMeta> Files { get; set; }
