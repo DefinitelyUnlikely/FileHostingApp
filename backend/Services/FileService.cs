@@ -9,12 +9,12 @@ namespace Backend.Services;
 
 public class FileService(ILogger<FileService> logger, IFileRepository fileRepository) : IFileService
 {
-    public async Task CreateAsync(FileDTO fileDTO)
+    public async Task CreateAsync(FileRequest request)
     {
         try
         {
             // Validate that all required data exists in the DTO
-            if (fileDTO.Name is null || fileDTO.Extension is null || fileDTO.UserId is null || fileDTO.FileData is null)
+            if (request.Name is null || request.Extension is null || request.UserId is null || request.FileData is null)
             {
                 throw new ArgumentException("Not all required data has been provided.");
             }
@@ -24,16 +24,16 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
             var fileInfo = new FileMeta
             {
                 Id = Guid.NewGuid(),
-                Name = fileDTO.Name,
-                Extension = fileDTO.Extension,
+                Name = request.Name,
+                Extension = request.Extension,
                 CreatedAt = DateTime.UtcNow,
-                UserId = fileDTO.UserId
+                UserId = request.UserId
             };
             var fileData = new FileData
             {
                 Id = Guid.NewGuid(),
                 FileId = fileInfo.Id,
-                Bytes = fileDTO.FileData
+                Bytes = request.FileData
             };
 
             if (!await fileRepository.AddAsync(fileInfo, fileData)) throw new NoChangesSavedException("No file could be saved.");
@@ -70,7 +70,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
     }
 
-    public async Task<ICollection<FileDTO>> GetAllUserFilesAsync(string userId)
+    public async Task<ICollection<FileResponse>> GetAllUserFilesAsync(string userId)
     {
         try
         {
@@ -78,7 +78,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
 
             if (files.Count == 0) throw new EmptyReturnException("The returned list or object is empty.");
 
-            List<FileDTO> fileDTOs = [];
+            List<FileResponse> fileDTOs = [];
             foreach (var file in files)
             {
                 fileDTOs.Add(
@@ -109,7 +109,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
     }
 
-    public async Task<FileDTO?> GetByIdAsync(Guid fileId)
+    public async Task<FileResponse?> GetByIdAsync(Guid fileId)
     {
         try
         {
@@ -139,7 +139,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
     }
 
-    public async Task<FileDTO?> GetByNameAsync(string fileName)
+    public async Task<FileResponse?> GetByNameAsync(string fileName)
     {
         try
         {
@@ -169,10 +169,11 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
     }
 
-    public async Task UpdateAsync(FileDTO DTO)
+    public async Task UpdateAsync(FileRequest request)
     {
         try
         {
+            // Get the corresponding file, update it with the new values.
             if (!await fileRepository.UpdateAsync()) throw new NoChangesSavedException("File could not be updated.");
         }
         catch (NoChangesSavedException e)

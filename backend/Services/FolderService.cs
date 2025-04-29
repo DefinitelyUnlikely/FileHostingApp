@@ -7,13 +7,13 @@ namespace Backend.Services;
 
 public class FolderService(ILogger logger, IFolderRepository folderRepository) : IFolderService
 {
-    public async Task CreateAsync(FolderDTO folderDTO)
+    public async Task CreateAsync(FolderRequest request)
     {
         try
         {
 
             //Validate DTO
-            if (folderDTO.Name is null || folderDTO.UserId is null)
+            if (request.Name is null || request.UserId is null)
             {
                 throw new ArgumentException("Not all required data has been supplied.");
             }
@@ -21,9 +21,9 @@ public class FolderService(ILogger logger, IFolderRepository folderRepository) :
             var folder = new Folder
             {
                 Id = Guid.NewGuid(),
-                Name = folderDTO.Name,
-                ParentFolderId = folderDTO.ParentFolderId,
-                UserId = folderDTO.UserId,
+                Name = request.Name,
+                ParentFolderId = request.ParentFolderId,
+                UserId = request.UserId,
                 SubFolders = [],
                 Files = [],
             };
@@ -72,27 +72,17 @@ public class FolderService(ILogger logger, IFolderRepository folderRepository) :
         }
     }
 
-    public async Task<ICollection<FolderDTO>> GetAllUserFoldersAsync(string userId)
+    public async Task<ICollection<FolderResponse>> GetAllUserFoldersAsync(string userId)
     {
         try
         {
             var folders = await folderRepository.GetAllUserFoldersAsync(userId);
             if (folders is null || folders.Count == 0) throw new EmptyReturnException("No folders where found for this user");
 
-            List<FolderDTO> returnFolders = [];
+            List<FolderResponse> returnFolders = [];
             foreach (var folder in folders)
             {
-                returnFolders.Add(
-                    new FolderDTO
-                    {
-                        Id = folder.Id,
-                        Name = folder.Name,
-                        ParentFolderId = folder.ParentFolderId,
-                        ParentFolder = folder.ParentFolder,
-                        SubFolders = folder.SubFolders,
-                        UserId = folder.UserId,
-                    }
-                    );
+                returnFolders.Add(FolderResponse.FromModel(folder));
             }
 
             return returnFolders;
@@ -110,20 +100,12 @@ public class FolderService(ILogger logger, IFolderRepository folderRepository) :
         }
     }
 
-    public async Task<FolderDTO?> GetAsync(Guid folderId)
+    public async Task<FolderResponse?> GetAsync(Guid folderId)
     {
         try
         {
             var folder = await folderRepository.GetAsync(folderId) ?? throw new EmptyReturnException("No folder was retreived");
-            return new FolderDTO
-            {
-                Id = folder.Id,
-                Name = folder.Name,
-                ParentFolderId = folder.ParentFolderId,
-                ParentFolder = folder.ParentFolder,
-                SubFolders = folder.SubFolders,
-                UserId = folder.UserId,
-            };
+            return FolderResponse.FromModel(folder);
         }
         catch (EmptyReturnException e)
         {
@@ -137,7 +119,7 @@ public class FolderService(ILogger logger, IFolderRepository folderRepository) :
         }
     }
 
-    public async Task UpdateAsync(FolderDTO folderDTO)
+    public async Task UpdateAsync(FolderRequest request)
     {
         try
         {
