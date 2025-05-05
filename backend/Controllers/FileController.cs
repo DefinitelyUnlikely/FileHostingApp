@@ -11,7 +11,7 @@ namespace Backend.Controllers;
 public class FileController(IFileService fileService) : ControllerBase
 {
 
-    [HttpPost("upload")]
+    [HttpPost()]
     public async Task<IActionResult> UploadFile([FromBody] CreateFileRequest request)
     {
         try
@@ -47,7 +47,7 @@ public class FileController(IFileService fileService) : ControllerBase
         }
     }
 
-    [HttpPatch("update/{fileId}")]
+    [HttpPatch("{fileId}")]
     public async Task<IActionResult> UpdateFile([FromBody] UpdateFileRequest request, Guid fileId)
     {
         try

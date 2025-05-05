@@ -9,7 +9,7 @@ namespace Backend.Controllers;
 public class FolderController(IFolderService folderService) : ControllerBase
 {
 
-    [HttpPost("upload")]
+    [HttpPost()]
     public async Task<IActionResult> CreateFolder([FromBody] CreateFolderRequest request)
     {
         return Ok();
@@ -21,7 +21,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
         return Ok();
     }
 
-    [HttpPatch("update/{folderId}")]
+    [HttpPatch("{folderId}")]
     public async Task<IActionResult> UpdateFolder([FromBody] UpdateFolderRequest request, string folderId)
     {
         return Ok();
