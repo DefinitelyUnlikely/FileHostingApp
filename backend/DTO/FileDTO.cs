@@ -1,25 +1,46 @@
 using Backend.Models;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace Backend.DTO;
 
-public class FileRequest
+public interface IFileRequest;
+
+public class CreateFileRequest : IFileRequest
 {
-    // Atm I have everything as nullable, to make the object
-    // able to handle both creation and updating. One could also make the update send all required fields
-    // + the new values, but if all we are updating is the name, having to send all the filedata seems 
-    // unneccesery. I might change this depending on how clear the usage actually is.
-    public Guid? Id { get; set; }
+    public required string Name { get; set; }
+    public required string Extension { get; set; }
+    public required byte[] FileData { get; set; }
+
+    public required string UserId { get; set; }
+    public Guid? FolderId { get; set; }
+}
+
+public class UpdateFileRequest : IFileRequest
+{
+    public Guid Id { get; set; }
     public string? Name { get; set; }
     public string? Extension { get; set; }
 
     public byte[]? FileData { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
-    public DateTime? UpdatedAt { get; set; }
-
     public Guid? FolderId { get; set; }
-    public string? UserId { get; set; }
+    public string? UserId { get; set; } //Do we allow updating which user owns a file?
 }
+
+// public class FileRequest
+// {
+//     public Guid? Id { get; set; }
+//     public string? Name { get; set; }
+//     public string? Extension { get; set; }
+
+//     public byte[]? FileData { get; set; }
+
+//     public DateTime? CreatedAt { get; set; }
+//     public DateTime? UpdatedAt { get; set; }
+
+//     public Guid? FolderId { get; set; }
+//     public string? UserId { get; set; }
+// }
 
 
 public class FileResponse

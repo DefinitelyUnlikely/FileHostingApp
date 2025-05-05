@@ -12,7 +12,7 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         try
         {
 
-            //Validate DTO
+            //Validate DTO.
             if (request.Name is null || request.UserId is null)
             {
                 throw new ArgumentException("Not all required data has been supplied.");
@@ -123,6 +123,8 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
     {
         try
         {
+            if (request.Id is null) throw new ArgumentException("Missing Id");
+
 
         }
         catch (Exception e)

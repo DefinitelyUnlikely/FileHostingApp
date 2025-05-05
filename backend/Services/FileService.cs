@@ -9,18 +9,12 @@ namespace Backend.Services;
 
 public class FileService(ILogger<FileService> logger, IFileRepository fileRepository) : IFileService
 {
-    public async Task CreateAsync(FileRequest request)
+    public async Task CreateAsync(CreateFileRequest request)
     {
+
+
         try
         {
-            // Validate that all required data to create a new file exists in the DTO
-            if (request.Name is null || request.Extension is null || request.UserId is null || request.FileData is null)
-            {
-                throw new ArgumentException("Not all required data has been provided.");
-            }
-
-            // Might change these to use constructors instead and removing the required keyword
-            // from the properties. Will have to see what I find gives most clarity to the reader of the code.
             var fileInfo = new FileMeta
             {
                 Id = Guid.NewGuid(),
@@ -132,27 +126,19 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
     }
 
-    public async Task UpdateAsync(FileRequest request)
+    public async Task UpdateAsync(UpdateFileRequest request)
     {
         try
         {
-            if (request.Id is null) throw new ArgumentException("Missing Id");
-            var file = await fileRepository.GetByIdAsync((Guid)request.Id) ?? throw new EmptyReturnException("No file with that Id was found");
+            var file = await fileRepository.GetByIdAsync(request.Id) ?? throw new EmptyReturnException("No file with that Id was found");
 
             file.Name = request.Name ?? file.Name;
             file.Extension = request.Extension ?? file.Extension;
             file.FileData.Bytes = request.FileData ?? file.FileData.Bytes; // Might want to add a getFileData method to our repo
-            file.CreatedAt = request.CreatedAt ?? file.CreatedAt;
             file.UpdatedAt = DateTime.UtcNow;
             file.FolderId = request.FolderId ?? file.FolderId;
 
-
             if (!await fileRepository.UpdateAsync()) throw new NoChangesSavedException("File could not be updated.");
-        }
-        catch (ArgumentException e)
-        {
-            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
-            throw;
         }
         catch (EmptyReturnException e)
         {
