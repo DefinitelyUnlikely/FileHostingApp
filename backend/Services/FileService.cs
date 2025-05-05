@@ -11,11 +11,9 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
 {
     public async Task CreateAsync(CreateFileRequest request)
     {
-
-
         try
         {
-            var fileInfo = new FileMeta
+            var fileMeta = new FileMeta
             {
                 Id = Guid.NewGuid(),
                 Name = request.Name,
@@ -26,11 +24,11 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
             var fileData = new FileData
             {
                 Id = Guid.NewGuid(),
-                FileMetaId = fileInfo.Id,
+                FileMetaId = fileMeta.Id,
                 Bytes = request.FileData
             };
 
-            if (!await fileRepository.AddAsync(fileInfo, fileData)) throw new NoChangesSavedException("No file could be saved.");
+            if (!await fileRepository.AddAsync(fileMeta, fileData)) throw new NoChangesSavedException("No file could be saved.");
 
         }
         catch (NoChangesSavedException e)
@@ -98,6 +96,11 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
             }
 
             return FileResponse.FromModel(file);
+        }
+        catch (EmptyReturnException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (Exception e)
         {
