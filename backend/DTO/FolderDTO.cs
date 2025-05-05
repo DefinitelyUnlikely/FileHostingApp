@@ -2,18 +2,37 @@ using Backend.Models;
 
 namespace Backend.DTO;
 
-public class FolderRequest
+
+public interface IFolderRequest;
+
+public class CreateFolderRequest : IFolderRequest
 {
-    public Guid? Id { get; set; }
-    public string? Name { get; set; }
-
+    public required string Name { get; set; }
+    public required string UserId { get; set; }
     public Guid? ParentFolderId { get; set; }
-    public Folder? ParentFolder { get; set; }
 
-    public ICollection<Folder>? SubFolders { get; set; }
+}
 
+public class UpdateFolderRequest : IFolderRequest
+{
+    public required Guid Id { get; set; }
+    public string? Name { get; set; }
+    public Guid? ParentFolderId { get; set; }
     public string? UserId { get; set; }
 }
+
+// public class FolderRequest
+// {
+//     public Guid? Id { get; set; }
+//     public string? Name { get; set; }
+
+//     public Guid? ParentFolderId { get; set; }
+//     public Folder? ParentFolder { get; set; }
+
+//     public ICollection<Folder>? SubFolders { get; set; }
+
+//     public string? UserId { get; set; }
+// }
 
 public class FolderResponse
 {

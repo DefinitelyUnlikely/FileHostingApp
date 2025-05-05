@@ -7,16 +7,10 @@ namespace Backend.Services;
 
 public class FolderService(ILogger<FolderService> logger, IFolderRepository folderRepository) : IFolderService
 {
-    public async Task CreateAsync(FolderRequest request)
+    public async Task CreateAsync(CreateFolderRequest request)
     {
         try
         {
-
-            //Validate DTO.
-            if (request.Name is null || request.UserId is null)
-            {
-                throw new ArgumentException("Not all required data has been supplied.");
-            }
 
             var folder = new Folder
             {
@@ -30,11 +24,6 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
 
             if (!await folderRepository.AddAsync(folder)) throw new NoChangesSavedException("No folder has been saved to the database.");
 
-        }
-        catch (ArgumentException e)
-        {
-            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
-            throw;
         }
         catch (NoChangesSavedException e)
         {
@@ -119,13 +108,28 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         }
     }
 
-    public async Task UpdateAsync(FolderRequest request)
+    public async Task UpdateAsync(UpdateFolderRequest request)
     {
         try
         {
-            if (request.Id is null) throw new ArgumentException("Missing Id");
+            var folder = await folderRepository.GetAsync(request.Id) ?? throw new EmptyReturnException("No folder found with that Id");
 
+            folder.Name = request.Name ?? folder.Name;
+            folder.ParentFolderId = request.ParentFolderId ?? folder.ParentFolderId;
+            folder.UserId = request.UserId ?? folder.UserId;
 
+            if (!await folderRepository.UpdateAsync()) throw new NoChangesSavedException("Folder could not be updated.");
+
+        }
+        catch (EmptyReturnException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
+        catch (NoChangesSavedException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (Exception e)
         {
