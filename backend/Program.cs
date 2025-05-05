@@ -28,8 +28,8 @@ public class Program
         builder.Services.AddScoped<IFolderRepository, FolderRepository>();
         builder.Services.AddScoped<IFileRepository, FileRepository>();
 
-        builder.Services.AddSingleton<IFolderService, FolderService>();
-        builder.Services.AddSingleton<IFileService, FileService>();
+        builder.Services.AddScoped<IFolderService, FolderService>();
+        builder.Services.AddScoped<IFileService, FileService>();
 
         builder.Services.AddAuthorization();
 

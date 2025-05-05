@@ -5,7 +5,7 @@ using Backend.Models;
 
 namespace Backend.Services;
 
-public class FolderService(ILogger logger, IFolderRepository folderRepository) : IFolderService
+public class FolderService(ILogger<FolderService> logger, IFolderRepository folderRepository) : IFolderService
 {
     public async Task CreateAsync(FolderRequest request)
     {

@@ -10,4 +10,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Folder> Folders { get; set; }
     public DbSet<FileMeta> Files { get; set; }
     public DbSet<FileData> FilesData { get; set; }
+
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options) { }
 }
