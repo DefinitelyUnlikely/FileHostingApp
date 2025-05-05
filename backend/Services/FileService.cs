@@ -32,7 +32,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
             var fileData = new FileData
             {
                 Id = Guid.NewGuid(),
-                FileId = fileInfo.Id,
+                FileMetaId = fileInfo.Id,
                 Bytes = request.FileData
             };
 
