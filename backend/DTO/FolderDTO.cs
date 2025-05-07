@@ -21,19 +21,6 @@ public class UpdateFolderRequest : IFolderRequest
     public string? UserId { get; set; }
 }
 
-// public class FolderRequest
-// {
-//     public Guid? Id { get; set; }
-//     public string? Name { get; set; }
-
-//     public Guid? ParentFolderId { get; set; }
-//     public Folder? ParentFolder { get; set; }
-
-//     public ICollection<Folder>? SubFolders { get; set; }
-
-//     public string? UserId { get; set; }
-// }
-
 public class FolderResponse
 {
     public required Guid Id { get; set; }
