@@ -5,12 +5,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Data;
 
-public class ApplicationDbContext : IdentityDbContext
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext(options)
 {
     public DbSet<Folder> Folders { get; set; }
     public DbSet<FileMeta> Files { get; set; }
     public DbSet<FileData> FilesData { get; set; }
 
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options) { }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Folder>()
+            .HasIndex(f => new { f.Name, f.ParentFolderId })
+            .IsUnique();
+    }
 }
