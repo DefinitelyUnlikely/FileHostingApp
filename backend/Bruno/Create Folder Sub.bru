@@ -1,0 +1,19 @@
+meta {
+  name: Create Folder Sub
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:5282/folder
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "bruno",
+    "UserId": "684e8622-4706-4bbb-9046-7f7429341d7e",
+    "parentfolderid": "1323e220-3e9e-4ed9-98c8-95c0f68e115f"
+  }
+}

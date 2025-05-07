@@ -68,13 +68,7 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
             var folders = await folderRepository.GetAllUserFoldersAsync(userId);
             if (folders is null || folders.Count == 0) throw new EmptyReturnException("No folders where found for this user");
 
-            List<FolderResponse> returnFolders = [];
-            foreach (var folder in folders)
-            {
-                returnFolders.Add(FolderResponse.FromModel(folder));
-            }
-
-            return returnFolders;
+            return UserFoldersResponse.FromModels(folders);
 
         }
         catch (EmptyReturnException e)

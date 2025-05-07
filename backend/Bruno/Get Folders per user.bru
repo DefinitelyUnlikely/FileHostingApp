@@ -1,0 +1,11 @@
+meta {
+  name: Get Folders per user
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:5282/folder/user/684e8622-4706-4bbb-9046-7f7429341d7e
+  body: json
+  auth: inherit
+}

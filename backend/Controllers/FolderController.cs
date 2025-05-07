@@ -46,6 +46,24 @@ public class FolderController(IFolderService folderService) : ControllerBase
         }
     }
 
+    [HttpGet("user/{userId}")]
+    public async Task<IActionResult> GetFoldersByUser(string userId)
+    {
+        try
+        {
+            var response = await folderService.GetAllUserFoldersAsync(userId);
+            return Ok(response);
+        }
+        catch (EmptyReturnException)
+        {
+            return NotFound("No folder with that Id was found");
+        }
+        catch (Exception)
+        {
+            return BadRequest("An unexpected error happened, double check your request data");
+        }
+    }
+
     [HttpPatch("{folderId}")]
     public async Task<IActionResult> UpdateFolder([FromBody] UpdateFolderRequest request, Guid folderId)
     {

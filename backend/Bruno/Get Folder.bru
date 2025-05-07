@@ -1,10 +1,10 @@
 meta {
-  name: Create Folder
+  name: Get Folder
   type: http
-  seq: 3
+  seq: 5
 }
 
-post {
+get {
   url: http://localhost:5282/folder
   body: json
   auth: inherit
@@ -13,6 +13,5 @@ post {
 body:json {
   {
     "name": "bruno",
-    "UserId": "684e8622-4706-4bbb-9046-7f7429341d7e"
   }
 }
