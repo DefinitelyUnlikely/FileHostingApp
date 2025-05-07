@@ -15,7 +15,8 @@ public class FolderController(IFolderService folderService) : ControllerBase
     {
         try
         {
-            return Ok();
+            await folderService.CreateAsync(request);
+            return Created();
         }
         catch (NoChangesSavedException)
         {
@@ -28,11 +29,12 @@ public class FolderController(IFolderService folderService) : ControllerBase
     }
 
     [HttpGet("{folderId}")]
-    public async Task<IActionResult> GetFolder(string folderId)
+    public async Task<IActionResult> GetFolder(Guid folderId)
     {
         try
         {
-            return Ok();
+            var response = await folderService.GetAsync(folderId);
+            return Ok(response);
         }
         catch (EmptyReturnException)
         {
@@ -45,11 +47,13 @@ public class FolderController(IFolderService folderService) : ControllerBase
     }
 
     [HttpPatch("{folderId}")]
-    public async Task<IActionResult> UpdateFolder([FromBody] UpdateFolderRequest request, string folderId)
+    public async Task<IActionResult> UpdateFolder([FromBody] UpdateFolderRequest request, Guid folderId)
     {
         try
         {
-            return Ok();
+            if (folderId != request.Id) return BadRequest("folder to update does not match endpoint");
+            await folderService.UpdateAsync(request);
+            return Ok("Folder has been updated");
         }
         catch (EmptyReturnException)
         {
@@ -66,11 +70,12 @@ public class FolderController(IFolderService folderService) : ControllerBase
     }
 
     [HttpDelete("{folderId}")]
-    public async Task<IActionResult> DeleteFolder(string folderId)
+    public async Task<IActionResult> DeleteFolder(Guid folderId)
     {
         try
         {
-            return Ok();
+            await folderService.DeleteAsync(folderId);
+            return NoContent();
         }
         catch (EmptyReturnException)
         {

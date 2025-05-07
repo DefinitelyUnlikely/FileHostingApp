@@ -55,7 +55,7 @@ public class FileController(IFileService fileService) : ControllerBase
             if (fileId != request.Id) return BadRequest("Id of request does not match id of route, please double check.");
 
             await fileService.UpdateAsync(request);
-            return Ok("File has benn updated");
+            return Ok("File has been updated");
         }
         catch (ArgumentException)
         {
