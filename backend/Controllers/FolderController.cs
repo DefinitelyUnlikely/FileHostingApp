@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Backend.Controllers;
 
 [ApiController]
-[Route("folder")]
+[Route("[controller]")]
 public class FolderController(IFolderService folderService) : ControllerBase
 {
 

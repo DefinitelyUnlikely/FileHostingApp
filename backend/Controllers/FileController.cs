@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 namespace Backend.Controllers;
 
 [ApiController]
-[Route("file")]
+[Route("[controller]")]
 public class FileController(IFileService fileService) : ControllerBase
 {
 

@@ -16,7 +16,7 @@ public class Program
         builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(DatabaseConfig.connectionString));
         builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
 
-        builder.Services.AddIdentityCore<IdentityUser>()
+        builder.Services.AddIdentityCore<IdentityUser>(options => { options.User.RequireUniqueEmail = true; })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddApiEndpoints();
 
@@ -38,10 +38,10 @@ public class Program
 
         var app = builder.Build();
 
-        app.UseHttpsRedirection();
-
+        app.UseAuthentication();
         app.UseAuthorization();
 
+        app.MapIdentityApi<IdentityUser>();
         app.MapControllers();
 
         app.Run();
