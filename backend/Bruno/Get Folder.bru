@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: http://localhost:5282/folder/1323e220-3e9e-4ed9-98c8-95c0f68e115f
+  url: http://localhost:5282/folder/:folderId
   body: json
   auth: inherit
+}
+
+params:path {
+  folderId: 97ba3868-01c7-47fb-9e9e-8db786e7a535
 }

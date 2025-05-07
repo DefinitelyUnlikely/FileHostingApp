@@ -36,9 +36,9 @@ public class FolderController(IFolderService folderService) : ControllerBase
             var response = await folderService.GetAsync(folderId);
             return Ok(response);
         }
-        catch (EmptyReturnException)
+        catch (EmptyReturnException e)
         {
-            return NotFound("No folder with that Id was found");
+            return NotFound(e.Message);
         }
         catch (Exception)
         {
@@ -54,9 +54,9 @@ public class FolderController(IFolderService folderService) : ControllerBase
             var response = await folderService.GetAllUserFoldersAsync(userId);
             return Ok(response);
         }
-        catch (EmptyReturnException)
+        catch (EmptyReturnException e)
         {
-            return NotFound("No folder with that Id was found");
+            return NotFound(e.Message);
         }
         catch (Exception)
         {
@@ -73,9 +73,9 @@ public class FolderController(IFolderService folderService) : ControllerBase
             await folderService.UpdateAsync(request);
             return Ok("Folder has been updated");
         }
-        catch (EmptyReturnException)
+        catch (EmptyReturnException e)
         {
-            return NotFound("No folder with that Id was found");
+            return NotFound(e.Message);
         }
         catch (NoChangesSavedException)
         {
@@ -95,9 +95,9 @@ public class FolderController(IFolderService folderService) : ControllerBase
             await folderService.DeleteAsync(folderId);
             return NoContent();
         }
-        catch (EmptyReturnException)
+        catch (EmptyReturnException e)
         {
-            return NotFound("No folder with that Id was found");
+            return NotFound(e.Message);
         }
         catch (NoChangesSavedException)
         {
