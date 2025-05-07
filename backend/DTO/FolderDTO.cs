@@ -1,4 +1,5 @@
 using Backend.Models;
+using Backend.Services;
 
 namespace Backend.DTO;
 
@@ -26,10 +27,7 @@ public class FolderResponse
     public required Guid Id { get; set; }
     public required string Name { get; set; }
 
-    public Guid? ParentFolderId { get; set; }
-    public Folder? ParentFolder { get; set; }
-
-    public ICollection<Folder>? SubFolders { get; set; }
+    public required IEnumerable<FolderResponse> SubFolders { get; set; } = [];
 
     public required string UserId { get; set; }
 
@@ -40,40 +38,7 @@ public class FolderResponse
             Id = folder.Id,
             Name = folder.Name,
             UserId = folder.UserId,
-            ParentFolderId = folder.ParentFolderId,
-            ParentFolder = folder.ParentFolder,
-            SubFolders = folder.SubFolders,
+            SubFolders = folder.SubFolders?.Select(f => FolderResponse.FromModel(f)) ?? [],
         };
-    }
-}
-
-public class UserFoldersResponse
-{
-    public required Guid Id { get; set; }
-    public required string Name { get; set; }
-
-    public Guid? ParentFolderId { get; set; }
-    public Folder? ParentFolder { get; set; }
-
-    public required string UserId { get; set; }
-
-    public static List<FolderResponse> FromModels(ICollection<Folder> folders)
-    {
-        List<FolderResponse> returnFolders = [];
-        foreach (var folder in folders)
-        {
-            returnFolders.Add(
-                new FolderResponse
-                {
-                    Id = folder.Id,
-                    Name = folder.Name,
-                    UserId = folder.UserId,
-                    ParentFolderId = folder.ParentFolderId,
-                    ParentFolder = folder.ParentFolder,
-                }
-            );
-        }
-
-        return returnFolders;
     }
 }

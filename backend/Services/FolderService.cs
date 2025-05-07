@@ -54,9 +54,9 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
             logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
             throw;
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+
             throw;
         }
     }
@@ -68,7 +68,13 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
             var folders = await folderRepository.GetAllUserFoldersAsync(userId);
             if (folders is null || folders.Count == 0) throw new EmptyReturnException("No folders where found for this user");
 
-            return UserFoldersResponse.FromModels(folders);
+            List<FolderResponse> returnFolders = [];
+            foreach (var folder in folders)
+            {
+                returnFolders.Add(FolderResponse.FromModel(folder));
+            }
+
+            return returnFolders;
 
         }
         catch (EmptyReturnException e)
