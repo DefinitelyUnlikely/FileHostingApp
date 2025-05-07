@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace backend.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -269,11 +269,6 @@ namespace backend.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Files_FileDataId",
-                table: "Files",
-                column: "FileDataId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Files_FolderId",
                 table: "Files",
                 column: "FolderId");
@@ -286,7 +281,8 @@ namespace backend.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_FilesData_FileMetaId",
                 table: "FilesData",
-                column: "FileMetaId");
+                column: "FileMetaId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Folders_ParentFolderId",
@@ -297,31 +293,11 @@ namespace backend.Migrations
                 name: "IX_Folders_UserId",
                 table: "Folders",
                 column: "UserId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Files_FilesData_FileDataId",
-                table: "Files",
-                column: "FileDataId",
-                principalTable: "FilesData",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Files_AspNetUsers_UserId",
-                table: "Files");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Folders_AspNetUsers_UserId",
-                table: "Folders");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Files_FilesData_FileDataId",
-                table: "Files");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -338,19 +314,19 @@ namespace backend.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "FilesData");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Files");
 
             migrationBuilder.DropTable(
                 name: "Folders");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

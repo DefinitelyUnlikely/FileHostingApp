@@ -1,0 +1,18 @@
+meta {
+  name: Create Folder
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:5282/folder
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "bruno",
+    "UserId": ""
+  }
+}

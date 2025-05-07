@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250505091521_Init")]
-    partial class Init
+    [Migration("20250507114320_ChangeRelationship")]
+    partial class ChangeRelationship
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,8 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FileMetaId");
+                    b.HasIndex("FileMetaId")
+                        .IsUnique();
 
                     b.ToTable("FilesData");
                 });
@@ -57,9 +58,6 @@ namespace backend.Migrations
                     b.Property<string>("Extension")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<Guid>("FileDataId")
-                        .HasColumnType("uuid");
 
                     b.Property<long>("FileSize")
                         .HasColumnType("bigint");
@@ -79,8 +77,6 @@ namespace backend.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FileDataId");
 
                     b.HasIndex("FolderId");
 
@@ -314,8 +310,8 @@ namespace backend.Migrations
             modelBuilder.Entity("Backend.Models.FileData", b =>
                 {
                     b.HasOne("Backend.Models.FileMeta", "FileMeta")
-                        .WithMany()
-                        .HasForeignKey("FileMetaId")
+                        .WithOne("FileData")
+                        .HasForeignKey("Backend.Models.FileData", "FileMetaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -324,12 +320,6 @@ namespace backend.Migrations
 
             modelBuilder.Entity("Backend.Models.FileMeta", b =>
                 {
-                    b.HasOne("Backend.Models.FileData", "FileData")
-                        .WithMany()
-                        .HasForeignKey("FileDataId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Backend.Models.Folder", "Folder")
                         .WithMany("Files")
                         .HasForeignKey("FolderId");
@@ -339,8 +329,6 @@ namespace backend.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("FileData");
 
                     b.Navigation("Folder");
 
@@ -413,6 +401,11 @@ namespace backend.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Backend.Models.FileMeta", b =>
+                {
+                    b.Navigation("FileData");
                 });
 
             modelBuilder.Entity("Backend.Models.Folder", b =>

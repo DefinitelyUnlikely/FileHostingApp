@@ -12,23 +12,17 @@ public class FileMeta
     public long FileSize { get; set; }
     public required string Extension { get; set; }
 
-
-    public Guid FileDataId { get; set; }
-
-    [ForeignKey("FileDataId")]
-    public FileData? FileData { get; set; }
-
     public required DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
 
     public Guid? FolderId { get; set; }
-
     [ForeignKey("FolderId")]
     public Folder? Folder { get; set; }
 
     public required string UserId { get; set; }
-
     [ForeignKey("UserId")]
     public IdentityUser? User { get; set; }
+
+    public FileData? FileData { get; set; }
 
 }
