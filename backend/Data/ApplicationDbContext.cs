@@ -15,8 +15,24 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         base.OnModelCreating(modelBuilder);
 
+        // Folder 
         modelBuilder.Entity<Folder>()
-            .HasIndex(f => new { f.Name, f.ParentFolderId })
-            .IsUnique();
+                    .Property(f => f.ParentFolderIdProxy)
+                    .HasComputedColumnSql("ISNULL([ParentFolderId], -1)", stored: true);
+
+        modelBuilder.Entity<Folder>()
+                    .HasIndex(f => new { f.Name, f.ParentFolderIdProxy, f.UserId })
+                    .IsUnique();
+
+        // File
+        modelBuilder.Entity<FileMeta>()
+            .Property(f => f.FolderIdProxy)
+            .HasComputedColumnSql("ISNULL([FolderId], -1)", stored: true);
+
+        modelBuilder.Entity<FileMeta>()
+                    .HasIndex(f => new { f.Name, f.Extension, f.FolderIdProxy, f.UserId })
+                    .IsUnique();
+
+
     }
 }
