@@ -13,4 +13,6 @@ public static class DatabaseConfig
     $"""
     Host={Host};Port={Port};Database={Database};Username={Username};Password={Password};
     """;
+
+    public static readonly string dummyGUID = "00000000-0000-0000-0000-000000000000";
 }

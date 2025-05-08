@@ -25,6 +25,6 @@ public class FileMeta
 
     public FileData? FileData { get; set; }
 
-    public int FolderIdProxy { get; private set; }
+    public Guid FolderIdProxy { get; private set; }
 
 }

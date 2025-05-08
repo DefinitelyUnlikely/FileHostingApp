@@ -18,7 +18,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         // Folder 
         modelBuilder.Entity<Folder>()
                     .Property(f => f.ParentFolderIdProxy)
-                    .HasComputedColumnSql("COALESCE(\"ParentFolderId\", -1)", stored: true);
+                    .HasComputedColumnSql("COALESCE(\"ParentFolderId\", '00000000-0000-0000-0000-000000000000'::uuid)", stored: true);
 
         modelBuilder.Entity<Folder>()
                     .HasIndex(f => new { f.Name, f.ParentFolderIdProxy, f.UserId })
@@ -27,7 +27,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         // File
         modelBuilder.Entity<FileMeta>()
                     .Property(f => f.FolderIdProxy)
-                    .HasComputedColumnSql("COALESCE(\"ParentFolderId\", -1)", stored: true);
+                    .HasComputedColumnSql("COALESCE(\"FolderId\", '00000000-0000-0000-0000-000000000000'::uuid)", stored: true);
 
         modelBuilder.Entity<FileMeta>()
                     .HasIndex(f => new { f.Name, f.Extension, f.FolderIdProxy, f.UserId })

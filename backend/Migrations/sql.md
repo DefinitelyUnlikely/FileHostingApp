@@ -83,6 +83,7 @@ CREATE TABLE "Folders" (
     "Name" text NOT NULL,
     "ParentFolderId" uuid,
     "UserId" text NOT NULL,
+    "ParentFolderIdProxy" uuid GENERATED ALWAYS AS (COALESCE("ParentFolderId", '00000000-0000-0000-0000-000000000000'::uuid)) STORED NOT NULL,
     CONSTRAINT "PK_Folders" PRIMARY KEY ("Id"),
     CONSTRAINT "FK_Folders_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE,
     CONSTRAINT "FK_Folders_Folders_ParentFolderId" FOREIGN KEY ("ParentFolderId") REFERENCES "Folders" ("Id")
@@ -98,6 +99,7 @@ CREATE TABLE "Files" (
     "UpdatedAt" timestamp with time zone,
     "FolderId" uuid,
     "UserId" text NOT NULL,
+    "FolderIdProxy" uuid GENERATED ALWAYS AS (COALESCE("FolderId", '00000000-0000-0000-0000-000000000000'::uuid)) STORED NOT NULL,
     CONSTRAINT "PK_Files" PRIMARY KEY ("Id"),
     CONSTRAINT "FK_Files_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE,
     CONSTRAINT "FK_Files_Folders_FolderId" FOREIGN KEY ("FolderId") REFERENCES "Folders" ("Id")
@@ -106,7 +108,7 @@ CREATE TABLE "Files" (
 
 CREATE TABLE "FilesData" (
     "Id" uuid NOT NULL,
-    "FileMetaId" uuid dotnet NOT NULL,
+    "FileMetaId" uuid NOT NULL,
     "Bytes" bytea NOT NULL,
     CONSTRAINT "PK_FilesData" PRIMARY KEY ("Id"),
     CONSTRAINT "FK_FilesData_Files_FileMetaId" FOREIGN KEY ("FileMetaId") REFERENCES "Files" ("Id") ON DELETE CASCADE
@@ -137,10 +139,16 @@ CREATE UNIQUE INDEX "UserNameIndex" ON "AspNetUsers" ("NormalizedUserName");
 CREATE INDEX "IX_Files_FolderId" ON "Files" ("FolderId");
 
 
+CREATE UNIQUE INDEX "IX_Files_Name_Extension_FolderIdProxy_UserId" ON "Files" ("Name", "Extension", "FolderIdProxy", "UserId");
+
+
 CREATE INDEX "IX_Files_UserId" ON "Files" ("UserId");
 
 
 CREATE UNIQUE INDEX "IX_FilesData_FileMetaId" ON "FilesData" ("FileMetaId");
+
+
+CREATE UNIQUE INDEX "IX_Folders_Name_ParentFolderIdProxy_UserId" ON "Folders" ("Name", "ParentFolderIdProxy", "UserId");
 
 
 CREATE INDEX "IX_Folders_ParentFolderId" ON "Folders" ("ParentFolderId");

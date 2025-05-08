@@ -17,6 +17,6 @@ public class Folder
     public required ICollection<Folder> SubFolders { get; set; }
     public required ICollection<FileMeta> Files { get; set; }
 
-    public int ParentFolderIdProxy { get; private set; }
+    public Guid ParentFolderIdProxy { get; private set; }
 
 }
