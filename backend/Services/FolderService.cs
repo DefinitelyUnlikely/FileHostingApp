@@ -30,6 +30,11 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
             logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
             throw;
         }
+        catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
         catch (Exception e)
         {
             logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
