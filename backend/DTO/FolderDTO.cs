@@ -22,6 +22,8 @@ public class UpdateFolderRequest : IFolderRequest
     public string? UserId { get; set; }
 }
 
+
+// TODO: Add filemeta for the top folder in response.
 public class FolderResponse
 {
     public required Guid Id { get; set; }

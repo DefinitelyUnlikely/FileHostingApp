@@ -22,9 +22,9 @@ public class FolderController(IFolderService folderService) : ControllerBase
         {
             return StatusCode(500);
         }
-        catch (Microsoft.EntityFrameworkCore.DbUpdateException)
+        catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
         {
-            return BadRequest("Database did not update and folder was not added, most likely a duplicate entry exists.");
+            return BadRequest("Database did not update and folder was not added: " + e.Message);
         }
         catch (Exception)
         {
