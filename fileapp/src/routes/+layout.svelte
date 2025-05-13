@@ -10,7 +10,7 @@
 
 <style>
 	:global(body) {
-		background-color: rgb(41, 41, 41);
+		background-color: rgb(255, 255, 255);
 		margin: 0;
 		display: flex;
 		flex-direction: column;
@@ -19,18 +19,18 @@
 	}
 
 	:global(h1) {
-		color: white;
+		color: rgb(0, 0, 0);
 	}
 
 	:global(h2) {
-		color: white;
+		color: black;
 	}
 
 	:global(p) {
-		color: white;
+		color: black;
 	}
 
 	:global(label) {
-		color: white;
+		color: black;
 	}
 </style>
