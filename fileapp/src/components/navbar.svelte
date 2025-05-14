@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Hamburger from './hamburger.svelte';
+	import { Hamburger } from 'svelte-hamburgers';
 </script>
 
 <nav>
@@ -7,9 +7,6 @@
 	<div class="middle-nav"><h1>Sunset Drive</h1></div>
 	<div class="right-nav">
 		<Hamburger />
-		<!-- <a href="/">Home</a>
-		<a href="/register">Register</a>
-		<a href="/login">Login</a> -->
 	</div>
 </nav>
 
