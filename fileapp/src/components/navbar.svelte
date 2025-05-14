@@ -1,12 +1,14 @@
 <script lang="ts">
 	import { Hamburger } from 'svelte-hamburgers';
+
+	let open = $state(false);
 </script>
 
 <nav>
 	<div class="left-nav"></div>
 	<div class="middle-nav"><h1>Sunset Drive</h1></div>
 	<div class="right-nav">
-		<Hamburger />
+		<Hamburger bind:open title="Toogle a menu with navigation" --color="white" />
 	</div>
 </nav>
 
