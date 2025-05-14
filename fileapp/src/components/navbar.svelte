@@ -21,6 +21,7 @@
 		width: 100vw;
 		height: 4rem;
 		gap: 0.5rem;
+		flex-shrink: 0;
 	}
 
 	.middle-nav {

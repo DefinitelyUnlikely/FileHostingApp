@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Footer from '../components/footer.svelte';
 	import Navbar from '../components/navbar.svelte';
 
 	let { children } = $props();
@@ -8,14 +9,13 @@
 
 {@render children()}
 
+<Footer />
+
 <style>
 	:global(body) {
-		background-color: rgb(255, 255, 255);
 		margin: 0;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		align-items: center;
+		background-color: rgb(255, 255, 255);
+		overflow: hidden;
 	}
 
 	:global(h1) {
