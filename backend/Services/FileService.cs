@@ -7,13 +7,13 @@ using Backend.Models;
 
 namespace Backend.Services;
 
-public class FileService(ILogger<FileService> logger, IFileRepository fileRepository, IAuthService authService) : IFileService
+public class FileService(ILogger<FileService> logger, IFileRepository fileRepository, IAuthService userAuthService) : IFileService
 {
     public async Task CreateAsync(CreateFileRequest request)
     {
         try
         {
-            if (!authService.IsAdmin || authService.UserId != request.UserId) throw new UnauthorizedAccessException();
+            if (!userAuthService.IsAdmin || userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
 
             var fileMeta = new FileMeta
             {
@@ -55,6 +55,9 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         try
         {
             var file = await fileRepository.GetByIdAsync(fileId) ?? throw new EmptyReturnException("No file with that Id was found");
+
+            if (!userAuthService.IsAdmin || userAuthService.UserId != file.UserId) throw new UnauthorizedAccessException();
+
             await fileRepository.DeleteAsync(file);
         }
         catch (UnauthorizedAccessException e)
@@ -78,6 +81,9 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     {
         try
         {
+
+            if (!userAuthService.IsAdmin || userAuthService.UserId != userId) throw new UnauthorizedAccessException();
+
             var files = (List<FileMeta>)await fileRepository.GetAllUserFilesAsync(userId);
 
             if (files.Count == 0) throw new EmptyReturnException("The returned list or object is empty.");
@@ -106,6 +112,8 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         try
         {
             var file = await fileRepository.GetByIdAsync(fileId, true) ?? throw new EmptyReturnException("No file with that Id was found.");
+
+            if (!userAuthService.IsAdmin || userAuthService.UserId != file.UserId) throw new UnauthorizedAccessException();
 
             if (file.FileData is null)
             {
@@ -137,6 +145,8 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         {
             var file = await fileRepository.GetByNameAsync(fileName, true) ?? throw new EmptyReturnException("No file with that name was found.");
 
+            if (!userAuthService.IsAdmin || userAuthService.UserId != file.UserId) throw new UnauthorizedAccessException();
+
             if (file.FileData is null)
             {
                 throw new Exception("the corresponding filedata was not found or could not be included");
@@ -161,7 +171,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         try
         {
 
-            if (!authService.IsAdmin || authService.UserId != request.UserId) throw new UnauthorizedAccessException();
+            if (!userAuthService.IsAdmin || userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
 
             var file = await fileRepository.GetByIdAsync(request.Id) ?? throw new EmptyReturnException("No file with that Id was found");
 
