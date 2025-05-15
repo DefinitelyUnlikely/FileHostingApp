@@ -13,6 +13,8 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     {
         try
         {
+            if (!authService.IsAdmin || authService.UserId != request.UserId) throw new UnauthorizedAccessException();
+
             var fileMeta = new FileMeta
             {
                 Id = Guid.NewGuid(),
@@ -30,6 +32,11 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
 
             if (!await fileRepository.AddAsync(fileMeta, fileData)) throw new NoChangesSavedException("No file could be saved.");
 
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (NoChangesSavedException e)
         {
@@ -49,6 +56,11 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         {
             var file = await fileRepository.GetByIdAsync(fileId) ?? throw new EmptyReturnException("No file with that Id was found");
             await fileRepository.DeleteAsync(file);
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (EmptyReturnException e)
         {
@@ -71,6 +83,11 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
             if (files.Count == 0) throw new EmptyReturnException("The returned list or object is empty.");
 
             return [.. files.Select(file => FileResponse.FromModel(file))];
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (EmptyReturnException e)
         {
@@ -97,6 +114,11 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
 
             return FileResponse.FromModel(file);
         }
+        catch (UnauthorizedAccessException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
         catch (EmptyReturnException e)
         {
             logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
@@ -122,6 +144,11 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
 
             return FileResponse.FromModel(file);
         }
+        catch (UnauthorizedAccessException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
         catch (Exception e)
         {
             logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
@@ -133,6 +160,9 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     {
         try
         {
+
+            if (!authService.IsAdmin || authService.UserId != request.UserId) throw new UnauthorizedAccessException();
+
             var file = await fileRepository.GetByIdAsync(request.Id) ?? throw new EmptyReturnException("No file with that Id was found");
 
             file.Name = request.Name ?? file.Name;
@@ -142,6 +172,11 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
             file.FolderId = request.FolderId ?? file.FolderId;
 
             if (!await fileRepository.UpdateAsync()) throw new NoChangesSavedException("File could not be updated.");
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (EmptyReturnException e)
         {

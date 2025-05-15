@@ -13,7 +13,7 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         try
         {
 
-
+            if (!authService.IsAdmin || authService.UserId != request.UserId) throw new UnauthorizedAccessException();
 
             var folder = new Folder
             {
@@ -27,6 +27,11 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
 
             if (!await folderRepository.AddAsync(folder)) throw new NoChangesSavedException("No folder has been saved to the database.");
 
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (NoChangesSavedException e)
         {
@@ -51,6 +56,11 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         {
             var folder = await folderRepository.GetAsync(folderId) ?? throw new EmptyReturnException("No folder with that Id was found.");
             if (!await folderRepository.DeleteAsync(folder)) throw new NoChangesSavedException("No folder has been deleted.");
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (EmptyReturnException e)
         {
@@ -85,6 +95,11 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
             return returnFolders;
 
         }
+        catch (UnauthorizedAccessException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
         catch (EmptyReturnException e)
         {
             logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
@@ -103,6 +118,11 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         {
             var folder = await folderRepository.GetAsync(folderId) ?? throw new EmptyReturnException("No folder was retreived");
             return FolderResponse.FromModel(folder);
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (EmptyReturnException e)
         {
@@ -128,6 +148,11 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
 
             if (!await folderRepository.UpdateAsync()) throw new NoChangesSavedException("Folder could not be updated.");
 
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
         }
         catch (EmptyReturnException e)
         {
