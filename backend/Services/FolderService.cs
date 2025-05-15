@@ -2,15 +2,18 @@ using Backend.DTO;
 using Backend.Exceptions;
 using Backend.Interfaces;
 using Backend.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Backend.Services;
 
-public class FolderService(ILogger<FolderService> logger, IFolderRepository folderRepository) : IFolderService
+public class FolderService(ILogger<FolderService> logger, IFolderRepository folderRepository, IAuthService authService) : IFolderService
 {
     public async Task CreateAsync(CreateFolderRequest request)
     {
         try
         {
+
+
 
             var folder = new Folder
             {

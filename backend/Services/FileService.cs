@@ -7,7 +7,7 @@ using Backend.Models;
 
 namespace Backend.Services;
 
-public class FileService(ILogger<FileService> logger, IFileRepository fileRepository) : IFileService
+public class FileService(ILogger<FileService> logger, IFileRepository fileRepository, IAuthService authService) : IFileService
 {
     public async Task CreateAsync(CreateFileRequest request)
     {

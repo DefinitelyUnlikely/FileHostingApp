@@ -44,6 +44,8 @@ public class Program
         builder.Services.AddScoped<IFolderService, FolderService>();
         builder.Services.AddScoped<IFileService, FileService>();
 
+        builder.Services.AddScoped<IAuthService, AuthService>();
+
         builder.Services.AddAuthorization();
 
         builder.Services.AddControllers();
