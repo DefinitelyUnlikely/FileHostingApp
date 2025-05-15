@@ -4,6 +4,7 @@ using Backend.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Backend.Controllers;
 
@@ -20,6 +21,10 @@ public class FileController(IFileService fileService) : ControllerBase
         {
             await fileService.CreateAsync(request);
             return Created();
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            return Forbid(e.Message);
         }
         catch (NoChangesSavedException)
         {
@@ -39,6 +44,10 @@ public class FileController(IFileService fileService) : ControllerBase
         {
             var response = await fileService.GetByIdAsync(fileId);
             return Ok(response);
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            return Forbid(e.Message);
         }
         catch (EmptyReturnException)
         {
@@ -60,6 +69,10 @@ public class FileController(IFileService fileService) : ControllerBase
 
             await fileService.UpdateAsync(request);
             return Ok("File has been updated");
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            return Forbid(e.Message);
         }
         catch (ArgumentException)
         {
@@ -87,6 +100,10 @@ public class FileController(IFileService fileService) : ControllerBase
         {
             await fileService.DeleteAsync(fileId);
             return NoContent();
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            return Forbid(e.Message);
         }
         catch (EmptyReturnException)
         {
