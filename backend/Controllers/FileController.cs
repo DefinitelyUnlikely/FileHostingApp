@@ -13,7 +13,7 @@ public class FileController(IFileService fileService) : ControllerBase
 {
 
     [HttpPost()]
-    [Authorize]
+    [Authorize(Roles = "User,Admin")]
     public async Task<IActionResult> UploadFile([FromBody] CreateFileRequest request)
     {
         try
@@ -32,7 +32,7 @@ public class FileController(IFileService fileService) : ControllerBase
     }
 
     [HttpGet("{fileId}")]
-    [Authorize]
+    [Authorize(Roles = "User,Admin")]
     public async Task<IActionResult> GetFile(Guid fileId)
     {
         try
@@ -51,7 +51,7 @@ public class FileController(IFileService fileService) : ControllerBase
     }
 
     [HttpPatch("{fileId}")]
-    [Authorize]
+    [Authorize(Roles = "User,Admin")]
     public async Task<IActionResult> UpdateFile([FromBody] UpdateFileRequest request, Guid fileId)
     {
         try
@@ -80,7 +80,7 @@ public class FileController(IFileService fileService) : ControllerBase
     }
 
     [HttpDelete("{fileId}")]
-    [Authorize]
+    [Authorize(Roles = "User, Admin")]
     public async Task<IActionResult> DeleteFile(Guid fileId)
     {
         try

@@ -11,8 +11,8 @@ namespace Backend.Controllers;
 public class FolderController(IFolderService folderService) : ControllerBase
 {
 
+    [Authorize(Roles = "User,Admin")]
     [HttpPost()]
-    [Authorize]
     public async Task<IActionResult> CreateFolder([FromBody] CreateFolderRequest request)
     {
         try
@@ -35,7 +35,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
     }
 
     [HttpGet("{folderId}")]
-    [Authorize]
+    [Authorize(Roles = "User,Admin")]
     public async Task<IActionResult> GetFolder(Guid folderId)
     {
         try
@@ -54,7 +54,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
     }
 
     [HttpGet("user/{userId}")]
-    [Authorize]
+    [Authorize(Roles = "User,Admin")]
     public async Task<IActionResult> GetFoldersByUser(string userId)
     {
         try
@@ -73,7 +73,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
     }
 
     [HttpPatch("{folderId}")]
-    [Authorize]
+    [Authorize(Roles = "User,Admin")]
     public async Task<IActionResult> UpdateFolder([FromBody] UpdateFolderRequest request, Guid folderId)
     {
         try
@@ -97,7 +97,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
     }
 
     [HttpDelete("{folderId}")]
-    [Authorize]
+    [Authorize(Roles = "User,Admin")]
     public async Task<IActionResult> DeleteFolder(Guid folderId)
     {
         try
