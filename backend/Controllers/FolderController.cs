@@ -3,7 +3,6 @@ using Backend.Exceptions;
 using Backend.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Backend.Controllers;
 
@@ -20,10 +19,6 @@ public class FolderController(IFolderService folderService) : ControllerBase
         {
             await folderService.CreateAsync(request);
             return Created();
-        }
-        catch (UnauthorizedAccessException e)
-        {
-            return Forbid(e.Message);
         }
         catch (NoChangesSavedException)
         {
@@ -48,10 +43,6 @@ public class FolderController(IFolderService folderService) : ControllerBase
             var response = await folderService.GetAsync(folderId);
             return Ok(response);
         }
-        catch (UnauthorizedAccessException e)
-        {
-            return Forbid(e.Message);
-        }
         catch (EmptyReturnException e)
         {
             return NotFound(e.Message);
@@ -70,10 +61,6 @@ public class FolderController(IFolderService folderService) : ControllerBase
         {
             var response = await folderService.GetAllUserFoldersAsync(userId);
             return Ok(response);
-        }
-        catch (UnauthorizedAccessException e)
-        {
-            return Forbid(e.Message);
         }
         catch (EmptyReturnException e)
         {
@@ -94,10 +81,6 @@ public class FolderController(IFolderService folderService) : ControllerBase
             if (folderId != request.Id) return BadRequest("folder to update does not match endpoint");
             await folderService.UpdateAsync(request);
             return Ok("Folder has been updated");
-        }
-        catch (UnauthorizedAccessException e)
-        {
-            return Forbid(e.Message);
         }
         catch (EmptyReturnException e)
         {
@@ -121,10 +104,6 @@ public class FolderController(IFolderService folderService) : ControllerBase
         {
             await folderService.DeleteAsync(folderId);
             return NoContent();
-        }
-        catch (UnauthorizedAccessException e)
-        {
-            return Forbid(e.Message);
         }
         catch (EmptyReturnException e)
         {
