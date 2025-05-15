@@ -1,6 +1,7 @@
 using Backend.DTO;
 using Backend.Exceptions;
 using Backend.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
@@ -11,6 +12,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
 {
 
     [HttpPost()]
+    [Authorize]
     public async Task<IActionResult> CreateFolder([FromBody] CreateFolderRequest request)
     {
         try
@@ -33,6 +35,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
     }
 
     [HttpGet("{folderId}")]
+    [Authorize]
     public async Task<IActionResult> GetFolder(Guid folderId)
     {
         try
@@ -51,6 +54,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
     }
 
     [HttpGet("user/{userId}")]
+    [Authorize]
     public async Task<IActionResult> GetFoldersByUser(string userId)
     {
         try
@@ -69,6 +73,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
     }
 
     [HttpPatch("{folderId}")]
+    [Authorize]
     public async Task<IActionResult> UpdateFolder([FromBody] UpdateFolderRequest request, Guid folderId)
     {
         try
@@ -92,6 +97,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
     }
 
     [HttpDelete("{folderId}")]
+    [Authorize]
     public async Task<IActionResult> DeleteFolder(Guid folderId)
     {
         try

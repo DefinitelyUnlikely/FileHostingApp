@@ -3,6 +3,7 @@ using Backend.Interfaces;
 using Backend.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Controllers;
 
@@ -12,6 +13,7 @@ public class FileController(IFileService fileService) : ControllerBase
 {
 
     [HttpPost()]
+    [Authorize]
     public async Task<IActionResult> UploadFile([FromBody] CreateFileRequest request)
     {
         try
@@ -30,6 +32,7 @@ public class FileController(IFileService fileService) : ControllerBase
     }
 
     [HttpGet("{fileId}")]
+    [Authorize]
     public async Task<IActionResult> GetFile(Guid fileId)
     {
         try
@@ -48,6 +51,7 @@ public class FileController(IFileService fileService) : ControllerBase
     }
 
     [HttpPatch("{fileId}")]
+    [Authorize]
     public async Task<IActionResult> UpdateFile([FromBody] UpdateFileRequest request, Guid fileId)
     {
         try
@@ -76,6 +80,7 @@ public class FileController(IFileService fileService) : ControllerBase
     }
 
     [HttpDelete("{fileId}")]
+    [Authorize]
     public async Task<IActionResult> DeleteFile(Guid fileId)
     {
         try
