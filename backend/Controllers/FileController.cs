@@ -21,6 +21,10 @@ public class FileController(IFileService fileService) : ControllerBase
             await fileService.CreateAsync(request);
             return Created();
         }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
+        }
         catch (NoChangesSavedException)
         {
             return StatusCode(500); // I need to figure out what error is appropiate here.
@@ -39,6 +43,10 @@ public class FileController(IFileService fileService) : ControllerBase
         {
             var response = await fileService.GetByIdAsync(fileId);
             return Ok(response);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
         }
         catch (EmptyReturnException)
         {
@@ -60,6 +68,10 @@ public class FileController(IFileService fileService) : ControllerBase
 
             await fileService.UpdateAsync(request);
             return Ok("File has been updated");
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
         }
         catch (ArgumentException)
         {
@@ -87,6 +99,10 @@ public class FileController(IFileService fileService) : ControllerBase
         {
             await fileService.DeleteAsync(fileId);
             return NoContent();
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
         }
         catch (EmptyReturnException)
         {
