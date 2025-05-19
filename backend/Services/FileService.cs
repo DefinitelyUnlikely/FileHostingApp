@@ -13,7 +13,10 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     {
         try
         {
-            if (!userAuthService.UserIsAdmin || userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
+            if (request.UserId is not null)
+            {
+                if (!userAuthService.UserIsAdmin || userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
+            }
 
             var fileMeta = new FileMeta
             {
@@ -21,7 +24,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
                 Name = request.Name,
                 Extension = request.Extension,
                 CreatedAt = DateTime.UtcNow,
-                UserId = request.UserId,
+                UserId = request.UserId ?? userAuthService.UserId ?? throw new ArgumentException("No user id was given, and no user was found using the token data."),
                 FileSize = request.FileData.Length * 8,
             };
             var fileData = new FileData

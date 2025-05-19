@@ -9,7 +9,7 @@ public interface IFolderRequest;
 public class CreateFolderRequest : IFolderRequest
 {
     public required string Name { get; set; }
-    public required string UserId { get; set; }
+    public required string? UserId { get; set; }
     public Guid? ParentFolderId { get; set; }
 
 }

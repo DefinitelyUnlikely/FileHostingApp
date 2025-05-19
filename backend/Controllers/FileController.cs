@@ -113,4 +113,21 @@ public class FileController(IFileService fileService) : ControllerBase
             return BadRequest("An unexpected error happened, double check your request data");
         }
     }
+
+    // We might want to add an endpoint that downloads the file. Get currently sends it as json
+    // with a bytearray. We keep that as a techincal implimentation, but add download as a thing that 
+    // your everyday user might use.
+    [HttpGet("download/{id}")]
+    [Authorize(Roles = "User, Admin")]
+    public async Task<IActionResult> DownloadFile(Guid id)
+    {
+        try
+        {
+            return Ok();
+        }
+        catch (Exception)
+        {
+            return StatusCode(500);
+        }
+    }
 }

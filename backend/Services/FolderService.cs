@@ -13,14 +13,17 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         try
         {
 
-            if (!userAuthService.UserIsAdmin || userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
+            if (request.UserId is not null)
+            {
+                if (!userAuthService.UserIsAdmin || userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
+            }
 
             var folder = new Folder
             {
                 Id = Guid.NewGuid(),
                 Name = request.Name,
                 ParentFolderId = request.ParentFolderId,
-                UserId = request.UserId,
+                UserId = request.UserId ?? userAuthService.UserId ?? throw new ArgumentException("No user id was given, and no user was found using the token data."),
                 SubFolders = [],
                 Files = [],
             };
