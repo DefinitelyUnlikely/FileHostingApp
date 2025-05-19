@@ -21,13 +21,14 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
                 Name = request.Name,
                 Extension = request.Extension,
                 CreatedAt = DateTime.UtcNow,
-                UserId = request.UserId
+                UserId = request.UserId,
+                FileSize = request.FileData.Length * 8,
             };
             var fileData = new FileData
             {
                 Id = Guid.NewGuid(),
                 FileMetaId = fileMeta.Id,
-                Bytes = request.FileData
+                Bytes = request.FileData,
             };
 
             if (!await fileRepository.AddAsync(fileMeta, fileData)) throw new NoChangesSavedException("No file could be saved.");
@@ -178,6 +179,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
             file.Name = request.Name ?? file.Name;
             file.Extension = request.Extension ?? file.Extension;
             file.FileData.Bytes = request.FileData ?? file.FileData.Bytes; // Might want to add a getFileData method to our repo
+            file.FileSize = request.FileData?.Length ?? file.FileData.Bytes.Length;
             file.UpdatedAt = DateTime.UtcNow;
             file.FolderId = request.FolderId ?? file.FolderId;
 
