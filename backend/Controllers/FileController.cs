@@ -46,7 +46,7 @@ public class FileController(IFileService fileService) : ControllerBase
         }
         catch (UnauthorizedAccessException)
         {
-            return Forbid();
+            return NotFound();
         }
         catch (EmptyReturnException)
         {

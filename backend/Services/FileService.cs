@@ -117,7 +117,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
 
             if (file.FileData is null)
             {
-                throw new Exception("the corresponding filedata was not found or could not be included");
+                throw new Exception("the corresponding filedata was found or could not be included");
             }
 
             return FileResponse.FromModel(file);
