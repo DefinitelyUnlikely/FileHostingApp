@@ -4,17 +4,15 @@ using Backend.Services;
 namespace Backend.DTO;
 
 
-public interface IFolderRequest;
 
-public class CreateFolderRequest : IFolderRequest
+public class CreateFolderRequest
 {
     public required string Name { get; set; }
-    public required string? UserId { get; set; }
+    public string? UserId { get; set; }
     public Guid? ParentFolderId { get; set; }
-
 }
 
-public class UpdateFolderRequest : IFolderRequest
+public class UpdateFolderRequest
 {
     public required Guid Id { get; set; }
     public string? Name { get; set; }

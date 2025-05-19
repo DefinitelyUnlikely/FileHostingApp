@@ -11,7 +11,7 @@ public class CreateFileRequest : IFileRequest
     public required string Extension { get; set; }
     public required byte[] FileData { get; set; }
 
-    public required string? UserId { get; set; }
+    public string? UserId { get; set; }
     public Guid? FolderId { get; set; }
 }
 

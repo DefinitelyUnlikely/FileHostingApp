@@ -30,6 +30,7 @@ public class Program
         builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
 
         builder.Services.AddIdentityCore<IdentityUser>(options => { options.User.RequireUniqueEmail = true; })
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddApiEndpoints();
 

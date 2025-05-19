@@ -1,13 +1,17 @@
 meta {
   name: Create File
   type: http
-  seq: 3
+  seq: 4
 }
 
 post {
   url: http://localhost:5282/file
   body: json
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: CfDJ8FLAQ47S4A1Ipv9rANbfXmxguyiZpPVYBxvei9degM6kUWI6DpCBcUi3ehjeSslVgmd2nuKLe-JZt-7pCUvZ3NgjL-XIxovYfol49Vj14gJYLiLuup9L8zOu24vbp2R23HJj159Qy-EkVP0wsWsiGxAx-5FOJSEwsgSkyugeKLLHeJmE5cAmn8lm6AQVJTFw8y1CwyygQW1jB1jKcWMNp_zvvQZ0XYt40hlLqS3pGnheT0tZsq5YEmzMhtn5wTb-k_pzODKQbai5K4Gwxn6zuCd4noX4fWqth-iZlXeBcqaItk9lLDS8fZCfVuN9kcb3lu_MbOv_R_GbrLfkpcaNpt4POna-wrvf_a5fSQ5VVFEPwLEu3Yc1_Br4fz9E80Se9XAt0_1W4uQ4986bNwouaT27MIfv3JpLo-26T745Kp_80unyFPVl2xeuffAdv_I9If2aiDyz6oGTQC0pATkWe6o3mo2UoVpfYnTLnokm8NnW3DcJg1CBVzOk8Yd0v5SLLcacz8YcS6OhsuS1hRP5wu3dDTii4sergNwOlzXI-SsNRz7AHlwPCEXmS9G9kgnOUCtmHwJFHPaQGedV42WMEZUg7u5mD1cOqrIi3_0XZoq8xaaW_X4GpHsQQVOja-13W6RF2ZWe92YV0KbQ_9V1sPwHfrWfu-woGzRGaJT4i01l3f8bFXDvXUERBq7pVTytrQ
 }
 
 body:json {
