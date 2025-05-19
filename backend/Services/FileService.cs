@@ -89,7 +89,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
 
             if (files.Count == 0) throw new EmptyReturnException("The returned list or object is empty.");
 
-            return [.. files.Select(file => FileResponse.FromModel(file))];
+            return [.. files.Select(FileResponse.FromModel)];
         }
         catch (UnauthorizedAccessException e)
         {
