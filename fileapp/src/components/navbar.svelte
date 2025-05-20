@@ -13,7 +13,10 @@
 	</div>
 </nav>
 {#if open}
-	<div class="hamburger-dropdown" transition:slide></div>
+	<div class="hamburger-dropdown" transition:slide>
+		<h3><a href="/">Home</a></h3>
+		<h3><a href="/login">Login</a></h3>
+	</div>
 {/if}
 
 <style>
@@ -44,5 +47,18 @@
 	.hamburger-dropdown {
 		height: 40vh;
 		background-color: skyblue;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.hamburger-dropdown h3 {
+		margin: 0.5rem;
+	}
+
+	.hamburger-dropdown a {
+		text-decoration: none;
+		color: white;
 	}
 </style>
