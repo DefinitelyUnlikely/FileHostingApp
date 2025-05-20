@@ -36,8 +36,4 @@
 		justify-content: end;
 		align-items: center;
 	}
-	/* a {
-		text-decoration: none;
-		color: white;
-	} */
 </style>
