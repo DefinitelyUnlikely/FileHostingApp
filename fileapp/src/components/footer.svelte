@@ -9,7 +9,7 @@
 
 <style>
 	footer {
-		background-color: #131515;
+		background-color: #0e79b2ff;
 		width: 100vw;
 		height: 4rem;
 		flex-shrink: 0;
@@ -20,6 +20,6 @@
 
 	footer a {
 		text-decoration: none;
-		color: #f4c95dff;
+		color: #0b0500ff;
 	}
 </style>

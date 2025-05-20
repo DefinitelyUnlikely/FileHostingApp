@@ -13,7 +13,7 @@
 	<div class="left-nav"></div>
 	<div class="middle-nav"><h1>Sunset Drive</h1></div>
 	<div class="right-nav">
-		<Hamburger bind:open title="Toogle a menu with navigation" --color="#ffefc8" type="minus" />
+		<Hamburger bind:open title="Toogle a menu with navigation" --color="#ebebebff" type="minus" />
 	</div>
 </nav>
 {#if open}
@@ -27,7 +27,7 @@
 	nav {
 		display: grid;
 		grid-template-columns: 2fr 8fr 2fr;
-		background-color: #a15e49ff;
+		background-color: #0e79b2ff;
 		width: 100vw;
 		height: 4rem;
 		gap: 0.5rem;
@@ -40,7 +40,7 @@
 		justify-content: center;
 	}
 	.middle-nav > h1 {
-		color: #ffefc8;
+		color: #ebebebff;
 	}
 	.right-nav {
 		display: flex;
@@ -50,7 +50,7 @@
 
 	.hamburger-dropdown {
 		height: 40vh;
-		background-color: #a15e49ff;
+		background-color: #0e79b2ff;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -63,6 +63,6 @@
 
 	.hamburger-dropdown a {
 		text-decoration: none;
-		color: white;
+		color: #ebebebff;
 	}
 </style>

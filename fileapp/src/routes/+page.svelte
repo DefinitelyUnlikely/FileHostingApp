@@ -22,7 +22,8 @@
 		margin-top: 20%;
 		width: 90%;
 		height: 50%;
-		background-color: #131515;
+		background-color: #ebebebff;
+		border: 2px solid #d6d6d6ff;
 		border-radius: 10px;
 	}
 </style>
