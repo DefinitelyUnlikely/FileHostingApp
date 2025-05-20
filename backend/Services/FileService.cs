@@ -182,7 +182,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
 
             file.Name = request.Name ?? file.Name;
             file.Extension = request.Extension ?? file.Extension;
-            file.FileData.Bytes = request.FileData ?? file.FileData.Bytes; // Might want to add a getFileData method to our repo
+            file.FileData!.Bytes = request.FileData ?? file.FileData.Bytes; // Might want to add a getFileData method to our repo
             file.FileSize = request.FileData?.Length ?? file.FileData.Bytes.Length;
             file.UpdatedAt = DateTime.UtcNow;
             file.FolderId = request.FolderId ?? file.FolderId;
