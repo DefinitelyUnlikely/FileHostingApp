@@ -1,0 +1,21 @@
+meta {
+  name: Create File Other user
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:5282/file
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "file",
+    "extension": "txt",
+    "userId": "b97fb1cc-b004-4e4c-8b23-1ad7d3109a36",
+    "folderid": "50e5f1de-320e-4971-8f49-4ecd03429a84",
+    "filedata": "dGVzdA=="
+  }
+}

@@ -174,6 +174,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     {
         try
         {
+            request.UserId ??= userAuthService.UserId;
 
             if (!userAuthService.UserIsAdmin && userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
 
