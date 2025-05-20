@@ -22,7 +22,7 @@
 		margin-top: 20%;
 		width: 90%;
 		height: 50%;
-		background-color: whitesmoke;
+		background-color: #131515;
 		border-radius: 10px;
 	}
 </style>
