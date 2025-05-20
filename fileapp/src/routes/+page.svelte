@@ -1,4 +1,12 @@
-<h2>Homepage placeholder</h2>
+<script lang="ts">
+	import { isLoggedIn, user } from '../stores/auth';
+</script>
+
+{#if $isLoggedIn}
+	Hej
+{:else}
+	Hej
+{/if}
 
 <style>
 </style>
