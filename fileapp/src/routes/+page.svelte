@@ -3,9 +3,9 @@
 </script>
 
 {#if $isLoggedIn}
-	Hej
+	<button onclick={() => isLoggedIn.set(false)}>Logout</button>
 {:else}
-	Hej
+	<button onclick={() => isLoggedIn.set(true)}>Login</button>
 {/if}
 
 <style>
