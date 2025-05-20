@@ -25,7 +25,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
         }
         catch (UnauthorizedAccessException)
         {
-            return Forbid();
+            return NotFound();
         }
         catch (NoChangesSavedException)
         {
