@@ -9,7 +9,7 @@
 	<div class="left-nav"></div>
 	<div class="middle-nav"><h1>Sunset Drive</h1></div>
 	<div class="right-nav">
-		<Hamburger bind:open title="Toogle a menu with navigation" --color="white" type="elastic" />
+		<Hamburger bind:open title="Toogle a menu with navigation" --color="white" type="minus" />
 	</div>
 </nav>
 {#if open}
