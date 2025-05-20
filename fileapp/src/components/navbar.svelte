@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Hamburger } from 'svelte-hamburgers';
+	import { slide } from 'svelte/transition';
 
 	let open = $state(false);
 </script>
@@ -8,9 +9,12 @@
 	<div class="left-nav"></div>
 	<div class="middle-nav"><h1>Sunset Drive</h1></div>
 	<div class="right-nav">
-		<Hamburger bind:open title="Toogle a menu with navigation" --color="white" />
+		<Hamburger bind:open title="Toogle a menu with navigation" --color="white" type="elastic" />
 	</div>
 </nav>
+{#if open}
+	<div class="hamburger-dropdown" transition:slide></div>
+{/if}
 
 <style>
 	nav {
@@ -35,5 +39,10 @@
 		display: flex;
 		justify-content: end;
 		align-items: center;
+	}
+
+	.hamburger-dropdown {
+		height: 40vh;
+		background-color: skyblue;
 	}
 </style>
