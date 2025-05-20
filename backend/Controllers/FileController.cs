@@ -13,7 +13,7 @@ public class FileController(IFileService fileService) : ControllerBase
 {
 
     [HttpPost()]
-    [Authorize(Roles = "User,Admin")]
+    [Authorize]
     public async Task<IActionResult> UploadFile([FromBody] CreateFileRequest request)
     {
         try
@@ -36,7 +36,7 @@ public class FileController(IFileService fileService) : ControllerBase
     }
 
     [HttpGet("{fileId}")]
-    [Authorize(Roles = "User,Admin")]
+    [Authorize]
     public async Task<IActionResult> GetFile(Guid fileId)
     {
         try
@@ -59,7 +59,7 @@ public class FileController(IFileService fileService) : ControllerBase
     }
 
     [HttpPatch("{fileId}")]
-    [Authorize(Roles = "User,Admin")]
+    [Authorize]
     public async Task<IActionResult> UpdateFile([FromBody] UpdateFileRequest request, Guid fileId)
     {
         try
@@ -92,7 +92,7 @@ public class FileController(IFileService fileService) : ControllerBase
     }
 
     [HttpDelete("{fileId}")]
-    [Authorize(Roles = "User, Admin")]
+    [Authorize]
     public async Task<IActionResult> DeleteFile(Guid fileId)
     {
         try
@@ -118,7 +118,7 @@ public class FileController(IFileService fileService) : ControllerBase
     // with a bytearray. We keep that as a techincal implimentation, but add download as a thing that 
     // your everyday user might use.
     [HttpGet("download/{id}")]
-    [Authorize(Roles = "User, Admin")]
+    [Authorize]
     public async Task<IActionResult> DownloadFile(Guid id)
     {
         try
