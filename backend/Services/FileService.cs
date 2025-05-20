@@ -115,7 +115,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     {
         try
         {
-            var file = await fileRepository.GetByIdAsync(fileId, true) ?? throw new EmptyReturnException("No file with that Id was found.");
+            var file = await fileRepository.GetByIdAsync(fileId, includeData: true) ?? throw new EmptyReturnException("No file with that Id was found.");
 
             if (!userAuthService.UserIsAdmin && userAuthService.UserId != file.UserId) throw new UnauthorizedAccessException();
 
@@ -178,7 +178,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
 
             if (!userAuthService.UserIsAdmin && userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
 
-            var file = await fileRepository.GetByIdAsync(request.Id) ?? throw new EmptyReturnException("No file with that Id was found");
+            var file = await fileRepository.GetByIdAsync(request.Id, includeData: true) ?? throw new EmptyReturnException("No file with that Id was found");
 
             file.Name = request.Name ?? file.Name;
             file.Extension = request.Extension ?? file.Extension;
