@@ -1,6 +1,4 @@
 <script lang="ts">
-	let callUrl: string = 'http://localhost:5282/register';
-
 	let email: string = $state('');
 	let password: string = $state('');
 	let repeatPassword: string = $state('');
@@ -25,19 +23,6 @@
 		}
 
 		error = '';
-
-		// let body = {
-		// 	email: email,
-		// 	password: password
-		// };
-
-		// const response = await fetch(callUrl, {
-		// 	method: 'POST',
-		// 	headers: { 'Content-Type': 'application/json' },
-		// 	body: JSON.stringify(body)
-		// });
-
-		// console.log(response);
 	}
 </script>
 
