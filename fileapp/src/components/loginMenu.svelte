@@ -72,6 +72,13 @@
 		border-radius: 10px;
 	}
 
+	.login-form {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
 	p {
 		margin: 0;
 	}
