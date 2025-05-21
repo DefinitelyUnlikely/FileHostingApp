@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { API_BASE_URL } from '$lib/config';
+
 	let email: string = $state('');
 	let password: string = $state('');
 	let repeatPassword: string = $state('');
@@ -23,6 +25,17 @@
 		}
 
 		error = '';
+
+		await fetch(`${API_BASE_URL}/register`, {
+			method: 'POST',
+			body: JSON.stringify({
+				email: email,
+				password: password
+			}),
+			headers: {
+				'Content-type': 'application/json'
+			}
+		});
 	}
 </script>
 
