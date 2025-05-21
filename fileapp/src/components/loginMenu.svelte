@@ -30,7 +30,7 @@
 
 <div class="login-window">
 	<h2>Login</h2>
-	<form class="login-form" action="">
+	<form class="login-form">
 		<label for="email-input">Email:</label>
 		<input
 			type="email"
