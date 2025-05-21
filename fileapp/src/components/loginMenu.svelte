@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { API_BASE_URL } from '$lib/config';
-	import { preventDefault } from 'svelte/legacy';
+	import { User } from '$lib/user';
 	import { login } from '../stores/auth';
 	let email: string = $state('');
 	let password: string = $state('');
@@ -8,15 +8,14 @@
 	async function tryLogin(event: SubmitEvent) {
 		event.preventDefault();
 
-		const response = await fetch(`${API_BASE_URL}/login`, {
+		const response: Response = await fetch(`${API_BASE_URL}/login`, {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json'
 			},
 			body: JSON.stringify({
 				email: email,
-				password: password,
-				useCookies: true
+				password: password
 			})
 		});
 
@@ -25,9 +24,9 @@
 			return;
 		}
 
+		login(response, new User(email));
 		email = '';
 		password = '';
-		console.log(await response.json());
 	}
 </script>
 
