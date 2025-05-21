@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { API_BASE_URL } from '$lib/config';
+	import { preventDefault } from 'svelte/legacy';
 	import { login } from '../stores/auth';
 	let email: string = $state('');
 	let password: string = $state('');
 
-	async function tryLogin() {
+	async function tryLogin(event: SubmitEvent) {
+		event.preventDefault();
+
 		const response = await fetch(`${API_BASE_URL}/login`, {
 			method: 'POST',
 			headers: {
@@ -14,8 +17,7 @@
 				email: email,
 				password: password,
 				useCookies: true
-			}),
-			credentials: 'include'
+			})
 		});
 
 		if (!response.ok) {
@@ -31,7 +33,7 @@
 
 <div class="login-window">
 	<h2>Login</h2>
-	<form class="login-form">
+	<form class="login-form" onsubmit={tryLogin}>
 		<label for="email-input">Email:</label>
 		<input
 			type="email"
@@ -51,7 +53,7 @@
 			bind:value={password}
 			autocomplete="current-password"
 		/>
-		<button onclick={tryLogin}>Login</button>
+		<button type="submit">Login</button>
 	</form>
 
 	<p>Don't have an account yet?</p>
