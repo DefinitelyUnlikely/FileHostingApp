@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LoginMenu from '../components/loginMenu.svelte';
+	import { getCookie } from '../utils/cookies';
 
 	import { isLoggedIn, user, logout } from '../stores/auth';
 </script>

@@ -9,13 +9,15 @@ export const user = writable(emptyUser);
 
 export async function login(tokenResponse: Response, userObj: User) {
     let json = await tokenResponse.json();
-    setCookie("cred", json);
+    setCookie("token", json.accessToken);
+    setCookie("refresh", json.refreshToken)
     user.set(userObj);
     isLoggedIn.set(true);
 }
 
 export async function logout() {
-    setCookie("cred", '')
+    setCookie("token", '')
+    setCookie("refresh", '')
     user.set(emptyUser);
     isLoggedIn.set(false);
 }
