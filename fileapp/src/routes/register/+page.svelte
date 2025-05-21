@@ -5,28 +5,28 @@
 	let password: string = $state('');
 	let repeatPassword: string = $state('');
 
-	let error: string = $state('');
+	let message: string = $state('');
 	let emailRegex: RegExp = /^\S+@\S+\.\S+$/;
 
 	async function CreateUser() {
 		if (email === '' || password === '' || repeatPassword === '') {
-			error = 'Please enter all required information!';
+			message = 'Please enter all required information!';
 			return;
 		}
 
 		if (!emailRegex.test(email)) {
-			error = 'email is not on the correct format!';
+			message = 'email is not on the correct format!';
 			return;
 		}
 
 		if (password != repeatPassword) {
-			error = 'Passwords did not match!';
+			message = 'Passwords did not match!';
 			return;
 		}
 
-		error = '';
+		message = '';
 
-		await fetch(`${API_BASE_URL}/register`, {
+		let response = await fetch(`${API_BASE_URL}/register`, {
 			method: 'POST',
 			body: JSON.stringify({
 				email: email,
@@ -36,6 +36,16 @@
 				'Content-type': 'application/json'
 			}
 		});
+
+		if (!response.ok) {
+			message = `Your account could not be created: ${response.status}`;
+			return;
+		}
+
+		email = '';
+		password = '';
+		repeatPassword = '';
+		message = 'You have been registered. Please log in!';
 	}
 </script>
 
@@ -52,7 +62,7 @@
 
 <button class="custom-button" onclick={CreateUser}>Create new user</button>
 
-<p>{error}</p>
+<p>{message}</p>
 
 <style>
 </style>
