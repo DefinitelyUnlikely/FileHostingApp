@@ -43,7 +43,6 @@
 	button {
 		--color: #0e79b2ff;
 		font-family: inherit;
-		display: inline-block;
 		width: 6em;
 		height: 2.6em;
 		line-height: 2.5em;
@@ -84,10 +83,16 @@
 	}
 
 	input {
-		font-family: inherit;
-		height: 2.6em;
-		line-height: 2.5em;
-		font-size: 17px;
-		border-radius: 6px;
+		font-size: 16px;
+		padding: 10px 10px 10px 5px;
+		display: block;
+		width: 200px;
+		border: none;
+		border-bottom: 1px solid #515151;
+		background: transparent;
+	}
+
+	input:focus {
+		outline: none;
 	}
 </style>
