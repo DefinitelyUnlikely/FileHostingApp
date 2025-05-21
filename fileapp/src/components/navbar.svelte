@@ -20,7 +20,7 @@
 {#if open}
 	<div class="hamburger-dropdown" transition:slide>
 		<h3><a href="/" onclick={changeOpenState}>Home</a></h3>
-		{#if isLoggedIn}
+		{#if $isLoggedIn}
 			<h3><a href="/" onclick={changeOpenState}>Logout</a></h3>
 		{:else}
 			<h3><a href="/login" onclick={changeOpenState}>Login</a></h3>
