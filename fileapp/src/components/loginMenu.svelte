@@ -23,24 +23,37 @@
 			return;
 		}
 
+		email = '';
+		password = '';
 		console.log(await response.json());
 	}
 </script>
 
 <div class="login-window">
 	<h2>Login</h2>
-	<label for="email-input">Email:</label>
-	<input type="email" name="email" id="email" placeholder="enter email..." bind:value={email} />
-	<label for="password" style="margin-top: 1rem;">Password:</label>
-	<input
-		type="password"
-		name="password"
-		id="password"
-		style="margin-bottom: 1rem;"
-		placeholder="enter password..."
-		bind:value={password}
-	/>
-	<button onclick={tryLogin}>Login</button>
+	<form class="login-form" action="">
+		<label for="email-input">Email:</label>
+		<input
+			type="email"
+			name="email"
+			id="email"
+			placeholder="enter email..."
+			bind:value={email}
+			autocomplete="email"
+		/>
+		<label for="password" style="margin-top: 1rem;">Password:</label>
+		<input
+			type="password"
+			name="password"
+			id="password"
+			style="margin-bottom: 1rem;"
+			placeholder="enter password..."
+			bind:value={password}
+			autocomplete="current-password"
+		/>
+		<button onclick={tryLogin}>Login</button>
+	</form>
+
 	<p>Don't have an account yet?</p>
 	<p>Register <a href="/register">here</a></p>
 </div>
