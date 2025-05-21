@@ -27,7 +27,7 @@
 	nav {
 		display: grid;
 		grid-template-columns: 2fr 8fr 2fr;
-		background-color: #0e79b2ff;
+		background-color: var(--color, #0e79b2ff);
 		width: 100vw;
 		height: 4rem;
 		gap: 0.5rem;
@@ -50,7 +50,7 @@
 
 	.hamburger-dropdown {
 		height: 40vh;
-		background-color: #0e79b2ff;
+		background-color: var(--dropdowncolor, #0e79b2ff);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

@@ -5,11 +5,11 @@
 	let { children } = $props();
 </script>
 
-<Navbar />
+<Navbar --color="#0e79b2ff" />
 
 <main>{@render children()}</main>
 
-<Footer />
+<Footer --color="#0e79b2ff" />
 
 <style>
 </style>
