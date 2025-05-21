@@ -5,7 +5,7 @@
 	let password: string = $state('');
 
 	async function tryLogin() {
-		let response = await fetch(`${API_BASE_URL}/login`, {
+		const response = await fetch(`${API_BASE_URL}/login`, {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json'
@@ -25,7 +25,6 @@
 
 		email = '';
 		password = '';
-		console.log(await response.json());
 	}
 </script>
 
