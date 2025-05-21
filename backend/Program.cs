@@ -28,8 +28,8 @@ public class Program
         builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(DatabaseConfig.connectionString));
 
         builder.Services.AddAuthorization();
-        builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme)
-            .AddBearerToken(IdentityConstants.BearerScheme);
+        builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
+
 
         builder.Services.AddIdentityCore<IdentityUser>(options => { options.User.RequireUniqueEmail = true; })
             .AddRoles<IdentityRole>()

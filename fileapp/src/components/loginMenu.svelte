@@ -25,6 +25,7 @@
 
 		email = '';
 		password = '';
+		console.log(await response.json());
 	}
 </script>
 
