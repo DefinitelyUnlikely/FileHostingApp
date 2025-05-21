@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import { getCookie, setCookie, deleteCookie } from '../utils/cookies';
-import { User } from '$lib/user';
+import { User } from '$lib/models';
 
 const emptyUser: User = new User('')
 

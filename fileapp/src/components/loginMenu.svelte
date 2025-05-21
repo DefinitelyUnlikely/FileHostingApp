@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { API_BASE_URL } from '$lib/config';
-	import { User } from '$lib/user';
+	import { User } from '$lib/models';
 	import { login } from '../stores/auth';
 	let email: string = $state('');
 	let password: string = $state('');
