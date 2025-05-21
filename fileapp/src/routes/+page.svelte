@@ -3,6 +3,10 @@
 	import { getCookie } from '../utils/cookies';
 
 	import { isLoggedIn, user, logout } from '../stores/auth';
+
+	function getAllFolders() {}
+
+	function getFilesPerFolder(folderId: string) {}
 </script>
 
 {#if $isLoggedIn}
