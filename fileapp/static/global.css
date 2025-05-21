@@ -18,27 +18,6 @@ main {
     margin: 0.5rem;
 }
 
-body {
-    margin: 0;
-    background-color: #ebebebff;
-    color: #0b0500ff;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    font-family: "JetBrains Mono";
-}
-
-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    flex: 1;
-    margin: 0.5rem;
-}
-
-
 /* CSS for button and input, if one want to apply it all globally through a class */
 /* .custom-button {
     --color: #0e79b2ff;
