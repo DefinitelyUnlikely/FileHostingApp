@@ -1,9 +1,21 @@
+<script lang="ts">
+	let email: string = $state('');
+	let password: string = $state('');
+</script>
+
 <div class="login-window">
 	<h2>Login</h2>
 	<label for="email-input">Email:</label>
-	<input type="email" name="email" id="email" />
+	<input type="email" name="email" id="email" placeholder="enter email..." bind:value={email} />
 	<label for="password" style="margin-top: 1rem;">Password:</label>
-	<input type="password" name="password" id="password" style="margin-bottom: 1rem;" />
+	<input
+		type="password"
+		name="password"
+		id="password"
+		style="margin-bottom: 1rem;"
+		placeholder="enter password..."
+		bind:value={password}
+	/>
 	<p>Don't have an account yet?</p>
 	<p>Register <a href="/register">here</a></p>
 </div>
