@@ -6,16 +6,25 @@
 	let repeatPassword: string = $state('');
 
 	let error: string = $state('');
+	let emailRegex: RegExp = /^\S+@\S+\.\S+$/;
 
 	async function CreateUser() {
 		if (email === '' || password === '' || repeatPassword === '') {
 			error = 'Please enter all required information!';
+			return;
+		}
+
+		if (!emailRegex.test(email)) {
+			error = 'email is not on the correct format!';
+			return;
 		}
 
 		if (password != repeatPassword) {
-			console.log('Passwords did not match!');
 			error = 'Passwords did not match!';
+			return;
 		}
+
+		error = '';
 
 		// let body = {
 		// 	email: email,
@@ -45,11 +54,7 @@
 
 <button class="custom-button" onclick={CreateUser}>Create new user</button>
 
-{#if error === ''}
-	<p></p>
-{:else}
-	<p>{error}</p>
-{/if}
+<p>{error}</p>
 
 <style>
 </style>

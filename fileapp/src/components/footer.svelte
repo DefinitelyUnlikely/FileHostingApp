@@ -20,6 +20,6 @@
 
 	footer a {
 		text-decoration: none;
-		color: #0b0500ff;
+		color: rgb(255, 255, 255);
 	}
 </style>
