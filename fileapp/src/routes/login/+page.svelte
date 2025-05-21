@@ -1,4 +1,5 @@
 <script lang="ts">
+	import LoginMenu from '../../components/loginMenu.svelte';
 	import { isLoggedIn, user } from '../../stores/auth';
 
 	let email: string = $state('');
@@ -8,13 +9,8 @@
 {#if $isLoggedIn}
 	<p>You are logged in as: {$user}</p>
 {:else}
-	<h4>Login</h4>
-	<p>Don't have an account yet?</p>
-	<p>Register <a href="/register">here</a></p>
+	<LoginMenu --height="50%" --width="80%" --top-margin="10%" />
 {/if}
 
 <style>
-	p {
-		margin: 0;
-	}
 </style>

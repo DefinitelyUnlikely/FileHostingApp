@@ -1,8 +1,11 @@
 <div class="login-window">
+	<h2>Login</h2>
 	<label for="email-input">Email:</label>
 	<input type="email" name="email" id="email" />
 	<label for="password" style="margin-top: 1rem;">Password:</label>
-	<input type="password" name="password" id="password" />
+	<input type="password" name="password" id="password" style="margin-bottom: 1rem;" />
+	<p>Don't have an account yet?</p>
+	<p>Register <a href="/register">here</a></p>
 </div>
 
 <style>
@@ -17,5 +20,9 @@
 		background-color: var(--background-color, #ebebebff);
 		border: 2px solid var(--border-color, #d6d6d6ff);
 		border-radius: 10px;
+	}
+
+	p {
+		margin: 0;
 	}
 </style>

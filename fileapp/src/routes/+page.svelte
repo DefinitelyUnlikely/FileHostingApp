@@ -7,7 +7,7 @@
 {#if $isLoggedIn}
 	<button onclick={() => isLoggedIn.set(false)}>Logout</button>
 {:else}
-	<LoginMenu --height="50%" --width="80%" />
+	<LoginMenu --height="50%" --width="80%" --top-margin="10%" />
 {/if}
 
 <style>
