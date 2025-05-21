@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { login } from '../stores/auth';
 	let email: string = $state('');
 	let password: string = $state('');
 </script>
@@ -16,6 +17,7 @@
 		placeholder="enter password..."
 		bind:value={password}
 	/>
+	<button onclick={login}>Login</button>
 	<p>Don't have an account yet?</p>
 	<p>Register <a href="/register">here</a></p>
 </div>
