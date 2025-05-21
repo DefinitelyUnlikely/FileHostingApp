@@ -54,6 +54,10 @@
 	}
 
 	.hamburger-dropdown {
+		position: absolute;
+		top: 4rem;
+		left: 0;
+		width: 100%;
 		height: 40vh;
 		background-color: var(--dropdowncolor, #0e79b2ff);
 		display: flex;
