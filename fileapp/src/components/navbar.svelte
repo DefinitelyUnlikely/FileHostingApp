@@ -58,7 +58,7 @@
 		top: 4rem;
 		left: 0;
 		width: 100%;
-		height: 40vh;
+		height: 15vh;
 		background-color: var(--dropdowncolor, #0e79b2ff);
 		display: flex;
 		flex-direction: column;
