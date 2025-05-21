@@ -1,12 +1,12 @@
 <script lang="ts">
 	import LoginMenu from '../components/loginMenu.svelte';
 
-	import { isLoggedIn, user } from '../stores/auth';
+	import { isLoggedIn, user, logout } from '../stores/auth';
 </script>
 
 {#if $isLoggedIn}
 	<p>Welcome {$user.email}</p>
-	<button onclick={() => isLoggedIn.set(false)}>Logout</button>
+	<button onclick={logout}>Logout</button>
 {:else}
 	<p>Welcome</p>
 	<p>Please login to gain access to your cloudstorage</p>
