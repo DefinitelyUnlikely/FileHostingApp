@@ -11,7 +11,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		margin-top: 20%;
+		margin-top: var(--top-margin);
 		width: var(--width);
 		height: var(--height);
 		background-color: var(--background-color, #ebebebff);
