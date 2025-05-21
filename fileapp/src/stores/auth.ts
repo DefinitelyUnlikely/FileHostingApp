@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { getCookie, setCookie } from '../utils/cookies';
+import { getCookie, setCookie, deleteCookie } from '../utils/cookies';
 import { User } from '$lib/user';
 
 const emptyUser: User = new User('')
@@ -16,8 +16,8 @@ export async function login(tokenResponse: Response, userObj: User) {
 }
 
 export async function logout() {
-    setCookie("token", '')
-    setCookie("refresh", '')
+    deleteCookie("token");
+    deleteCookie("refresh")
     user.set(emptyUser);
     isLoggedIn.set(false);
 }

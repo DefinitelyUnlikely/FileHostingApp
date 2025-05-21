@@ -9,3 +9,7 @@ export function getCookie(name: string): string | undefined {
         .find(row => row.startsWith(name + '='))
         ?.split('=')[1];
 }
+
+export function deleteCookie(name: string, path = "/") {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path};`;
+}
