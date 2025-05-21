@@ -59,6 +59,7 @@
 		left: 0;
 		width: 100%;
 		height: 15vh;
+		z-index: 100;
 		background-color: var(--dropdowncolor, #0e79b2ff);
 		display: flex;
 		flex-direction: column;
