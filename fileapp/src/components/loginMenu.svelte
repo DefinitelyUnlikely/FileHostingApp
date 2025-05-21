@@ -14,8 +14,8 @@
 		margin-top: 20%;
 		width: var(--width);
 		height: var(--height);
-		background-color: #ebebebff;
-		border: 2px solid #d6d6d6ff;
+		background-color: var(--background-color, #ebebebff);
+		border: 2px solid var(--border-color, #d6d6d6ff);
 		border-radius: 10px;
 	}
 </style>
