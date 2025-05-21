@@ -7,7 +7,7 @@
 </script>
 
 {#if $isLoggedIn}
-	<p>You are logged in as: {$user}</p>
+	<p>Welcome!</p>
 {:else}
 	<LoginMenu --height="50%" --width="80%" --top-margin="10%" />
 {/if}
