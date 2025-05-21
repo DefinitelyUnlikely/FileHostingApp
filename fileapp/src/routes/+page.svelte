@@ -5,6 +5,7 @@
 </script>
 
 {#if $isLoggedIn}
+	<p>Welcome {$user.email}</p>
 	<button onclick={() => isLoggedIn.set(false)}>Logout</button>
 {:else}
 	<p>Welcome</p>
