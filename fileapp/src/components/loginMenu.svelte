@@ -1,7 +1,30 @@
 <script lang="ts">
+	import { API_BASE_URL } from '$lib/config';
 	import { login } from '../stores/auth';
 	let email: string = $state('');
 	let password: string = $state('');
+
+	async function tryLogin() {
+		let response = await fetch(`${API_BASE_URL}/login`, {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: JSON.stringify({
+				email: email,
+				password: password,
+				useCookies: true
+			}),
+			credentials: 'include'
+		});
+
+		if (!response.ok) {
+			console.log('Could not log in');
+			return;
+		}
+
+		console.log(await response.json());
+	}
 </script>
 
 <div class="login-window">
@@ -17,7 +40,7 @@
 		placeholder="enter password..."
 		bind:value={password}
 	/>
-	<button onclick={login}>Login</button>
+	<button onclick={tryLogin}>Login</button>
 	<p>Don't have an account yet?</p>
 	<p>Register <a href="/register">here</a></p>
 </div>

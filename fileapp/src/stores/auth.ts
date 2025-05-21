@@ -7,7 +7,6 @@ export const user = writable('replace with an user object or similar');
 export function login() {
     user.set("Mocked logged in");
     isLoggedIn.set(true);
-
 }
 
 export function logout() {
