@@ -11,13 +11,11 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddCors(options =>
         {
-            options.AddPolicy(name: MyAllowSpecificOrigins,
+            options.AddPolicy("AllowSpecificOrigin",
                             policy =>
                             {
                                 policy.WithOrigins("http://localhost:5173")
@@ -28,7 +26,10 @@ public class Program
         });
 
         builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(DatabaseConfig.connectionString));
-        builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
+
+        builder.Services.AddAuthorization();
+        builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme)
+            .AddBearerToken(IdentityConstants.BearerScheme);
 
         builder.Services.AddIdentityCore<IdentityUser>(options => { options.User.RequireUniqueEmail = true; })
             .AddRoles<IdentityRole>()
@@ -48,21 +49,17 @@ public class Program
 
         builder.Services.AddScoped<IAuthService, UserAuthService>();
 
-        builder.Services.AddAuthorization();
-
         builder.Services.AddControllers();
 
-
+        // build app
         var app = builder.Build();
 
+        app.UseCors("AllowSpecificOrigin");
         app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapIdentityApi<IdentityUser>();
-        app.MapControllers();
-
-
-        app.UseCors(MyAllowSpecificOrigins);
+        app.MapControllers().RequireCors("AllowSpecificOrigin");
 
         app.Run();
 
