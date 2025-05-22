@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Backend.DTO;
 using Backend.Exceptions;
 using Backend.Interfaces;
@@ -64,9 +65,39 @@ public class FolderController(IFolderService folderService) : ControllerBase
         }
     }
 
+    [HttpGet("folders")]
+    [Authorize]
+    public async Task<IActionResult> GetFolders()
+    {
+        try
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId is null)
+            {
+                return BadRequest("The token is either not valid or is not associated with any users. Try refreshing your token.");
+            }
+
+            var response = await folderService.GetAllUserFoldersAsync(userId);
+            return Ok(response);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
+        }
+        catch (EmptyReturnException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (Exception)
+        {
+            return BadRequest("An unexpected error happened, double check your request data");
+        }
+    }
+
+
     [HttpGet("user/{userId}")]
     [Authorize]
-    public async Task<IActionResult> GetFoldersByUser(string userId)
+    public async Task<IActionResult> GetFoldersByUserId(string userId)
     {
         try
         {

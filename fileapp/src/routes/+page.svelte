@@ -1,6 +1,18 @@
 <script lang="ts">
 	import LoginMenu from '../components/loginMenu.svelte';
+	import { getCookie } from '../utils/cookies';
 	import { isLoggedIn, useremail, Logout } from '../stores/auth';
+	import { API_BASE_URL } from '$lib/config';
+
+	async function getFolders() {
+		let token = getCookie('token');
+
+		let response = await fetch(API_BASE_URL + '/folder/folders');
+	}
+
+	if (isLoggedIn) {
+		getFolders();
+	}
 </script>
 
 {#if $isLoggedIn}
