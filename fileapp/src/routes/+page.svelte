@@ -3,8 +3,9 @@
 	import { getCookie } from '../utils/cookies';
 	import { isLoggedIn, useremail, Logout } from '../stores/auth';
 	import { API_BASE_URL } from '$lib/config';
+	import type { Folder } from '$lib/models';
 
-	const folders: JSON = {};
+	let folders: Folder[];
 
 	async function getFolders() {
 		let token = getCookie('token');
