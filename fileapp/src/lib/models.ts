@@ -20,6 +20,10 @@ export class Folder {
     }
 }
 
-export class File {
+export class FileMetadata {
+
+}
+
+export class FileData {
 
 }
