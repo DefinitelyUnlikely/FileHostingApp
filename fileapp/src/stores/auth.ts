@@ -7,7 +7,7 @@ const emptyUser: User = new User('')
 export const isLoggedIn = writable(false);
 export const user = writable(emptyUser);
 
-export async function login(tokenResponse: Response, userObj: User) {
+export async function Login(tokenResponse: Response, userObj: User) {
     let json = await tokenResponse.json();
     setCookie("token", json.accessToken);
     setCookie("refresh", json.refreshToken)
@@ -17,20 +17,10 @@ export async function login(tokenResponse: Response, userObj: User) {
 
 }
 
-export async function logout() {
+export async function Logout() {
     deleteCookie("token");
     deleteCookie("refresh")
     deleteCookie("userinfo")
     user.set(emptyUser);
     isLoggedIn.set(false);
-}
-
-export function checkLoginStatus(): boolean {
-    let infoCookie = getCookie("userinfo");
-
-    if (!infoCookie) {
-        return false;
-    }
-
-    return true;
 }

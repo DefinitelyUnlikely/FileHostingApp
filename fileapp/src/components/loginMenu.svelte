@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { API_BASE_URL } from '$lib/config';
 	import { User } from '$lib/models';
-	import { login } from '../stores/auth';
+	import { Login } from '../stores/auth';
 	let email: string = $state('');
 	let password: string = $state('');
 
@@ -24,7 +24,7 @@
 			return;
 		}
 
-		login(response, new User(email));
+		Login(response, new User(email));
 		email = '';
 		password = '';
 	}

@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { User } from '$lib/models';
 	import LoginMenu from '../components/loginMenu.svelte';
 	import { getCookie } from '../utils/cookies';
-
-	import { isLoggedIn, user, logout } from '../stores/auth';
+	import { isLoggedIn, user, Logout } from '../stores/auth';
 
 	function getAllFolders() {}
 
@@ -11,7 +11,7 @@
 
 {#if $isLoggedIn}
 	<p>Welcome {$user.email}</p>
-	<button onclick={logout}>Logout</button>
+	<button onclick={Logout}>Logout</button>
 {:else}
 	<p>Welcome</p>
 	<p>Please login to gain access to your cloudstorage</p>
