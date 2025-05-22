@@ -2,14 +2,17 @@ import type { LayoutServerLoad } from './$types';
 import { User } from '$lib/models';
 import type { RequestEvent } from '@sveltejs/kit';
 
+const serializeNonPOJOs = (value: object | null) => {
+    return structuredClone(value)
+};
+
 export const load: LayoutServerLoad = async ({ cookies }: RequestEvent) => {
-    const token = cookies.get('token');
     const email = cookies.get('userinfo');
 
-    if (!token || !email) {
+    if (!email) {
         return {
             isLoggedIn: false,
-            user: new User('')
+            user: serializeNonPOJOs(new User(''))
         };
     }
 
@@ -17,6 +20,6 @@ export const load: LayoutServerLoad = async ({ cookies }: RequestEvent) => {
 
     return {
         isLoggedIn: true,
-        user: user
+        user: serializeNonPOJOs(user)
     };
 };

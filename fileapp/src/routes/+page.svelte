@@ -1,10 +1,10 @@
 <script lang="ts">
 	import LoginMenu from '../components/loginMenu.svelte';
-	import { isLoggedIn, user, Logout } from '../stores/auth';
+	import { isLoggedIn, useremail, Logout } from '../stores/auth';
 </script>
 
 {#if $isLoggedIn}
-	<p>Welcome {$user.email}</p>
+	<p>Welcome {$useremail}</p>
 	<button onclick={Logout}>Logout</button>
 {:else}
 	<p>Welcome</p>

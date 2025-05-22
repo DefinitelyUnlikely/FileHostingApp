@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { isLoggedIn, user } from '../stores/auth';
+	import { isLoggedIn, useremail } from '../stores/auth';
 	import { Hamburger } from 'svelte-hamburgers';
 	import { slide } from 'svelte/transition';
 
