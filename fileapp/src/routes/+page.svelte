@@ -4,10 +4,31 @@
 	import { isLoggedIn, useremail, Logout } from '../stores/auth';
 	import { API_BASE_URL } from '$lib/config';
 
+	const folders: JSON = {};
+
 	async function getFolders() {
 		let token = getCookie('token');
 
-		let response = await fetch(API_BASE_URL + '/folder/folders');
+		if (!token) {
+			// Check if we can get a new token using the refresh here.
+			// Otherwise, do we log the user out?
+			return;
+		}
+
+		let response: Response = await fetch(`${API_BASE_URL}/folder/folders/user`, {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json',
+				authorization: token
+			}
+		});
+
+		if (!response.ok) {
+			console.log('Could not get folders');
+			return;
+		}
+
+		let resJson = await response.json();
 	}
 
 	if (isLoggedIn) {

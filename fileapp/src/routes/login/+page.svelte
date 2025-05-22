@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LoginMenu from '../../components/loginMenu.svelte';
-	import { isLoggedIn, user } from '../../stores/auth';
+	import { isLoggedIn, useremail } from '../../stores/auth';
 </script>
 
 {#if $isLoggedIn}
