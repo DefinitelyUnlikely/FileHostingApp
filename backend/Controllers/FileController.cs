@@ -117,17 +117,17 @@ public class FileController(IFileService fileService) : ControllerBase
     // We might want to add an endpoint that downloads the file. Get currently sends it as json
     // with a bytearray. We keep that as a techincal implimentation, but add download as a thing that 
     // your everyday user might use.
-    [HttpGet("download/{id}")]
-    [Authorize]
-    public async Task<IActionResult> DownloadFile(Guid id)
-    {
-        try
-        {
-            return Ok();
-        }
-        catch (Exception)
-        {
-            return StatusCode(500);
-        }
-    }
+    // [HttpGet("download/{id}")]
+    // [Authorize]
+    // public async Task<IActionResult> DownloadFile(Guid id)
+    // {
+    //     try
+    //     {
+    //         return Ok();
+    //     }
+    //     catch (Exception)
+    //     {
+    //         return StatusCode(500);
+    //     }
+    // }
 }

@@ -5,3 +5,11 @@ export class User {
         this.email = email;
     }
 }
+
+export class Folder {
+
+}
+
+export class File {
+
+}
