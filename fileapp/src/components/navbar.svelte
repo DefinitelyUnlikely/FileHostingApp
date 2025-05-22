@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { isLoggedIn, useremail } from '../stores/auth';
+	import { isLoggedIn, Logout, useremail } from '../stores/auth';
 	import { Hamburger } from 'svelte-hamburgers';
 	import { slide } from 'svelte/transition';
 
@@ -9,9 +9,9 @@
 		open = !open;
 	}
 
-	function logout() {
+	function NavbarLogout() {
 		changeOpenState();
-		isLoggedIn.set(false);
+		Logout();
 	}
 </script>
 
@@ -26,7 +26,7 @@
 	<div class="hamburger-dropdown" transition:slide>
 		<h3><a href="/" onclick={changeOpenState}>Home</a></h3>
 		{#if $isLoggedIn}
-			<h3><a href="/" onclick={logout}>Logout</a></h3>
+			<h3><a href="/" onclick={NavbarLogout}>Logout</a></h3>
 		{:else}
 			<h3><a href="/login" onclick={changeOpenState}>Login</a></h3>
 		{/if}
