@@ -1,0 +1,15 @@
+meta {
+  name: Get Folders per user id
+  type: http
+  seq: 11
+}
+
+get {
+  url: http://localhost:5282/folder/folders/user/:userid
+  body: json
+  auth: inherit
+}
+
+params:path {
+  userid: e42eec7e-7531-4bd2-bc9c-7fa0e03a4afb
+}

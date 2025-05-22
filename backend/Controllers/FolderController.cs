@@ -65,7 +65,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
         }
     }
 
-    [HttpGet("folders")]
+    [HttpGet("folders/user")]
     [Authorize]
     public async Task<IActionResult> GetFolders()
     {
@@ -95,7 +95,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
     }
 
 
-    [HttpGet("user/{userId}")]
+    [HttpGet("folders/user/{userId}")]
     [Authorize]
     public async Task<IActionResult> GetFoldersByUserId(string userId)
     {
