@@ -24,6 +24,7 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
     {
 
         return await context.Folders
+                    .Where(f => f.UserId == userId)
                     .Include(f => f.SubFolders)
                     .ToListAsync();
     }
