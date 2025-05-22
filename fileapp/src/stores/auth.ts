@@ -24,3 +24,4 @@ export async function Logout() {
     user.set(emptyUser);
     isLoggedIn.set(false);
 }
+

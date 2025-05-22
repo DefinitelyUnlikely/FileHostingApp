@@ -1,12 +1,6 @@
 <script lang="ts">
-	import { User } from '$lib/models';
 	import LoginMenu from '../components/loginMenu.svelte';
-	import { getCookie } from '../utils/cookies';
 	import { isLoggedIn, user, Logout } from '../stores/auth';
-
-	function getAllFolders() {}
-
-	function getFilesPerFolder(folderId: string) {}
 </script>
 
 {#if $isLoggedIn}
@@ -15,7 +9,7 @@
 {:else}
 	<p>Welcome</p>
 	<p>Please login to gain access to your cloudstorage</p>
-	<LoginMenu --height="50%" --width="80%" --top-margin="10%" />
+	<LoginMenu --height="50%" --width="80%" --top-margin="5%" />
 {/if}
 
 <style>
