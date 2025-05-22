@@ -12,14 +12,12 @@ export const load: LayoutServerLoad = async ({ cookies }: RequestEvent) => {
     if (!email) {
         return {
             isLoggedIn: false,
-            user: serializeNonPOJOs(new User(''))
+            useremail: ''
         };
     }
 
-    const user = new User(email);
-
     return {
         isLoggedIn: true,
-        user: serializeNonPOJOs(user)
+        useremail: email
     };
 };

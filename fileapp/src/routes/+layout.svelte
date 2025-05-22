@@ -8,6 +8,7 @@
 	let { data, children }: LayoutProps = $props();
 
 	isLoggedIn.set(data.isLoggedIn);
+	useremail.set(data.useremail);
 </script>
 
 <Navbar --color="#0e79b2ff" />
