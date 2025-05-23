@@ -4,37 +4,38 @@
 	import { isLoggedIn, useremail, Logout } from '../stores/auth';
 	import { API_BASE_URL } from '$lib/config';
 	import type { Folder } from '$lib/models';
+	import type { RequestEvent } from '@sveltejs/kit';
 
 	let folders: Folder[];
 
-	async function getFolders() {
-		let token = getCookie('token');
+	// async function getFolders({ cookies }: RequestEvent) {
+	// 	let token = cookies.get('token');
 
-		if (!token) {
-			// Check if we can get a new token using the refresh here.
-			// Otherwise, do we log the user out?
-			return;
-		}
+	// 	if (!token) {
+	// 		// Check if we can get a new token using the refresh here.
+	// 		// Otherwise, do we log the user out?
+	// 		return;
+	// 	}
 
-		let response: Response = await fetch(`${API_BASE_URL}/folder/folders/user`, {
-			method: 'POST',
-			headers: {
-				'Content-type': 'application/json',
-				authorization: token
-			}
-		});
+	// 	let response: Response = await fetch(`${API_BASE_URL}/folder/folders/user`, {
+	// 		method: 'POST',
+	// 		headers: {
+	// 			'Content-type': 'application/json',
+	// 			authorization: token
+	// 		}
+	// 	});
 
-		if (!response.ok) {
-			console.log('Could not get folders');
-			return;
-		}
+	// 	if (!response.ok) {
+	// 		console.log('Could not get folders');
+	// 		return;
+	// 	}
 
-		let resJson = await response.json();
-	}
+	// 	let resJson = await response.json();
+	// }
 
-	if (isLoggedIn) {
-		getFolders();
-	}
+	// if (isLoggedIn) {
+
+	// }
 </script>
 
 {#if $isLoggedIn}

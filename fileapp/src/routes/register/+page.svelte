@@ -8,7 +8,7 @@
 	let message: string = $state('');
 	let emailRegex: RegExp = /^\S+@\S+\.\S+$/;
 
-	async function CreateUser() {
+	async function TryCreateUser() {
 		if (email === '' || password === '' || repeatPassword === '') {
 			message = 'Please enter all required information!';
 			return;
@@ -51,18 +51,45 @@
 
 <h2>Register New User</h2>
 
-<label for="username">User email:</label>
-<input class={['custom-input']} type="text" name="email" id="email" bind:value={email} />
+<form class="register-form" onsubmit={TryCreateUser}>
+	<label for="username">User email:</label>
+	<input
+		class={['custom-input']}
+		type="text"
+		name="email"
+		id="email"
+		bind:value={email}
+		autocomplete="email"
+	/>
 
-<label for="password">Password:</label>
-<input type="password" name="password" id="password" bind:value={password} />
+	<label for="password">Password:</label>
+	<input
+		type="password"
+		name="password"
+		id="password"
+		bind:value={password}
+		autocomplete="new-password"
+	/>
 
-<label for="repeat-password">Repeat Password:</label>
-<input type="password" name="repeat-password" id="repeat-password" bind:value={repeatPassword} />
+	<label for="repeat-password">Repeat Password:</label>
+	<input
+		type="password"
+		name="repeat-password"
+		id="repeat-password"
+		bind:value={repeatPassword}
+		autocomplete="new-password"
+	/>
 
-<button class="custom-button" onclick={CreateUser}>Create new user</button>
+	<button class="custom-button">Create new user</button>
+</form>
 
 <p>{message}</p>
 
 <style>
+	.register-form {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
 </style>
