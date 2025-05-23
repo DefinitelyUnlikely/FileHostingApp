@@ -4,14 +4,26 @@
 	import { getCookie } from '../utils/cookies';
 	import { isLoggedIn, useremail, Logout } from '../stores/auth';
 	import { API_BASE_URL } from '$lib/config';
-	import { Folder } from '$lib/models';
+	import { FileMetadata, Folder } from '$lib/models';
 	import type { RequestEvent } from '@sveltejs/kit';
 
 	let userFolders: Folder[];
 
 	userFolders = [
-		new Folder('mock', 'MockFolder 1', [], 'mockUserId'),
-		new Folder('mock 2', 'MockFolder 2', [], 'mockUserId 2')
+		new Folder(
+			'mock',
+			'MockFolder 1',
+			[],
+			[new FileMetadata('Hello World'), new FileMetadata('Hello Again')],
+			'mockUserId'
+		),
+		new Folder(
+			'mock 2',
+			'MockFolder 2',
+			[],
+			[new FileMetadata('Hello World from folder 2'), new FileMetadata('Hello Again in folder 2')],
+			'mockUserId 2'
+		)
 	];
 
 	// async function getFolders({ cookies }: RequestEvent) {
