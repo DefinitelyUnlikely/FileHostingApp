@@ -1,12 +1,18 @@
 <script lang="ts">
 	import LoginMenu from '../components/loginMenu.svelte';
+	import Resourceview from '../components/resourceview.svelte';
 	import { getCookie } from '../utils/cookies';
 	import { isLoggedIn, useremail, Logout } from '../stores/auth';
 	import { API_BASE_URL } from '$lib/config';
-	import type { Folder } from '$lib/models';
+	import { Folder } from '$lib/models';
 	import type { RequestEvent } from '@sveltejs/kit';
 
-	let folders: Folder[];
+	let userFolders: Folder[];
+
+	userFolders = [
+		new Folder('mock', 'MockFolder 1', [], 'mockUserId'),
+		new Folder('mock 2', 'MockFolder 2', [], 'mockUserId 2')
+	];
 
 	// async function getFolders({ cookies }: RequestEvent) {
 	// 	let token = cookies.get('token');
@@ -40,6 +46,7 @@
 
 {#if $isLoggedIn}
 	<p>Welcome {$useremail}</p>
+	<Resourceview folders={userFolders} />
 	<button onclick={Logout}>Logout</button>
 {:else}
 	<p>Welcome</p>
