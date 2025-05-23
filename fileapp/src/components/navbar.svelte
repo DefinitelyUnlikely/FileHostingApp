@@ -80,4 +80,9 @@
 		text-decoration: none;
 		color: #ebebebff;
 	}
+
+	h1 {
+		font-size: 1.5rem;
+		margin: 0;
+	}
 </style>
