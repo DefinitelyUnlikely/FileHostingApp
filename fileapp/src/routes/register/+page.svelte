@@ -45,7 +45,7 @@
 		email = '';
 		password = '';
 		repeatPassword = '';
-		message = 'You have been registered. Please log in!';
+		message = 'You have been registered. Please <a href="/login">log in</a>!';
 	}
 </script>
 
@@ -83,7 +83,7 @@
 	<button class="custom-button">Create new user</button>
 </form>
 
-<p>{message}</p>
+<p>{@html message}</p>
 
 <style>
 	.register-form {
