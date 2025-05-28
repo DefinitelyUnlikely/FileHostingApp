@@ -87,10 +87,13 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
     {
         try
         {
-            Console.WriteLine(includeFiles);
             if (!userAuthService.UserIsAdmin && userAuthService.UserId != userId) throw new UnauthorizedAccessException();
 
             var folders = await folderRepository.GetAllUserFoldersAsync(userId, includeFiles);
+            foreach (var folder in folders)
+            {
+                Console.WriteLine(folder.Files);
+            }
             if (folders is null || folders.Count == 0) throw new EmptyReturnException("No folders where found for this user");
 
             List<FolderResponse> returnFolders = [];
