@@ -23,10 +23,22 @@ export class Folder {
 }
 
 export class FileMetadata {
+    public id: string;
     public name: string;
+    public extension: string;
+    public createdAt: Date;
+    public updatedAt: Date;
+    public folderId: string;
+    public userId: string;
 
-    public constructor(name: string) {
+    public constructor(id: string, name: string, extension: string, createdAt: Date, updatedAt: Date, folderId: string, userId: string) {
+        this.id = id;
         this.name = name;
+        this.extension = extension;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.folderId = folderId;
+        this.userId = userId;
     }
 
 }

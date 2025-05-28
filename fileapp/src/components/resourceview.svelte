@@ -1,14 +1,12 @@
 <script lang="ts">
-	import type { Folder } from '$lib/models';
+	import type { Folder, FileMetadata } from '$lib/models';
 
-	let { folders = [] }: { folders: Folder[] } = $props();
+	let { folders = [], files = [] }: { folders: Folder[]; files: FileMetadata[] } = $props();
 </script>
 
-<div class="folders">
-	{#each folders as folder}
-		<div class="folder">{folder.name}</div>
-	{/each}
-</div>
+<div class="folders"></div>
+<br />
+<div class="files"></div>
 
 <style>
 </style>

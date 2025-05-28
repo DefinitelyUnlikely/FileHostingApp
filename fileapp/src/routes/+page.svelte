@@ -9,7 +9,7 @@
 
 {#if $isLoggedIn}
 	<p>Welcome {$useremail}</p>
-	<Resourceview folders={[]} />
+	<Resourceview folders={data.response.subFolders} files={data.response.files} />
 	<button onclick={Logout}>Logout</button>
 {:else}
 	<p>Welcome</p>
