@@ -48,7 +48,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
     {
         try
         {
-            var response = await folderService.GetAsync(folderId);
+            var response = await folderService.GetAsync(folderId, Request.Headers.TryGetValue("X-Include-Files", out _));
             return Ok(response);
         }
         catch (UnauthorizedAccessException)
@@ -77,7 +77,7 @@ public class FolderController(IFolderService folderService) : ControllerBase
                 return BadRequest("The token is either not valid or is not associated with any users. Try refreshing your token.");
             }
 
-            var response = await folderService.GetAllUserFoldersAsync(userId);
+            var response = await folderService.GetAllUserFoldersAsync(userId, Request.Headers.TryGetValue("X-Include-Files", out _));
             return Ok(response);
         }
         catch (UnauthorizedAccessException)
@@ -94,43 +94,13 @@ public class FolderController(IFolderService folderService) : ControllerBase
         }
     }
 
-    [HttpGet]
-    [Authorize]
-    public async Task<IActionResult> GetRootFolder()
-    {
-        try
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId is null)
-            {
-                return BadRequest("The token is either not valid or is not associated with any users. Try refreshing your token.");
-            }
-
-
-            return Ok();
-        }
-        catch (UnauthorizedAccessException)
-        {
-            return Forbid();
-        }
-        catch (EmptyReturnException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (Exception)
-        {
-            return BadRequest("An unexpected error happened, double check your request data");
-        }
-    }
-
-
     [HttpGet("folders/user/{userId}")]
     [Authorize]
     public async Task<IActionResult> GetFoldersByUserId(string userId)
     {
         try
         {
-            var response = await folderService.GetAllUserFoldersAsync(userId);
+            var response = await folderService.GetAllUserFoldersAsync(userId, Request.Headers.TryGetValue("X-Include-Files", out _));
             return Ok(response);
         }
         catch (UnauthorizedAccessException)
