@@ -8,8 +8,6 @@ namespace Backend.Data.Repositories;
 public class FolderRepository(ApplicationDbContext context) : IFolderRepository
 {
 
-    /// <summary>Delete the, by EntityFrameWork, tracked folder given as an argument.</summary>
-    /// <returns>A boolean value indicating if the deletion was successful or not.</returns>
     public async Task<bool> DeleteAsync(Folder folder)
     {
 
@@ -18,8 +16,6 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
 
     }
 
-    /// <summary>A method that gets and returns all folders in the current context for a specified user.</summary>
-    /// <returns>An ICollection of all folder entity objects.</returns>
     public async Task<ICollection<Folder>> GetAllUserFoldersAsync(string userId, bool includeFiles = false)
     {
         IQueryable<Folder> query = context.Folders
@@ -34,8 +30,6 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
         return await query.ToListAsync();
     }
 
-    /// <summary>A method that gets and returns a folder by specified Id.</summary>
-    /// <returns>A single Folder entity object.</returns>
     public async Task<Folder?> GetAsync(Guid folderId, bool includeFiles = false)
     {
 
@@ -50,8 +44,6 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
         return await query.FirstOrDefaultAsync(f => f.Id == folderId);
     }
 
-    /// <summary>A method that takes a Folder entity object and saves it to the current context.</summary>
-    /// <returns>A boolean value indicating if the save was successful or not.</returns>
     public async Task<bool> AddAsync(Folder folder)
     {
 
@@ -60,8 +52,6 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
 
     }
 
-    /// <summary>A method that calls SaveChangesAsync.</summary>
-    /// <returns>A boolean value indicating if the save changed any entries or not.</returns>
     public async Task<bool> UpdateAsync()
     {
         return await context.SaveChangesAsync() != 0;
