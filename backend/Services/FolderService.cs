@@ -83,7 +83,7 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         }
     }
 
-    public async Task<ICollection<FolderResponse>> GetAllUserFoldersAsync(string userId)
+    public async Task<ICollection<FolderResponse>> GetAllUserFoldersAsync(string userId, bool includeFiles = false)
     {
         try
         {
@@ -118,7 +118,7 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         }
     }
 
-    public async Task<FolderResponse?> GetAsync(Guid folderId)
+    public async Task<FolderResponse?> GetAsync(Guid folderId, bool includeFiles = false)
     {
         try
         {
