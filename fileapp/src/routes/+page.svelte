@@ -1,7 +1,10 @@
 <script lang="ts">
+	import type { PageData } from './$types';
 	import LoginMenu from '../components/loginMenu.svelte';
 	import Resourceview from '../components/resourceview.svelte';
 	import { isLoggedIn, useremail, Logout } from '../stores/auth';
+
+	let { data }: { data: PageData } = $props();
 </script>
 
 {#if $isLoggedIn}
