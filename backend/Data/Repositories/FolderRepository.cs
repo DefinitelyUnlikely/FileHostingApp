@@ -28,7 +28,7 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
 
         if (includeFiles)
         {
-            query.Include(f => f.Files);
+            query = query.Include(f => f.Files);
         }
 
         return await query.ToListAsync();
@@ -44,7 +44,7 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
 
         if (includeFiles)
         {
-            query.Include(f => f.Files);
+            query = query.Include(f => f.Files);
         }
 
         return await query.FirstOrDefaultAsync(f => f.Id == folderId);
