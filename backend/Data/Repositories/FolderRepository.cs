@@ -22,11 +22,16 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
     /// <returns>An ICollection of all folder entity objects.</returns>
     public async Task<ICollection<Folder>> GetAllUserFoldersAsync(string userId, bool includeFiles = false)
     {
+        IQueryable<Folder> query = context.Folders
+        .Where(f => f.UserId == userId)
+        .Include(f => f.SubFolders);
 
-        return await context.Folders
-                    .Where(f => f.UserId == userId)
-                    .Include(f => f.SubFolders)
-                    .ToListAsync();
+        if (includeFiles)
+        {
+            query.Include(f => f.Files);
+        }
+
+        return await query.ToListAsync();
     }
 
     /// <summary>A method that gets and returns a folder by specified Id.</summary>
@@ -34,10 +39,15 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
     public async Task<Folder?> GetAsync(Guid folderId, bool includeFiles = false)
     {
 
-        return await context.Folders
-                    .Include(f => f.SubFolders)
-                    .FirstOrDefaultAsync(f => f.Id == folderId);
+        IQueryable<Folder> query = context.Folders
+        .Include(f => f.SubFolders);
 
+        if (includeFiles)
+        {
+            query.Include(f => f.Files);
+        }
+
+        return await query.FirstOrDefaultAsync(f => f.Id == folderId);
     }
 
     /// <summary>A method that takes a Folder entity object and saves it to the current context.</summary>
