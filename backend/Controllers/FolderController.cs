@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using Backend.DTO;
 using Backend.Exceptions;
@@ -115,6 +116,20 @@ public class FolderController(IFolderService folderService) : ControllerBase
         {
             return BadRequest("An unexpected error happened, double check your request data");
         }
+    }
+
+    [HttpGet("root")]
+    [Authorize]
+    public async Task<IActionResult> GetRootFolder()
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userId is null)
+        {
+            return BadRequest("The token is either not valid or is not associated with any users. Try refreshing your token.");
+        }
+
+        var response = await folderService.GetRootAsync(userId, Request.Headers.TryGetValue("X-Include-Files", out _));
+        return Ok(response);
     }
 
     [HttpPatch("{folderId}")]

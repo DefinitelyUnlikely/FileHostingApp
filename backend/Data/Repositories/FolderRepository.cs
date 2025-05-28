@@ -56,4 +56,29 @@ public class FolderRepository(ApplicationDbContext context) : IFolderRepository
     {
         return await context.SaveChangesAsync() != 0;
     }
+
+    public async Task<Folder> GetRootAsync(string userId, bool includeFiles = false)
+    {
+        List<FileMeta> files = [];
+        var subFolders = await context.Folders
+        .Where(folder => folder.UserId == userId && folder.ParentFolderId == null)
+        .ToListAsync();
+
+        if (includeFiles)
+        {
+            files = await context.Files
+            .Where(file => file.UserId == userId && file.FolderId == null)
+            .ToListAsync();
+        }
+
+        return new Folder
+        {
+            Id = Guid.Empty,
+            Name = "root",
+            UserId = userId,
+            SubFolders = subFolders,
+            Files = files
+        };
+
+    }
 }

@@ -146,6 +146,32 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         }
     }
 
+    public async Task<FolderResponse?> GetRootAsync(string userId, bool includeFiles = false)
+    {
+        try
+        {
+            if (!userAuthService.UserIsAdmin && userAuthService.UserId != userId) throw new UnauthorizedAccessException();
+
+            var root = await folderRepository.GetRootAsync(userId, includeFiles) ?? throw new EmptyReturnException("No folder was retreived");
+            return FolderResponse.FromModel(root);
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
+        catch (EmptyReturnException e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
+        catch (Exception e)
+        {
+            logger.LogError("Message: {Message} \n StackTrace: {StackTrace}", e.Message, e.StackTrace);
+            throw;
+        }
+    }
+
     public async Task UpdateAsync(UpdateFolderRequest request)
     {
         try

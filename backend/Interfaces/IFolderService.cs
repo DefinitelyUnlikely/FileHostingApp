@@ -9,4 +9,5 @@ public interface IFolderService
     public Task<ICollection<FolderResponse>> GetAllUserFoldersAsync(string userId, bool includeFiles = false);
     public Task UpdateAsync(UpdateFolderRequest request);
     public Task DeleteAsync(Guid folderId);
+    public Task<FolderResponse?> GetRootAsync(string userId, bool includeFiles = false);
 }
