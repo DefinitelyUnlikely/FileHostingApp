@@ -122,14 +122,30 @@ public class FolderController(IFolderService folderService) : ControllerBase
     [Authorize]
     public async Task<IActionResult> GetRootFolder()
     {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (userId is null)
+        try
         {
-            return BadRequest("The token is either not valid or is not associated with any users. Try refreshing your token.");
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId is null)
+            {
+                return BadRequest("The token is either not valid or is not associated with any users. Try refreshing your token.");
+            }
+
+            var response = await folderService.GetRootAsync(userId, Request.Headers.TryGetValue("X-Include-Files", out _));
+            return Ok(response);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
+        }
+        catch (EmptyReturnException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (Exception)
+        {
+            return BadRequest("An unexpected error happened, double check your request data");
         }
 
-        var response = await folderService.GetRootAsync(userId, Request.Headers.TryGetValue("X-Include-Files", out _));
-        return Ok(response);
     }
 
     [HttpPatch("{folderId}")]

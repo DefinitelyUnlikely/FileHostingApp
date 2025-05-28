@@ -1,11 +1,7 @@
 <script lang="ts">
 	import LoginMenu from '../components/loginMenu.svelte';
 	import Resourceview from '../components/resourceview.svelte';
-	import { getCookie } from '../utils/cookies';
 	import { isLoggedIn, useremail, Logout } from '../stores/auth';
-	import { API_BASE_URL } from '$lib/config';
-	import { FileMetadata, Folder } from '$lib/models';
-	import type { RequestEvent } from '@sveltejs/kit';
 </script>
 
 {#if $isLoggedIn}
