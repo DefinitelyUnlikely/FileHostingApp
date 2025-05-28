@@ -94,6 +94,35 @@ public class FolderController(IFolderService folderService) : ControllerBase
         }
     }
 
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> GetRootFolder()
+    {
+        try
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId is null)
+            {
+                return BadRequest("The token is either not valid or is not associated with any users. Try refreshing your token.");
+            }
+
+
+            return Ok();
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
+        }
+        catch (EmptyReturnException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (Exception)
+        {
+            return BadRequest("An unexpected error happened, double check your request data");
+        }
+    }
+
 
     [HttpGet("folders/user/{userId}")]
     [Authorize]

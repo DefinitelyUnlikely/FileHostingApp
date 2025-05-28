@@ -4,7 +4,12 @@
 </script>
 
 {#if $isLoggedIn}
-	<p>Welcome!</p>
+	<p>Welcome {$useremail}!</p>
+	<p>
+		You are already logged in, to access your files and folders, please go to the <a href="/">
+			homescreen.</a
+		>
+	</p>
 	<button onclick={() => isLoggedIn.set(false)}>Logout</button>
 {:else}
 	<LoginMenu --height="50%" --width="80%" --top-margin="10%" />
