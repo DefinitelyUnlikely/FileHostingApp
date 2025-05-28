@@ -28,6 +28,7 @@ public class FolderResponse
     public required string Name { get; set; }
 
     public required IEnumerable<FolderResponse> SubFolders { get; set; } = [];
+    public IEnumerable<FileResponse>? Files { get; set; }
 
     public required string UserId { get; set; }
 
@@ -38,7 +39,8 @@ public class FolderResponse
             Id = folder.Id,
             Name = folder.Name,
             UserId = folder.UserId,
-            SubFolders = folder.SubFolders?.Select(f => FolderResponse.FromModel(f)) ?? [],
+            SubFolders = folder.SubFolders?.Select(FromModel) ?? [],
+            Files = folder.Files?.Select(FileResponse.FromModel) ?? null
         };
     }
 }
