@@ -12,6 +12,10 @@
 			goto('/login');
 		}
 	});
+
+	function newFolder() {}
+
+	function upload() {}
 </script>
 
 <svelte:head>
@@ -24,9 +28,13 @@
 		<div class="create">
 			<button class="create-button">+Create</button>
 			<div class="create-dropdown">
-				<p>New Folder</p>
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+				<p onclick={newFolder}>New Folder</p>
 				<hr style="width: 70%;" />
-				<p>Upload File</p>
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+				<p onclick={upload}>Upload File</p>
 			</div>
 		</div>
 		<hr style="width:90%;text-align:center;" />
