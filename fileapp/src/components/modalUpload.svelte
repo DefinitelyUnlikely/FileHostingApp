@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { isXModalVisible } from '$lib/shared.svelte';
 	import { getCookie } from '../utils/cookies';
-	import { invalidate } from '$app/navigation';
+	import { invalidateAll } from '$app/navigation';
 
 	async function Upload() {
-		await invalidate('');
+		await invalidateAll();
 	}
 </script>
 

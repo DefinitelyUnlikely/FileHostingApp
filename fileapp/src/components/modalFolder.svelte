@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { API_BASE_URL } from '$lib/config';
 	import { isXModalVisible } from '$lib/shared.svelte';
 	import { getCookie } from '../utils/cookies';
-	import { invalidate } from '$app/navigation';
 
 	let folderName = $state('');
 	let message = $state('');
@@ -29,7 +28,7 @@
 			message = 'Error when creating the folder, status code: ' + response.status.toString();
 		}
 
-		await invalidate('');
+		await invalidateAll();
 		isXModalVisible.folder = false;
 	}
 </script>
