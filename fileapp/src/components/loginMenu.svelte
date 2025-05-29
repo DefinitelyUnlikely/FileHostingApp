@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { API_BASE_URL } from '$lib/config';
 	import { User } from '$lib/models';
 	import { Login } from '../stores/auth';
@@ -27,6 +28,8 @@
 		Login(response, new User(email));
 		email = '';
 		password = '';
+
+		goto('/');
 	}
 </script>
 

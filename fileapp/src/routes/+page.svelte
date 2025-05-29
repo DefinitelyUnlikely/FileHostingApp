@@ -12,12 +12,17 @@
 			goto('/login');
 		}
 	});
+
+	function tryLogout() {
+		Logout();
+		goto('/login');
+	}
 </script>
 
 {#if $isLoggedIn}
 	<p>Welcome {$useremail}</p>
 	<Resourceview folders={data.response.subFolders} files={data.response.files} />
-	<button onclick={Logout}>Logout</button>
+	<button onclick={tryLogout}>Logout</button>
 {/if}
 
 <style>

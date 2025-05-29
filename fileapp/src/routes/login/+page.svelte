@@ -1,7 +1,14 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import LoginMenu from '../../components/loginMenu.svelte';
 	import { isLoggedIn } from '../../stores/auth';
+
+	onMount(() => {
+		if ($isLoggedIn) {
+			goto('/');
+		}
+	});
 </script>
 
 {#if !$isLoggedIn}
