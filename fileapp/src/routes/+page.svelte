@@ -5,6 +5,9 @@
 	import { isLoggedIn, useremail, Logout } from '../stores/auth';
 	import { onMount } from 'svelte';
 
+	let showFolderModal: Boolean = $state(false);
+	let showUploadModal: Boolean = $state(false);
+
 	let { data }: { data: PageData } = $props();
 
 	onMount(() => {
@@ -16,6 +19,20 @@
 	function newFolder() {}
 
 	function upload() {}
+
+	function onKeyDownFolder(event: KeyboardEvent) {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			showFolderModal = !showFolderModal;
+		}
+	}
+
+	function onKeyDownUpload(event: KeyboardEvent) {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			showUploadModal = !showUploadModal;
+		}
+	}
 </script>
 
 <svelte:head>
@@ -28,13 +45,25 @@
 		<div class="create">
 			<button class="create-button">+Create</button>
 			<div class="create-dropdown">
-				<!-- svelte-ignore a11y_click_events_have_key_events -->
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-				<p onclick={newFolder}>New Folder</p>
+				<p
+					onclick={() => {
+						showFolderModal = !showFolderModal;
+					}}
+					onkeydown={onKeyDownFolder}
+				>
+					New Folder
+				</p>
 				<hr style="width: 70%;" />
-				<!-- svelte-ignore a11y_click_events_have_key_events -->
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-				<p onclick={upload}>Upload File</p>
+				<p
+					onclick={() => {
+						showUploadModal = !showUploadModal;
+					}}
+					onkeydown={onKeyDownUpload}
+				>
+					Upload File
+				</p>
 			</div>
 		</div>
 		<hr style="width:90%;text-align:center;" />
