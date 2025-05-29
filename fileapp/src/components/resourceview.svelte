@@ -71,13 +71,15 @@
 
 <h2>Files</h2>
 <div class="files">
-	<div class="file-headers">
-		<h4>Name</h4>
-		<h4>Extension</h4>
-		<h4 class="created">Created</h4>
-		<h4 class="updated">Last Modified</h4>
-		<h4 class="options">Options</h4>
-	</div>
+	{#if Object.keys(resources.response.files).length}
+		<div class="file-headers">
+			<h4>Name</h4>
+			<h4>Extension</h4>
+			<h4 class="created">Created</h4>
+			<h4 class="updated">Last Modified</h4>
+			<h4 class="options">Options</h4>
+		</div>
+	{/if}
 	{#each resources.response.files as file}
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
