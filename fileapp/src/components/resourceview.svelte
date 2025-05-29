@@ -3,9 +3,32 @@
 
 	export let resources: PageData;
 
+	let openFolders = new Set<string>();
+	let openFiles = new Set<string>();
+
 	function formatDateTime(dateString: string): string {
 		const date = new Date(dateString);
 		return date.toISOString().slice(0, 16).replace('T', ' ');
+	}
+
+	function toggleFolder(folderId: string) {
+		if (openFolders.has(folderId)) {
+			openFolders.delete(folderId);
+		} else {
+			openFolders.add(folderId);
+		}
+
+		openFolders = openFolders;
+	}
+
+	function toggleFile(fileId: string) {
+		if (openFiles.has(fileId)) {
+			openFiles.delete(fileId);
+		} else {
+			openFiles.add(fileId);
+		}
+
+		openFiles = openFiles;
 	}
 </script>
 
@@ -13,9 +36,16 @@
 <div class="folders">
 	<div class="folder-headers"></div>
 	{#each resources.response.subFolders as folder}
-		<div class="folder" id={folder.id}>
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div class="folder" id={folder.id} onclick={() => toggleFolder(folder.id)}>
 			{folder.name}
 		</div>
+		{#if openFolders.has(folder.id)}
+			<div>Open</div>
+			<div>Rename</div>
+			<div>Delete</div>
+		{/if}
 	{/each}
 </div>
 
@@ -33,13 +63,18 @@
 	{#each resources.response.files as file}
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
-		<div class="file" id={file.id}>
+		<div class="file" id={file.id} onclick={() => toggleFile(file.id)}>
 			<div>{file.name}</div>
 			<div>{file.extension}</div>
 			<div class="created">{formatDateTime(file.createdAt)}</div>
 			<div class="updated">{formatDateTime(file.updatedAt)}</div>
 			<button class="options">...</button>
 		</div>
+		{#if openFiles.has(file.id)}
+			<div>Download</div>
+			<div>Edit</div>
+			<div>Delete</div>
+		{/if}
 	{/each}
 </div>
 
