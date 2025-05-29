@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import LoginMenu from '../../components/loginMenu.svelte';
-	import { isLoggedIn, useremail } from '../../stores/auth';
+	import { isLoggedIn } from '../../stores/auth';
 </script>
 
-{#if $isLoggedIn}
-	{goto('/')}
-{:else}
+{#if !$isLoggedIn}
 	<LoginMenu --height="50%" --width="80%" --top-margin="10%" />
+{:else}
+	<p>Redirecting you to homepage.</p>
 {/if}
 
 <style>

@@ -3,16 +3,21 @@
 	import { goto } from '$app/navigation';
 	import Resourceview from '../components/resourceview.svelte';
 	import { isLoggedIn, useremail, Logout } from '../stores/auth';
+	import { onMount } from 'svelte';
 
 	let { data }: { data: PageData } = $props();
+
+	onMount(() => {
+		if (!$isLoggedIn) {
+			goto('/login');
+		}
+	});
 </script>
 
 {#if $isLoggedIn}
 	<p>Welcome {$useremail}</p>
 	<Resourceview folders={data.response.subFolders} files={data.response.files} />
 	<button onclick={Logout}>Logout</button>
-{:else}
-	{goto('/login')}
 {/if}
 
 <style>
