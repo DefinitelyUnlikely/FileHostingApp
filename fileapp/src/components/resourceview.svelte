@@ -30,6 +30,16 @@
 
 		openFiles = openFiles;
 	}
+
+	// These functions will most likely be exported to a separate file
+	// so that we can use them from mutliple slugs easily.
+	// or at least some of the logic inside might be functions we ought to
+	// export.
+	async function openFolder() {}
+
+	async function renameFolder() {}
+
+	async function deleteFolder() {}
 </script>
 
 <h2>Folders</h2>

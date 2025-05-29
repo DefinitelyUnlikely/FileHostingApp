@@ -2,7 +2,7 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import { API_BASE_URL } from '$lib/config';
 	import { isXModalVisible } from '$lib/shared.svelte';
-	import { getCookie } from '../utils/cookies';
+	import { getCookie } from '../../utils/cookies';
 
 	let folderName = $state('');
 	let message = $state('');

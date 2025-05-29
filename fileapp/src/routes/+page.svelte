@@ -3,8 +3,8 @@
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../stores/auth';
 	import { onMount } from 'svelte';
-	import ModalFolder from '../components/modalFolder.svelte';
-	import ModalUpload from '../components/modalUpload.svelte';
+	import ModalFolder from '../components/modal/modalFolder.svelte';
+	import ModalUpload from '../components/modal/modalUpload.svelte';
 	import Drive from '../components/drive.svelte';
 	import { isXModalVisible } from '$lib/shared.svelte';
 
