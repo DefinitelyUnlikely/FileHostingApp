@@ -8,7 +8,7 @@
 	import Drive from '../components/drive.svelte';
 	import { isXModalVisible } from '$lib/shared.svelte';
 
-	let { data }: { data: PageData } = $props();
+	export let data: PageData;
 
 	onMount(() => {
 		if (!$isLoggedIn) {

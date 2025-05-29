@@ -1,8 +1,11 @@
 <script lang="ts">
 	import { isXModalVisible } from '$lib/shared.svelte';
 	import { getCookie } from '../utils/cookies';
+	import { invalidate } from '$app/navigation';
 
-	async function Upload() {}
+	async function Upload() {
+		await invalidate('');
+	}
 </script>
 
 <div class="upload-modal">

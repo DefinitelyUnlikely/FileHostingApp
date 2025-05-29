@@ -3,6 +3,7 @@
 	import { API_BASE_URL } from '$lib/config';
 	import { isXModalVisible } from '$lib/shared.svelte';
 	import { getCookie } from '../utils/cookies';
+	import { invalidate } from '$app/navigation';
 
 	let folderName = $state('');
 	let message = $state('');
@@ -10,7 +11,8 @@
 	// Consider sending the slug to these modals
 	// Then we coudl reuse the modal more easily and
 	// still goto the current folder (which we'll get from the slug)
-	async function NewFolder() {
+	async function NewFolder(event: SubmitEvent) {
+		event.preventDefault();
 		let response = await fetch(API_BASE_URL + '/folder', {
 			method: 'POST',
 			headers: {
@@ -27,8 +29,8 @@
 			message = 'Error when creating the folder, status code: ' + response.status.toString();
 		}
 
-		message = 'Folder has been created, you might have to reload the page';
-		goto('/');
+		await invalidate('');
+		isXModalVisible.folder = false;
 	}
 </script>
 

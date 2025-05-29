@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { Folder, FileMetadata } from '$lib/models';
+	import type { PageData } from '../routes/$types';
 
-	let { folders = [], files = [] }: { folders: Folder[]; files: FileMetadata[] } = $props();
+	export let resources: PageData;
 </script>
 
 <div class="folders">
-	{#each folders as folder}
+	{#each resources.response.subFolders as folder}
 		<div class="folder">
 			{folder.name}
 		</div>

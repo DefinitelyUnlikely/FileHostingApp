@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { isLoggedIn, useremail, Logout } from '../stores/auth';
+	import type { PageData } from '../routes/$types';
+	import { useremail, Logout } from '../stores/auth';
 	import Resourceview from '../components/resourceview.svelte';
 	import { isXModalVisible } from '$lib/shared.svelte';
 
@@ -24,7 +25,7 @@
 		}
 	}
 
-	let { props } = $props();
+	export let props: PageData;
 </script>
 
 <div class="drive">
@@ -40,7 +41,7 @@
 		</div>
 	</div>
 	<hr style="width:90%;text-align:center;" />
-	<Resourceview folders={props.response.subFolders} files={props.response.files} />
+	<Resourceview resources={props} />
 	<button class="logout" onclick={Logout}>Logout</button>
 </div>
 
@@ -60,7 +61,7 @@
 		background-color: #f9f9f9;
 		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 		padding: 12px 16px;
-		z-index: 1;
+		z-index: 10;
 	}
 
 	.create:hover .create-dropdown {
