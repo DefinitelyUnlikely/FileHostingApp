@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Folder, FileMetadata } from '$lib/models';
 	import type { PageData } from '../routes/$types';
+	import ContextMenu, { Item, Divider, Settings } from 'svelte-contextmenu';
 
 	export let resources: PageData;
 
@@ -8,13 +8,21 @@
 		const date = new Date(dateString);
 		return date.toISOString().slice(0, 16).replace('T', ' ');
 	}
+
+	function folderContextHandler(event: MouseEvent) {
+		event.preventDefault();
+	}
+
+	function fileContextHandler(event: MouseEvent) {
+		event.preventDefault();
+	}
 </script>
 
 <h2>Folders</h2>
 <div class="folders">
 	<div class="folder-headers"></div>
 	{#each resources.response.subFolders as folder}
-		<div class="folder" id={folder.id}>
+		<div class="folder" id={folder.id} oncontextmenu={folderContextHandler} role="listitem">
 			{folder.name}
 		</div>
 	{/each}
@@ -31,7 +39,9 @@
 		<h4 class="updated">Last Modified</h4>
 	</div>
 	{#each resources.response.files as file}
-		<div class="file" id={file.id}>
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div class="file" id={file.id} oncontextmenu={fileContextHandler} role="listitem">
 			<div>{file.name}</div>
 			<div>{file.extension}</div>
 			<div class="created">{formatDateTime(file.createdAt)}</div>
@@ -145,5 +155,10 @@
 		.updated {
 			display: none;
 		}
+	}
+
+	.file:hover {
+		cursor: pointer;
+		background-color: rgb(219, 219, 219);
 	}
 </style>
