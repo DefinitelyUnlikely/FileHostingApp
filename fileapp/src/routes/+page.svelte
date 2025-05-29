@@ -5,8 +5,8 @@
 	import { isLoggedIn, useremail, Logout } from '../stores/auth';
 	import { onMount } from 'svelte';
 
-	let showFolderModal: Boolean = $state(false);
-	let showUploadModal: Boolean = $state(false);
+	let isFolderModalVisible: Boolean = $state(false);
+	let isUploadModalVisible: Boolean = $state(false);
 
 	let { data }: { data: PageData } = $props();
 
@@ -16,21 +16,34 @@
 		}
 	});
 
-	function newFolder() {}
+	function NewFolder() {}
 
-	function upload() {}
+	function Upload() {}
 
-	function onKeyDownFolder(event: KeyboardEvent) {
+	function ShowFolderModal() {
+		if (isUploadModalVisible) {
+			isUploadModalVisible = !isUploadModalVisible;
+		}
+
+		isFolderModalVisible = !isFolderModalVisible;
+	}
+	function ShowUploadModal() {
+		if (isFolderModalVisible) {
+			isFolderModalVisible = !isFolderModalVisible;
+		}
+
+		isUploadModalVisible = !isUploadModalVisible;
+	}
+
+	function OnKeyDownFolder(event: KeyboardEvent) {
 		if (event.key === 'Enter') {
 			event.preventDefault();
-			showFolderModal = !showFolderModal;
 		}
 	}
 
-	function onKeyDownUpload(event: KeyboardEvent) {
+	function OnKeyDownUpload(event: KeyboardEvent) {
 		if (event.key === 'Enter') {
 			event.preventDefault();
-			showUploadModal = !showUploadModal;
 		}
 	}
 </script>
@@ -46,24 +59,10 @@
 			<button class="create-button">+Create</button>
 			<div class="create-dropdown">
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-				<p
-					onclick={() => {
-						showFolderModal = !showFolderModal;
-					}}
-					onkeydown={onKeyDownFolder}
-				>
-					New Folder
-				</p>
+				<p onclick={ShowFolderModal} onkeydown={OnKeyDownFolder}>New Folder</p>
 				<hr style="width: 70%;" />
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-				<p
-					onclick={() => {
-						showUploadModal = !showUploadModal;
-					}}
-					onkeydown={onKeyDownUpload}
-				>
-					Upload File
-				</p>
+				<p onclick={ShowUploadModal} onkeydown={OnKeyDownUpload}>Upload File</p>
 			</div>
 		</div>
 		<hr style="width:90%;text-align:center;" />
@@ -71,6 +70,13 @@
 
 		<button class="logout" onclick={Logout}>Logout</button>
 	</div>
+{/if}
+
+{#if isFolderModalVisible}
+	<div></div>
+{/if}
+{#if isUploadModalVisible}
+	<div></div>
 {/if}
 
 <style>
