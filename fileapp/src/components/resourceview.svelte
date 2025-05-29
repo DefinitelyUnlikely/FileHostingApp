@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from '../routes/$types';
+	import { isXModalVisible } from '$lib/shared.svelte';
 
 	export let resources: PageData;
 
