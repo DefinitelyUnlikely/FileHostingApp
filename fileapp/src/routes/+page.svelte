@@ -16,11 +16,9 @@
 
 {#if $isLoggedIn}
 	<div class="drive">
-		<div class="top-drive">
-			<button>+Create</button>
-			<p>Welcome {$useremail}</p>
-			<div></div>
-		</div>
+		<p>Welcome {$useremail}</p>
+		<button class="create-button">+Create</button>
+		<hr style="width:90%;text-align:center;" />
 		<Resourceview folders={data.response.subFolders} files={data.response.files} />
 		<button class="logout" onclick={Logout}>Logout</button>
 	</div>
@@ -34,13 +32,6 @@
 		align-items: center;
 		height: 100%;
 		width: 100%;
-	}
-
-	.top-drive {
-		width: 100%;
-		display: grid;
-		align-items: center;
-		grid-template-columns: 2fr 8fr 2fr;
 	}
 
 	.logout {
@@ -91,5 +82,11 @@
 	button:hover::before {
 		top: -30px;
 		left: -30px;
+	}
+
+	@media only screen and (min-width: 600px) {
+		.create-button {
+			margin-right: auto;
+		}
 	}
 </style>
