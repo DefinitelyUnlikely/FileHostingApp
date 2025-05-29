@@ -21,9 +21,17 @@
 {#if $isLoggedIn}
 	<div class="drive">
 		<p>Welcome {$useremail}</p>
-		<button class="create-button">+Create</button>
+		<div class="create">
+			<button class="create-button">+Create</button>
+			<div class="create-dropdown">
+				<p>New Folder</p>
+				<hr style="width: 70%;" />
+				<p>Upload File</p>
+			</div>
+		</div>
 		<hr style="width:90%;text-align:center;" />
 		<Resourceview folders={data.response.subFolders} files={data.response.files} />
+
 		<button class="logout" onclick={Logout}>Logout</button>
 	</div>
 {/if}
@@ -36,6 +44,20 @@
 		align-items: center;
 		height: 100%;
 		width: 100%;
+	}
+
+	.create-dropdown {
+		display: none;
+		position: absolute;
+		background-color: #f9f9f9;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		padding: 12px 16px;
+		z-index: 1;
+	}
+
+	.create:hover .create-dropdown {
+		display: flex;
+		flex-direction: column;
 	}
 
 	.logout {
@@ -89,8 +111,47 @@
 	}
 
 	@media only screen and (min-width: 600px) {
-		.create-button {
+		.create {
 			margin-right: auto;
 		}
+	}
+
+	.create-dropdown > p {
+		z-index: 1;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		width: 99%;
+		margin: 0.2rem;
+		--color: #0e79b2ff;
+		overflow: hidden;
+		cursor: pointer;
+		color: var(--color);
+		position: relative;
+	}
+
+	.create-dropdown > p::before {
+		position: absolute;
+		content: '';
+		background: var(--color);
+		width: 250px;
+		height: 200px;
+		z-index: -1;
+		border-radius: 50%;
+	}
+
+	.create-dropdown > p:hover {
+		color: white;
+	}
+
+	.create-dropdown > p:before {
+		top: 100%;
+		left: 100%;
+		transition: 0.3s all;
+	}
+
+	.create-dropdown > p:hover::before {
+		top: -40px;
+		left: -40px;
 	}
 </style>
