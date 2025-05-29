@@ -14,6 +14,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Sunset Drive</title>
+</svelte:head>
+
 {#if $isLoggedIn}
 	<div class="drive">
 		<p>Welcome {$useremail}</p>

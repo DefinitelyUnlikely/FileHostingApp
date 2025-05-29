@@ -11,6 +11,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Sunset Drive &#x2022 Login</title>
+</svelte:head>
+
 {#if !$isLoggedIn}
 	<LoginMenu --height="50%" --width="80%" --top-margin="10%" />
 {:else}

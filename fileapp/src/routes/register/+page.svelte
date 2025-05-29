@@ -49,6 +49,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Sunset Drive &#x2022 Register</title>
+</svelte:head>
+
 <h2>Register New User</h2>
 
 <form class="register-form" onsubmit={TryCreateUser}>
