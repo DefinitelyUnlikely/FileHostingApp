@@ -15,12 +15,38 @@
 </script>
 
 {#if $isLoggedIn}
-	<p>Welcome {$useremail}</p>
-	<Resourceview folders={data.response.subFolders} files={data.response.files} />
-	<button onclick={Logout}>Logout</button>
+	<div class="drive">
+		<div class="top-drive">
+			<button>+Create</button>
+			<p>Welcome {$useremail}</p>
+			<div></div>
+		</div>
+		<Resourceview folders={data.response.subFolders} files={data.response.files} />
+		<button class="logout" onclick={Logout}>Logout</button>
+	</div>
 {/if}
 
 <style>
+	.drive {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+		height: 100%;
+		width: 100%;
+	}
+
+	.top-drive {
+		width: 100%;
+		display: grid;
+		align-items: center;
+		grid-template-columns: 2fr 8fr 2fr;
+	}
+
+	.logout {
+		margin-top: auto;
+	}
+
 	p {
 		text-align: center;
 	}
