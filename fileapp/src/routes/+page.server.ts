@@ -1,5 +1,6 @@
 import { API_BASE_URL } from '$lib/config';
-import { error, redirect } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
+import { goto } from '$app/navigation';
 import type { PageServerLoad } from './$types';
 import { Logout } from '../stores/auth';
 
@@ -30,7 +31,7 @@ export const load: PageServerLoad = async ({ params, cookies }) => {
             cookies.delete("userinfo", { path: "/" });
             cookies.delete("token", { path: "/" });
             cookies.delete("refresh", { path: "/" });
-            redirect(303, "/")
+            goto("/login");
         }
 
         let refreshJson = await refreshRespone.json();
