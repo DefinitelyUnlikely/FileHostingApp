@@ -138,10 +138,22 @@
 
 	.folder-options {
 		margin: 1rem;
+		width: 90%;
+	}
+
+	.folder-options > div:hover {
+		cursor: pointer;
+		background-color: #0e79b2ff;
 	}
 
 	.file-options {
 		margin: 1rem;
+		width: 90%;
+	}
+
+	.file-options > div:hover {
+		cursor: pointer;
+		background-color: rgb(219, 219, 219);
 	}
 
 	@media only screen and (min-width: 600px) {
