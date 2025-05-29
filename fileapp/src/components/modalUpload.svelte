@@ -8,7 +8,8 @@
 	<h3>Upload File</h3>
 	<p>The file will be upload to the current directory</p>
 	<button onclick={Upload}>Upload</button>
-	<button onclick={() => (isXModalVisible.upload = !isXModalVisible.upload)}>Close</button>
+	<button class="close" onclick={() => (isXModalVisible.upload = !isXModalVisible.upload)}>X</button
+	>
 </div>
 
 <style>
@@ -67,5 +68,16 @@
 	button:hover::before {
 		top: -30px;
 		left: -30px;
+	}
+
+	.close {
+		background-color: #ee6c4dff;
+		color: white;
+		border: none;
+		height: 2.6rem;
+		line-height: 2.6rem;
+		width: 2.6rem;
+		margin-top: auto;
+		margin-left: auto;
 	}
 </style>
