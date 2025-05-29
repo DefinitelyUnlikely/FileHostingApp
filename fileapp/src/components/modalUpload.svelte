@@ -28,6 +28,10 @@
 		align-items: center;
 	}
 
+	p {
+		text-align: center;
+	}
+
 	button {
 		--color: #0e79b2ff;
 		font-family: inherit;

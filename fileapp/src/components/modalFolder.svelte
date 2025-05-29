@@ -32,6 +32,9 @@
 		align-items: center;
 	}
 
+	p {
+		text-align: center;
+	}
 	.folder-modal form {
 		display: flex;
 		flex-direction: column;
