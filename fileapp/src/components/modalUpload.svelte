@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { isXModalVisible } from '$lib/shared.svelte';
+
 	function Upload() {}
 </script>
 
@@ -6,7 +8,7 @@
 	<h3>Upload File</h3>
 	<p>The file will be upload to the current directory</p>
 	<button onclick={Upload}>Upload</button>
-	<button>Close</button>
+	<button onclick={() => (isXModalVisible.upload = !isXModalVisible.upload)}>Close</button>
 </div>
 
 <style>

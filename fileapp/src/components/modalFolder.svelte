@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { isXModalVisible } from '$lib/shared.svelte';
+
 	function NewFolder() {}
 </script>
 
@@ -10,7 +12,8 @@
 		<input name="folder-name" type="text" />
 		<button type="submit">Create</button>
 	</form>
-	<button class="close" style="background-color:#ee6c4dff">Close</button>
+	<button class="close" onclick={() => (isXModalVisible.folder = !isXModalVisible.folder)}>X</button
+	>
 </div>
 
 <style>
@@ -76,5 +79,16 @@
 	button:hover::before {
 		top: -30px;
 		left: -30px;
+	}
+
+	.close {
+		background-color: #ee6c4dff;
+		color: white;
+		border: none;
+		height: 2.6rem;
+		line-height: 2.6rem;
+		width: 2.6rem;
+		margin-top: auto;
+		margin-left: auto;
 	}
 </style>
