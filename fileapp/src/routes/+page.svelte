@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import LoginMenu from '../components/loginMenu.svelte';
+	import { goto } from '$app/navigation';
 	import Resourceview from '../components/resourceview.svelte';
 	import { isLoggedIn, useremail, Logout } from '../stores/auth';
 
@@ -12,9 +12,7 @@
 	<Resourceview folders={data.response.subFolders} files={data.response.files} />
 	<button onclick={Logout}>Logout</button>
 {:else}
-	<p>Welcome</p>
-	<p>Please login to gain access to your cloudstorage</p>
-	<LoginMenu --height="50%" --width="80%" --top-margin="5%" />
+	{goto('/login')}
 {/if}
 
 <style>
