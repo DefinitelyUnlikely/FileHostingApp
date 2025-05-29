@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../stores/auth';
 	import { onMount } from 'svelte';
-	import ModalFolder from '../components/modal/modalFolder.svelte';
+	import ModalFolderNew from '../components/modal/modalFolderNew.svelte';
 	import ModalUpload from '../components/modal/modalUpload.svelte';
 	import Drive from '../components/drive.svelte';
 	import { isXModalVisible } from '$lib/shared.svelte';
@@ -23,7 +23,7 @@
 
 {#if $isLoggedIn}<Drive props={data} />{/if}
 
-{#if isXModalVisible.folder}<ModalFolder />{/if}
+{#if isXModalVisible.folder}<ModalFolderNew />{/if}
 {#if isXModalVisible.upload}<ModalUpload />{/if}
 
 <style>
