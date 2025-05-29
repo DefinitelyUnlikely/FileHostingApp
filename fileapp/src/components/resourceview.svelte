@@ -32,15 +32,20 @@
 		openFiles = openFiles;
 	}
 
-	// These functions will most likely be exported to a separate file
-	// so that we can use them from mutliple slugs easily.
-	// or at least some of the logic inside might be functions we ought to
-	// export.
-	async function openFolder() {}
+	// We might be putting these functions
+	// into the lib, but they might also do nothing more
+	// than open a modal, and the functions in the modal will
+	// do the rest.ss
+	function openFolder(id: string) {
+		// we'll add a slug, that'll use the folder id and
+		// render a resourceview with the data from the folder fetch.
+	}
 
-	async function renameFolder() {}
+	function renameFolder() {
+		isXModalVisible.renameFolder = !isXModalVisible.renameFolder;
+	}
 
-	async function deleteFolder() {}
+	function deleteFolder() {}
 </script>
 
 <h2>Folders</h2>
@@ -54,9 +59,9 @@
 		</div>
 		{#if openFolders.has(folder.id)}
 			<div class="folder-options">
-				<div>Open</div>
-				<div>Rename</div>
-				<div>Delete</div>
+				<div onclick={() => openFolder(folder.id)}>Open</div>
+				<div onclick={renameFolder}>Rename</div>
+				<div onclick={deleteFolder}>Delete</div>
 			</div>
 		{/if}
 	{/each}
