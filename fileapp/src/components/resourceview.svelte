@@ -28,6 +28,7 @@
 		<h4>Extension</h4>
 		<h4 class="created">Created</h4>
 		<h4 class="updated">Last Modified</h4>
+		<h4 class="options">Options</h4>
 	</div>
 	{#each resources.response.files as file}
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -37,6 +38,7 @@
 			<div>{file.extension}</div>
 			<div class="created">{formatDateTime(file.createdAt)}</div>
 			<div class="updated">{formatDateTime(file.updatedAt)}</div>
+			<button class="options">...</button>
 		</div>
 	{/each}
 </div>
@@ -113,6 +115,10 @@
 			justify-items: center;
 			margin: 2px;
 		}
+
+		.options {
+			display: none;
+		}
 	}
 
 	@media only screen and (max-width: 599px) {
@@ -126,14 +132,14 @@
 
 		.file-headers {
 			display: grid;
-			grid-template-columns: 2fr 2fr;
+			grid-template-columns: 2fr 2fr 2fr;
 			width: 100%;
 			justify-items: center;
 		}
 
 		.file {
 			display: grid;
-			grid-template-columns: 2fr 2fr;
+			grid-template-columns: 2fr 2fr 2fr;
 			width: 100%;
 			justify-items: center;
 			margin: 2px;
@@ -145,6 +151,16 @@
 
 		.updated {
 			display: none;
+		}
+
+		button.options {
+			border-radius: 5rem;
+			border: 1px solid;
+		}
+
+		button.options:hover {
+			background-color: #0e79b2ff;
+			color: white;
 		}
 	}
 
