@@ -1,15 +1,44 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { API_BASE_URL } from '$lib/config';
 	import { isXModalVisible } from '$lib/shared.svelte';
+	import { getCookie } from '../utils/cookies';
 
-	function NewFolder() {}
+	let folderName = $state('');
+	let message = $state('');
+
+	// Consider sending the slug to these modals
+	// Then we coudl reuse the modal more easily and
+	// still goto the current folder (which we'll get from the slug)
+	async function NewFolder() {
+		let response = await fetch(API_BASE_URL + '/folder', {
+			method: 'POST',
+			headers: {
+				authorization: 'Bearer ' + getCookie('token'),
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify({
+				name: folderName
+			})
+		});
+
+		if (!response.ok) {
+			console.log('Error creating folder');
+			message = 'Error when creating the folder, status code: ' + response.status.toString();
+		}
+
+		message = 'Folder has been created, you might have to reload the page';
+		goto('/');
+	}
 </script>
 
 <div class="folder-modal">
 	<h3>Create Folder</h3>
+	<p>{message}</p>
 	<p>The folder will be created in the current directory</p>
 	<form onsubmit={NewFolder}>
 		<label for="folder-name">Folder name</label>
-		<input name="folder-name" type="text" />
+		<input name="folder-name" type="text" bind:value={folderName} />
 		<button type="submit">Create</button>
 	</form>
 	<button class="close" onclick={() => (isXModalVisible.folder = !isXModalVisible.folder)}>X</button
