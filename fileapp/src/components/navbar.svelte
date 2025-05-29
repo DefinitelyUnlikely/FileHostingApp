@@ -26,7 +26,7 @@
 	<div class="hamburger-dropdown" transition:slide>
 		<h3><a href="/" onclick={changeOpenState}>Home</a></h3>
 		{#if $isLoggedIn}
-			<h3><a href="/" onclick={NavbarLogout}>Logout</a></h3>
+			<h3><a href="/login" onclick={NavbarLogout}>Logout</a></h3>
 		{:else}
 			<h3><a href="/login" onclick={changeOpenState}>Login</a></h3>
 		{/if}

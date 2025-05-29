@@ -1,6 +1,7 @@
 import { get, writable } from 'svelte/store';
 import { getCookie, setCookie, deleteCookie } from '../utils/cookies';
 import { User } from '$lib/models';
+import { goto } from '$app/navigation';
 
 export const isLoggedIn = writable(false);
 export const useremail = writable('');
@@ -12,6 +13,7 @@ export async function Login(tokenResponse: Response, userObj: User) {
     setCookie("userinfo", userObj.email)
     useremail.set(userObj.email);
     isLoggedIn.set(true);
+    goto("/")
 
 }
 
@@ -21,5 +23,6 @@ export async function Logout() {
     deleteCookie("userinfo")
     useremail.set('');
     isLoggedIn.set(false);
+    goto("/login")
 }
 
