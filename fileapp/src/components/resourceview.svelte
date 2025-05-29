@@ -42,9 +42,11 @@
 			{folder.name}
 		</div>
 		{#if openFolders.has(folder.id)}
-			<div>Open</div>
-			<div>Rename</div>
-			<div>Delete</div>
+			<div class="folder-options">
+				<div>Open</div>
+				<div>Rename</div>
+				<div>Delete</div>
+			</div>
 		{/if}
 	{/each}
 </div>
@@ -71,9 +73,11 @@
 			<button class="options">...</button>
 		</div>
 		{#if openFiles.has(file.id)}
-			<div>Download</div>
-			<div>Edit</div>
-			<div>Delete</div>
+			<div class="file-options">
+				<div>Download</div>
+				<div>Edit</div>
+				<div>Delete</div>
+			</div>
 		{/if}
 	{/each}
 </div>
@@ -127,6 +131,19 @@
 		left: 0;
 	}
 
+	.file:hover {
+		cursor: pointer;
+		background-color: rgb(219, 219, 219);
+	}
+
+	.folder-options {
+		margin: 1rem;
+	}
+
+	.file-options {
+		margin: 1rem;
+	}
+
 	@media only screen and (min-width: 600px) {
 		.files {
 			display: flex;
@@ -139,20 +156,22 @@
 		.file-headers {
 			display: grid;
 			grid-template-columns: 2fr 2fr 2fr 2fr;
-			width: 100%;
-			justify-items: center;
+			width: 99%;
 		}
 
 		.file {
 			display: grid;
 			grid-template-columns: 2fr 2fr 2fr 2fr;
-			width: 100%;
-			justify-items: center;
+			width: 99%;
 			margin: 2px;
 		}
 
 		.options {
 			display: none;
+		}
+
+		.file-options {
+			align-self: flex-start;
 		}
 	}
 
@@ -197,10 +216,9 @@
 			background-color: #0e79b2ff;
 			color: white;
 		}
-	}
 
-	.file:hover {
-		cursor: pointer;
-		background-color: rgb(219, 219, 219);
+		.folder-options {
+			align-self: center;
+		}
 	}
 </style>
