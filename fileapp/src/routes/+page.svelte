@@ -4,9 +4,9 @@
 	import Resourceview from '../components/resourceview.svelte';
 	import { isLoggedIn, useremail, Logout } from '../stores/auth';
 	import { onMount } from 'svelte';
-
-	let isFolderModalVisible: Boolean = $state(false);
-	let isUploadModalVisible: Boolean = $state(false);
+	import ModalFolder from '../components/modalFolder.svelte';
+	import ModalUpload from '../components/modalUpload.svelte';
+	import { isXModalVisible } from '$lib/shared.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -16,34 +16,24 @@
 		}
 	});
 
-	function NewFolder() {}
-
-	function Upload() {}
-
 	function ShowFolderModal() {
-		if (isUploadModalVisible) {
-			isUploadModalVisible = !isUploadModalVisible;
-		}
-
-		isFolderModalVisible = !isFolderModalVisible;
+		isXModalVisible.folder = !isXModalVisible.folder;
 	}
 	function ShowUploadModal() {
-		if (isFolderModalVisible) {
-			isFolderModalVisible = !isFolderModalVisible;
-		}
-
-		isUploadModalVisible = !isUploadModalVisible;
+		isXModalVisible.upload = !isXModalVisible.upload;
 	}
 
 	function OnKeyDownFolder(event: KeyboardEvent) {
 		if (event.key === 'Enter') {
 			event.preventDefault();
+			ShowFolderModal();
 		}
 	}
 
 	function OnKeyDownUpload(event: KeyboardEvent) {
 		if (event.key === 'Enter') {
 			event.preventDefault();
+			ShowUploadModal();
 		}
 	}
 </script>
@@ -67,17 +57,12 @@
 		</div>
 		<hr style="width:90%;text-align:center;" />
 		<Resourceview folders={data.response.subFolders} files={data.response.files} />
-
 		<button class="logout" onclick={Logout}>Logout</button>
 	</div>
 {/if}
 
-{#if isFolderModalVisible}
-	<div></div>
-{/if}
-{#if isUploadModalVisible}
-	<div></div>
-{/if}
+{#if isXModalVisible.folder}<ModalFolder />{/if}
+{#if isXModalVisible.upload}<ModalUpload />{/if}
 
 <style>
 	.drive {
