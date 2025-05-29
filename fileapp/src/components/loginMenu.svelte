@@ -3,8 +3,11 @@
 	import { API_BASE_URL } from '$lib/config';
 	import { User } from '$lib/models';
 	import { Login } from '../stores/auth';
+
 	let email: string = $state('');
 	let password: string = $state('');
+
+	let message: string = $state('');
 
 	async function tryLogin(event: SubmitEvent) {
 		event.preventDefault();
@@ -21,13 +24,16 @@
 		});
 
 		if (!response.ok) {
-			console.log('Could not log in');
+			let json = await response.json();
+			console.log(json);
+			message = 'Could not log you in: ' + json.detail;
 			return;
 		}
 
 		Login(response, new User(email));
 		email = '';
 		password = '';
+		message = '';
 
 		goto('/');
 	}
@@ -35,6 +41,7 @@
 
 <div class="login-window">
 	<h2>Login</h2>
+	<p style="margin-bottom: 1rem; color: red;">{message}</p>
 	<form class="login-form" onsubmit={tryLogin}>
 		<label for="email-input">Email:</label>
 		<input
