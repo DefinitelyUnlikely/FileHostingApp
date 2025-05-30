@@ -3,6 +3,8 @@
 	import { getCookie } from '../../utils/cookies';
 	import { invalidateAll } from '$app/navigation';
 
+	let { folderId }: { folderId: string | undefined } = $props();
+
 	async function Upload() {
 		await invalidateAll();
 	}

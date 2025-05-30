@@ -23,8 +23,8 @@
 
 {#if $isLoggedIn}<Drive props={data} />{/if}
 
-{#if isXModalVisible.folder}<ModalFolderNew />{/if}
-{#if isXModalVisible.upload}<ModalUpload />{/if}
+{#if isXModalVisible.folder}<ModalFolderNew folderId={undefined} />{/if}
+{#if isXModalVisible.upload}<ModalUpload folderId={undefined} />{/if}
 
 <style>
 </style>

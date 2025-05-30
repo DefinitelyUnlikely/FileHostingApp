@@ -7,21 +7,40 @@
 	let folderName = $state('');
 	let message = $state('');
 
+	let { folderId }: { folderId: string | undefined } = $props();
+
 	// Consider sending the slug to these modals
 	// Then we coudl reuse the modal more easily and
 	// still goto the current folder (which we'll get from the slug)
-	async function NewFolder(event: SubmitEvent) {
+	async function NewFolder(event: SubmitEvent, id: string | undefined) {
 		event.preventDefault();
-		let response = await fetch(API_BASE_URL + '/folder', {
-			method: 'POST',
-			headers: {
-				authorization: 'Bearer ' + getCookie('token'),
-				'content-type': 'application/json'
-			},
-			body: JSON.stringify({
-				name: folderName
-			})
-		});
+
+		let response;
+
+		if (id == undefined) {
+			response = await fetch(API_BASE_URL + '/folder', {
+				method: 'POST',
+				headers: {
+					authorization: 'Bearer ' + getCookie('token'),
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify({
+					name: folderName
+				})
+			});
+		} else {
+			response = await fetch(API_BASE_URL + '/folder/', {
+				method: 'POST',
+				headers: {
+					authorization: 'Bearer ' + getCookie('token'),
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify({
+					name: folderName,
+					parentfolderid: id
+				})
+			});
+		}
 
 		if (!response.ok) {
 			console.log('Error creating folder');
@@ -37,7 +56,11 @@
 	<h3>Create Folder</h3>
 	<p>{message}</p>
 	<p>The folder will be created in the current directory</p>
-	<form onsubmit={NewFolder}>
+	<form
+		onsubmit={(event) => {
+			NewFolder(event, folderId);
+		}}
+	>
 		<label for="folder-name">Folder name</label>
 		<input name="folder-name" type="text" bind:value={folderName} />
 		<button type="submit">Create</button>
