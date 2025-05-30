@@ -25,7 +25,6 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
                 }
             }
 
-
             if (!userAuthService.UserIsAdmin && userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
 
             var fileMeta = new FileMeta
