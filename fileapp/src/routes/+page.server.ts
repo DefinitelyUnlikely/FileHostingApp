@@ -22,10 +22,6 @@ export const load: PageServerLoad = async ({ params, cookies }) => {
         let refresh = cookies.get("refresh");
         let refreshRespone = await fetch(API_BASE_URL + "/refresh", {
             method: 'POST',
-            headers: {
-                authorization: 'Bearer ' + cookies.get("token"),
-                'content-type': 'application/json'
-            },
             body: '{"refreshtoken": ' + refresh + '"}'
         });
 
