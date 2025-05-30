@@ -45,7 +45,9 @@
 		isXModalVisible.renameFolder = !isXModalVisible.renameFolder;
 	}
 
-	function deleteFolder() {}
+	function deleteFolder() {
+		isXModalVisible.deleteFolder = !isXModalVisible.deleteFolder;
+	}
 </script>
 
 <h2>Folders</h2>
