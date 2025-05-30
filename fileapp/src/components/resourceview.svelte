@@ -85,6 +85,7 @@
 			<h4>Extension</h4>
 			<h4 class="created">Created</h4>
 			<h4 class="updated">Last Modified</h4>
+			<h4 class="size">Size (Bit)</h4>
 			<h4 class="options">Options</h4>
 		</div>
 	{/if}
@@ -96,6 +97,7 @@
 			<div>{file.extension}</div>
 			<div class="created">{formatDateTime(file.createdAt)}</div>
 			<div class="updated">{formatDateTime(file.updatedAt)}</div>
+			<div class="size">{file.fileSize}</div>
 			<button class="options">...</button>
 		</div>
 		{#if openFiles.has(file.id)}
@@ -193,13 +195,13 @@
 
 		.file-headers {
 			display: grid;
-			grid-template-columns: 2fr 2fr 2fr 2fr;
+			grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
 			width: 99%;
 		}
 
 		.file {
 			display: grid;
-			grid-template-columns: 2fr 2fr 2fr 2fr;
+			grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
 			width: 99%;
 			margin: 2px;
 		}
@@ -242,6 +244,10 @@
 		}
 
 		.updated {
+			display: none;
+		}
+
+		.size {
 			display: none;
 		}
 
