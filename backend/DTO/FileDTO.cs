@@ -35,8 +35,10 @@ public class FileResponse
     public required string Name { get; set; }
     public required string Extension { get; set; }
 
+
     // Nullable for when we are only sending FileMetadata
     public byte[]? FileData { get; set; }
+    public required long FileSize { get; set; }
 
     public required DateTime CreatedAt { get; set; }
     public required DateTime UpdatedAt { get; set; }
@@ -52,6 +54,7 @@ public class FileResponse
             Name = fileMeta.Name,
             Extension = fileMeta.Extension,
             FileData = fileMeta.FileData?.Bytes,
+            FileSize = fileMeta.FileSize,
             CreatedAt = fileMeta.CreatedAt,
             UpdatedAt = fileMeta.UpdatedAt ?? fileMeta.CreatedAt,
             FolderId = fileMeta.FolderId,
