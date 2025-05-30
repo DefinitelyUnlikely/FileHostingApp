@@ -18,7 +18,7 @@
 </script>
 
 <svelte:head>
-	<title>Sunset Drive</title>
+	<title>Sunset Drive &#x2022 {data.response.name}</title>
 </svelte:head>
 
 {#if $isLoggedIn}<Drive props={data} />{/if}
