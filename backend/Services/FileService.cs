@@ -7,7 +7,7 @@ using Backend.Models;
 
 namespace Backend.Services;
 
-public class FileService(ILogger<FileService> logger, IFileRepository fileRepository, IAuthService userAuthService) : IFileService
+public class FileService(ILogger<FileService> logger, IFileRepository fileRepository, IFolderService folderService, IAuthService userAuthService) : IFileService
 {
     public async Task CreateAsync(CreateFileRequest request)
     {
@@ -15,6 +15,16 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         {
 
             request.UserId ??= userAuthService.UserId;
+
+            if (request.FolderId is not null)
+            {
+                FolderResponse? folder = await folderService.GetAsync((Guid)request.FolderId);
+                if (folder?.UserId != userAuthService.UserId)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+            }
+
 
             if (!userAuthService.UserIsAdmin && userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
 
@@ -180,6 +190,8 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
             if (!userAuthService.UserIsAdmin && userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
 
             var file = await fileRepository.GetByIdAsync(request.Id, includeData: true) ?? throw new EmptyReturnException("No file with that Id was found");
+
+            if (file.UserId != userAuthService.UserId) throw new UnauthorizedAccessException();
 
             file.Name = request.Name ?? file.Name;
             file.Extension = request.Extension ?? file.Extension;
