@@ -22,11 +22,15 @@ export const load: PageServerLoad = async ({ params, cookies }) => {
         let refresh = cookies.get("refresh");
         let refreshRespone = await fetch(API_BASE_URL + "/refresh", {
             method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
             body: JSON.stringify({ refreshtoken: refresh })
         });
 
-        if (!response.ok) {
-            console.log(response.status);
+        console.log(refreshRespone);
+
+        if (!refreshRespone.ok) {
             cookies.delete("userinfo", { path: "/" });
             cookies.delete("token", { path: "/" });
             cookies.delete("refresh", { path: "/" });
