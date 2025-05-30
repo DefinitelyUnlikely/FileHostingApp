@@ -56,7 +56,7 @@
 <h2>Register New User</h2>
 
 <form class="register-form" onsubmit={TryCreateUser}>
-	<label for="username">User email:</label>
+	<label for="email">User email:</label>
 	<input
 		class={['custom-input']}
 		type="text"

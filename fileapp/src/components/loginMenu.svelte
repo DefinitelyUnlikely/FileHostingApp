@@ -43,7 +43,7 @@
 	<h2>Login</h2>
 	<p style="margin-bottom: 1rem; color: red;">{message}</p>
 	<form class="login-form" onsubmit={tryLogin}>
-		<label for="email-input">Email:</label>
+		<label for="email">Email:</label>
 		<input
 			type="email"
 			name="email"
