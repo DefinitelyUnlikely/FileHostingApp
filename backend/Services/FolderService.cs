@@ -16,6 +16,15 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
 
             if (!userAuthService.UserIsAdmin && userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
 
+            if (request.ParentFolderId is not null)
+            {
+                FolderResponse? parentFolder = await GetAsync((Guid)request.ParentFolderId);
+                if (userAuthService.UserId != parentFolder?.UserId)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+            }
+
             var folder = new Folder
             {
                 Id = Guid.NewGuid(),
