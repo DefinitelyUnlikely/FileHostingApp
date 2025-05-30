@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from '../routes/$types';
 	import { isXModalVisible } from '$lib/shared.svelte';
+	import { goto } from '$app/navigation';
 
 	export let resources: PageData;
 
@@ -37,8 +38,7 @@
 	// than open a modal, and the functions in the modal will
 	// do the rest.ss
 	function openFolder(id: string) {
-		// we'll add a slug, that'll use the folder id and
-		// render a resourceview with the data from the folder fetch.
+		goto('/' + id);
 	}
 
 	function renameFolder() {
@@ -59,8 +59,14 @@
 		</div>
 		{#if openFolders.has(folder.id)}
 			<div class="folder-options">
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div onclick={() => openFolder(folder.id)}>Open</div>
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div onclick={renameFolder}>Rename</div>
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div onclick={deleteFolder}>Delete</div>
 			</div>
 		{/if}
