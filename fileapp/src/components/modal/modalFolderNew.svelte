@@ -65,8 +65,7 @@
 		<input id="folder-name" name="folder-name" type="text" bind:value={folderName} />
 		<button type="submit">Create</button>
 	</form>
-	<button class="close" onclick={() => (isXModalVisible.folder = !isXModalVisible.folder)}>X</button
-	>
+	<button class="close" onclick={() => (isXModalVisible.folder = false)}>X</button>
 </div>
 
 <style>

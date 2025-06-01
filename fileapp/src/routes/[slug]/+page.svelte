@@ -7,6 +7,11 @@
 	import ModalUpload from '../../components/modal/modalUpload.svelte';
 	import Drive from '../../components/drive.svelte';
 	import { isXModalVisible } from '$lib/shared.svelte';
+	import ModalFolderRename from '../../components/modal/modalFolderRename.svelte';
+	import ModalFolderDelete from '../../components/modal/modalFolderDelete.svelte';
+	import ModalFileDownload from '../../components/modal/modalFileDownload.svelte';
+	import ModalFileDelete from '../../components/modal/modalFileDelete.svelte';
+	import ModalFileEdit from '../../components/modal/modalFileEdit.svelte';
 
 	export let data: PageData;
 
@@ -24,7 +29,12 @@
 {#if $isLoggedIn}<Drive props={data} />{/if}
 
 {#if isXModalVisible.folder}<ModalFolderNew folderId={data.slug} />{/if}
+{#if isXModalVisible.renameFolder}<ModalFolderRename folderId={data.slug} />{/if}
+{#if isXModalVisible.deleteFolder}<ModalFolderDelete folderId={data.slug} />{/if}
 {#if isXModalVisible.upload}<ModalUpload folderId={data.slug} />{/if}
+{#if isXModalVisible.download}<ModalFileDownload fileId={data.slug} />{/if}
+{#if isXModalVisible.deleteFile}<ModalFileDelete fileId={data.slug} />{/if}
+{#if isXModalVisible.editFile}<ModalFileEdit fileId={data.slug} />{/if}
 
 <style>
 </style>
