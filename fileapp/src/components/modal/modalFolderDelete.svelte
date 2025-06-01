@@ -39,7 +39,7 @@
 	<p>{message}</p>
 	<p>Are you sure you want to delete this folder? (You cannot delete folders with children)</p>
 	<button class="delete" onclick={deleteFolder}>Delete</button>
-	<button class="close" onclick={() => (isXModalVisible.deleteFolder = false)}>X</button>
+	<button class="close" onclick={() => (isXModalVisible['delete' + folderId] = false)}>X</button>
 </div>
 
 <style>
@@ -48,6 +48,9 @@
 		position: fixed;
 		width: 90%;
 		height: 35%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 		background-color: #ebebebff;
 		border: 2px solid #d6d6d6ff;
 		border-radius: 10px;

@@ -45,15 +45,18 @@
 		<input id="folder-name" name="folder-name" type="text" bind:value={folderName} />
 		<button type="submit">Create</button>
 	</form>
-	<button class="close" onclick={() => (isXModalVisible.renameFolder = false)}>X</button>
+	<button class="close" onclick={() => (isXModalVisible['rename' + folderId] = false)}>X</button>
 </div>
 
 <style>
 	.folder-modal {
 		z-index: 100;
-		position: fixed;
+		position: absolute;
 		width: 90%;
-		height: 70%;
+		height: 40%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 		background-color: #ebebebff;
 		border: 2px solid #d6d6d6ff;
 		border-radius: 10px;

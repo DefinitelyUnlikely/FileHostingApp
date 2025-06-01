@@ -4,16 +4,13 @@
 	import { goto } from '$app/navigation';
 	import ModalFolderRename from './modal/modalFolderRename.svelte';
 	import ModalFolderDelete from './modal/modalFolderDelete.svelte';
+	import { onMount } from 'svelte';
+	import { formatDateTime } from '$lib/shared.svelte';
 
 	export let resources: PageData;
 
 	let openFolders = new Set<string>();
 	let openFiles = new Set<string>();
-
-	function formatDateTime(dateString: string): string {
-		const date = new Date(dateString);
-		return date.toISOString().slice(0, 16).replace('T', ' ');
-	}
 
 	function toggleFolder(folderId: string) {
 		if (openFolders.has(folderId)) {
@@ -35,21 +32,30 @@
 		openFiles = openFiles;
 	}
 
-	// We might be putting these functions
-	// into the lib, but they might also do nothing more
-	// than open a modal, and the functions in the modal will
-	// do the rest.ss
 	function openFolder(id: string) {
 		goto('/' + id);
 	}
 
 	function renameFolder(id: string) {
-		isXModalVisible.renameFolder = !isXModalVisible.renameFolder;
+		isXModalVisible['rename' + id] = !isXModalVisible['rename' + id];
 	}
 
 	function deleteFolder(id: string) {
-		isXModalVisible.deleteFolder = !isXModalVisible.deleteFolder;
+		isXModalVisible['delete' + id] = !isXModalVisible['delete' + id];
 	}
+
+	onMount(() => {
+		if (resources.response?.subFolders) {
+			resources.response.subFolders.forEach((folder: any) => {
+				if (isXModalVisible['rename' + folder.id] === undefined) {
+					isXModalVisible['rename' + folder.id] = false;
+				}
+				if (isXModalVisible['delete' + folder.id] === undefined) {
+					isXModalVisible['delete' + folder.id] = false;
+				}
+			});
+		}
+	});
 </script>
 
 <h2>Folders</h2>
@@ -72,8 +78,12 @@
 				<!-- svelte-ignore a11y_click_events_have_key_events -->
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div onclick={() => deleteFolder(folder.id)}>Delete</div>
-				{#if isXModalVisible.renameFolder}<ModalFolderRename folderId={folder.id} />{/if}
-				{#if isXModalVisible.deleteFolder}<ModalFolderDelete folderId={folder.id} />{/if}
+				{#if isXModalVisible['rename' + folder.id]}
+					<ModalFolderRename folderId={folder.id} />
+				{/if}
+				{#if isXModalVisible['delete' + folder.id]}
+					<ModalFolderDelete folderId={folder.id} />
+				{/if}
 			</div>
 		{/if}
 	{/each}

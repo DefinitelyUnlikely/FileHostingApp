@@ -74,6 +74,9 @@
 		position: fixed;
 		width: 90%;
 		height: 70%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 		background-color: #ebebebff;
 		border: 2px solid #d6d6d6ff;
 		border-radius: 10px;
