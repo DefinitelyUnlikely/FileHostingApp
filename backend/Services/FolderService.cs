@@ -185,9 +185,13 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
     {
         try
         {
+            request.UserId ??= userAuthService.UserId;
+
             if (!userAuthService.UserIsAdmin && userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
 
             var folder = await folderRepository.GetAsync(request.Id) ?? throw new EmptyReturnException("No folder found with that Id");
+
+            if (folder.UserId != userAuthService.UserId) throw new UnauthorizedAccessException();
 
             folder.Name = request.Name ?? folder.Name;
             folder.ParentFolderId = request.ParentFolderId ?? folder.ParentFolderId;

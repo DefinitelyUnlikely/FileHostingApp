@@ -158,8 +158,9 @@ public class FolderController(IFolderService folderService) : ControllerBase
             await folderService.UpdateAsync(request);
             return Ok("Folder has been updated");
         }
-        catch (UnauthorizedAccessException)
+        catch (UnauthorizedAccessException e)
         {
+            Console.Write(e);
             return Forbid();
         }
         catch (EmptyReturnException e)
