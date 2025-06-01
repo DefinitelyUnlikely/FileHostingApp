@@ -43,7 +43,7 @@
 	>
 		<label for="folder-name">Folder name</label>
 		<input id="folder-name" name="folder-name" type="text" bind:value={folderName} />
-		<button type="submit">Create</button>
+		<button type="submit">Rename</button>
 	</form>
 	<button class="close" onclick={() => (isXModalVisible['rename' + folderId] = false)}>X</button>
 </div>
