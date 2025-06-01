@@ -11,7 +11,7 @@
 
 	async function RenameFolder(event: SubmitEvent, id: String) {
 		event.preventDefault();
-		let response = await fetch(API_BASE_URL + '/' + id, {
+		let response = await fetch(API_BASE_URL + '/folder/' + id, {
 			method: 'PATCH',
 			headers: {
 				authorization: 'Bearer ' + getCookie('token'),

@@ -2,6 +2,8 @@
 	import type { PageData } from '../routes/$types';
 	import { isXModalVisible } from '$lib/shared.svelte';
 	import { goto } from '$app/navigation';
+	import ModalFolderRename from './modal/modalFolderRename.svelte';
+	import ModalFolderDelete from './modal/modalFolderDelete.svelte';
 
 	export let resources: PageData;
 
@@ -41,11 +43,11 @@
 		goto('/' + id);
 	}
 
-	function renameFolder() {
+	function renameFolder(id: string) {
 		isXModalVisible.renameFolder = !isXModalVisible.renameFolder;
 	}
 
-	function deleteFolder() {
+	function deleteFolder(id: string) {
 		isXModalVisible.deleteFolder = !isXModalVisible.deleteFolder;
 	}
 </script>
@@ -66,10 +68,12 @@
 				<div onclick={() => openFolder(folder.id)}>Open</div>
 				<!-- svelte-ignore a11y_click_events_have_key_events -->
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
-				<div onclick={renameFolder}>Rename</div>
+				<div onclick={() => renameFolder(folder.id)}>Rename</div>
 				<!-- svelte-ignore a11y_click_events_have_key_events -->
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
-				<div onclick={deleteFolder}>Delete</div>
+				<div onclick={() => deleteFolder(folder.id)}>Delete</div>
+				{#if isXModalVisible.renameFolder}<ModalFolderRename folderId={folder.id} />{/if}
+				{#if isXModalVisible.deleteFolder}<ModalFolderDelete folderId={folder.id} />{/if}
 			</div>
 		{/if}
 	{/each}

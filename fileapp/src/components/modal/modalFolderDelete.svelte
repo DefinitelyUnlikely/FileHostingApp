@@ -14,8 +14,8 @@
 				'Sorry, you cannot delete the root directory. If you are not trying to delete the root directory, something has gone wrong';
 		}
 
-		let response = await fetch(API_BASE_URL + '/' + folderId, {
-			method: 'PATCH',
+		let response = await fetch(API_BASE_URL + '/folder/' + folderId, {
+			method: 'DELETE',
 			headers: {
 				authorization: 'Bearer ' + getCookie('token'),
 				'content-type': 'application/json'
@@ -23,6 +23,8 @@
 		});
 
 		if (!response.ok) {
+			console.log(response.status);
+			console.log(response);
 			message = 'Folder could not be deleted, make sure it is empty first.';
 			return;
 		}
