@@ -12,7 +12,7 @@
 
 <div class="upload-modal">
 	<h3>Upload File</h3>
-	<p>The file will be upload to the current directory</p>
+	<p>The file will be uploaded to the current directory</p>
 	<button onclick={Upload}>Upload</button>
 	<button class="close" onclick={() => (isXModalVisible.upload = false)}>X</button>
 </div>
