@@ -105,7 +105,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     }
 
     /// <summary>
-    /// Reads all files for a specific userId and returns the File Metadata for all files. 
+    /// Gets all files for a specific userId and returns the File Metadata for all files. 
     /// </summary>
     /// <param name="userId">The id </param>
     /// <returns>A ICollection of FileResponses for a given user.</returns>
@@ -142,7 +142,7 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
     }
 
     /// <summary>
-    /// Gets a specific file from the repository and returns it, with both meta data and data. 
+    /// Gets a specific file from the repository and returns it, with both metadata and data. 
     /// </summary>
     /// <param name="fileId"></param>
     /// <returns>A FileResponse object with corresponding filedata included.</returns>

@@ -9,11 +9,12 @@ namespace Backend.Services;
 public class FolderService(ILogger<FolderService> logger, IFolderRepository folderRepository, IAuthService userAuthService) : IFolderService
 {
     /// <summary>
-    /// 
+    /// Creates a folder from a CreateFolderRequest and sends it to the repository for saving to the context.
     /// </summary>
-    /// <param name="request"></param>
+    /// <param name="request">A CreateFolderRequest object</param>
     /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="UnauthorizedAccessException">Thrown when the user in the current HttpContext is not the owner of the resource or has elevated access.</exception>
+    /// <exception cref="NoChangesSavedException">Thrown when the repository fails to save to database context.</exception>
     public async Task CreateAsync(CreateFolderRequest request)
     {
         try
@@ -67,10 +68,12 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
     }
 
     /// <summary>
-    /// 
+    /// Calls the repository to attempt to remove a folder.
     /// </summary>
-    /// <param name="folderId"></param>
-    /// <returns></returns>
+    /// <param name="folderId">A GUID id for a specific folder</param>
+    /// <exception cref="UnauthorizedAccessException">Thrown when the user in the current HttpContext is not the owner of the resource or has elevated access.</exception>
+    /// <exception cref="EmptyReturnException">Thrown when the repository fails to return any data, either because no data exists or because an error has occured.</exception>
+    /// <exception cref="NoChangesSavedException">Thrown when the repository fails to save to database context.</exception>
     public async Task DeleteAsync(Guid folderId)
     {
         try
@@ -104,11 +107,13 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
     }
 
     /// <summary>
-    /// 
+    /// Gets all folders fora specific user id, returning a list of folders and their subfolders (depth of 1). 
     /// </summary>
     /// <param name="userId"></param>
     /// <param name="includeFiles"></param>
     /// <returns></returns>
+    /// <exception cref="UnauthorizedAccessException">Thrown when the user in the current HttpContext is not the owner of the resource or has elevated access.</exception>
+    /// <exception cref="EmptyReturnException">Thrown when the repository fails to return any data, either because no data exists or because an error has occured.</exception>
     public async Task<ICollection<FolderResponse>> GetAllUserFoldersAsync(string userId, bool includeFiles = false)
     {
         try
@@ -146,11 +151,13 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
     }
 
     /// <summary>
-    /// 
+    /// Gets a folder by its id. 
     /// </summary>
     /// <param name="folderId"></param>
     /// <param name="includeFiles"></param>
     /// <returns></returns>
+    /// <exception cref="UnauthorizedAccessException">Thrown when the user in the current HttpContext is not the owner of the resource or has elevated access.</exception>
+    /// <exception cref="EmptyReturnException">Thrown when the repository fails to return any data, either because no data exists or because an error has occured.</exception>
     public async Task<FolderResponse?> GetAsync(Guid folderId, bool includeFiles = false)
     {
         try
@@ -179,11 +186,13 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
     }
 
     /// <summary>
-    /// 
+    /// Gets the root folder for a specified user id. 
     /// </summary>
     /// <param name="userId"></param>
-    /// <param name="includeFiles"></param>
+    /// <param name="includeFiles">Boolean, if set to true, file metadata will be included in the response.</param>
     /// <returns></returns>
+    /// <exception cref="UnauthorizedAccessException">Thrown when the user in the current HttpContext is not the owner of the resource or has elevated access.</exception>
+    /// <exception cref="EmptyReturnException">Thrown when the repository fails to return any data, either because no data exists or because an error has occured.</exception>
     public async Task<FolderResponse?> GetRootAsync(string userId, bool includeFiles = false)
     {
         try
@@ -211,10 +220,13 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
     }
 
     /// <summary>
-    /// 
+    /// Attempts to update a folder with the provided UpdateFolderRequest properties. Properties not provided will default to current values for the folder that is being updated.
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
+    /// <exception cref="UnauthorizedAccessException">Thrown when the user in the current HttpContext is not the owner of the resource or has elevated access.</exception>
+    /// <exception cref="EmptyReturnException">Thrown when the repository fails to return any data, either because no data exists or because an error has occured.</exception>
+    /// <exception cref="NoChangesSavedException">Thrown when the repository fails to save to database context.</exception>
     public async Task UpdateAsync(UpdateFolderRequest request)
     {
         try
