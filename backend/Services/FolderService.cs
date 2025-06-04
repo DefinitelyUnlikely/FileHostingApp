@@ -8,6 +8,12 @@ namespace Backend.Services;
 
 public class FolderService(ILogger<FolderService> logger, IFolderRepository folderRepository, IAuthService userAuthService) : IFolderService
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
     public async Task CreateAsync(CreateFolderRequest request)
     {
         try
@@ -60,6 +66,11 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="folderId"></param>
+    /// <returns></returns>
     public async Task DeleteAsync(Guid folderId)
     {
         try
@@ -92,6 +103,12 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <param name="includeFiles"></param>
+    /// <returns></returns>
     public async Task<ICollection<FolderResponse>> GetAllUserFoldersAsync(string userId, bool includeFiles = false)
     {
         try
@@ -128,6 +145,12 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="folderId"></param>
+    /// <param name="includeFiles"></param>
+    /// <returns></returns>
     public async Task<FolderResponse?> GetAsync(Guid folderId, bool includeFiles = false)
     {
         try
@@ -155,6 +178,12 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <param name="includeFiles"></param>
+    /// <returns></returns>
     public async Task<FolderResponse?> GetRootAsync(string userId, bool includeFiles = false)
     {
         try
@@ -181,6 +210,11 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     public async Task UpdateAsync(UpdateFolderRequest request)
     {
         try

@@ -9,6 +9,13 @@ namespace Backend.Services;
 
 public class FileService(ILogger<FileService> logger, IFileRepository fileRepository, IFolderService folderService, IAuthService userAuthService) : IFileService
 {
+
+    /// <summary>
+    /// Creates a file from a CreateFileRequest class object and sends it to the repository to be added to the database context. 
+    /// </summary>
+    /// <param name="request">The CreateFileRequest object.</param>
+    /// <exception cref="UnauthorizedAccessException">Thrown when the user in the current HttpContext is not the owner of the resource or has elevated access.</exception>
+    /// <exception cref="NoChangesSavedException">Thrown when the repository fails to save to database context.</exception>
     public async Task CreateAsync(CreateFileRequest request)
     {
         try
@@ -64,6 +71,12 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
     }
 
+    /// <summary>
+    /// Removes a file from the database context. 
+    /// </summary>
+    /// <param name="fileId">The id for the specific file to remove from the database context.</param>
+    /// <exception cref="UnauthorizedAccessException">Thrown when the user in the current HttpContext is not the owner of the resource or has elevated access.</exception>
+    /// <exception cref="EmptyReturnException">Thrown when the repository fails to return any data, either because no data exists or because an error has occured.</exception>
     public async Task DeleteAsync(Guid fileId)
     {
         try
@@ -91,6 +104,13 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
     }
 
+    /// <summary>
+    /// Reads all files for a specific userId and returns the File Metadata for all files. 
+    /// </summary>
+    /// <param name="userId">The id </param>
+    /// <returns>A ICollection of FileResponses for a given user.</returns>
+    /// <exception cref="UnauthorizedAccessException">Thrown when the user in the current HttpContext is not the owner of the resource or has elevated access.</exception>
+    /// <exception cref="EmptyReturnException">Thrown when the repository fails to return any data, either because no data exists or because an error has occured.</exception>
     public async Task<ICollection<FileResponse>> GetAllUserFilesAsync(string userId)
     {
         try
@@ -121,6 +141,13 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
     }
 
+    /// <summary>
+    /// Gets a specific file from the repository and returns it, with both meta data and data. 
+    /// </summary>
+    /// <param name="fileId"></param>
+    /// <returns>A FileResponse object with corresponding filedata included.</returns>
+    /// <exception cref="UnauthorizedAccessException">Thrown when the user in the current HttpContext is not the owner of the resource or has elevated access.</exception>
+    /// <exception cref="EmptyReturnException">Thrown when the repository fails to return any data, either because no data exists or because an error has occured.</exception>
     public async Task<FileResponse?> GetByIdAsync(Guid fileId)
     {
         try
@@ -153,6 +180,13 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
     }
 
+    /// <summary>
+    /// Attempts to get a file from the repository using its name. 
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <returns>A FileResponse object with corresponding filedata included.</returns>
+    /// <exception cref="EmptyReturnException"></exception>
+    /// <exception cref="UnauthorizedAccessException">Thrown when the user in the current HttpContext is not the owner of the resource or has elevated access.</exception>
     public async Task<FileResponse?> GetByNameAsync(string fileName)
     {
         try
@@ -180,6 +214,13 @@ public class FileService(ILogger<FileService> logger, IFileRepository fileReposi
         }
     }
 
+    /// <summary>
+    /// Attempts to update a file using the information in the UpdateFileRequest object.
+    /// </summary>
+    /// <param name="request">A UpdateFileRequest object with the fields to update.</param>
+    /// <exception cref="UnauthorizedAccessException">Thrown when the user in the current HttpContext is not the owner of the resource or has elevated access.</exception>
+    /// <exception cref="EmptyReturnException">Thrown when the repository fails to return any data, either because no data exists or because an error has occured.</exception>
+    /// <exception cref="NoChangesSavedException">Thrown when the repository fails to save to database context.</exception>
     public async Task UpdateAsync(UpdateFileRequest request)
     {
         try
