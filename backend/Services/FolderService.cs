@@ -21,7 +21,7 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         {
             request.UserId ??= userAuthService.UserId;
 
-            if (!userAuthService.UserIsAdmin && userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
+            if (userAuthService.UserId != request.UserId && !userAuthService.UserIsAdmin) throw new UnauthorizedAccessException();
 
             if (request.ParentFolderId is not null)
             {
@@ -80,7 +80,7 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         {
             var folder = await folderRepository.GetAsync(folderId) ?? throw new EmptyReturnException("No folder with that Id was found.");
 
-            if (!userAuthService.UserIsAdmin && userAuthService.UserId != folder.UserId) throw new UnauthorizedAccessException();
+            if (userAuthService.UserId != folder.UserId && !userAuthService.UserIsAdmin) throw new UnauthorizedAccessException();
 
             if (!await folderRepository.DeleteAsync(folder)) throw new NoChangesSavedException("No folder has been deleted.");
         }
@@ -118,7 +118,7 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
     {
         try
         {
-            if (!userAuthService.UserIsAdmin && userAuthService.UserId != userId) throw new UnauthorizedAccessException();
+            if (userAuthService.UserId != userId && !userAuthService.UserIsAdmin) throw new UnauthorizedAccessException();
 
             var folders = await folderRepository.GetAllUserFoldersAsync(userId, includeFiles);
 
@@ -164,7 +164,7 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         {
             var folder = await folderRepository.GetAsync(folderId, includeFiles) ?? throw new EmptyReturnException("No folder was retreived");
 
-            if (!userAuthService.UserIsAdmin && userAuthService.UserId != folder.UserId) throw new UnauthorizedAccessException();
+            if (userAuthService.UserId != folder.UserId && !userAuthService.UserIsAdmin) throw new UnauthorizedAccessException();
 
             return FolderResponse.FromModel(folder);
         }
@@ -197,7 +197,7 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
     {
         try
         {
-            if (!userAuthService.UserIsAdmin && userAuthService.UserId != userId) throw new UnauthorizedAccessException();
+            if (userAuthService.UserId != userId && !userAuthService.UserIsAdmin) throw new UnauthorizedAccessException();
 
             var root = await folderRepository.GetRootAsync(userId, includeFiles) ?? throw new EmptyReturnException("No folder was retreived");
             return FolderResponse.FromModel(root);
@@ -233,7 +233,7 @@ public class FolderService(ILogger<FolderService> logger, IFolderRepository fold
         {
             request.UserId ??= userAuthService.UserId;
 
-            if (!userAuthService.UserIsAdmin && userAuthService.UserId != request.UserId) throw new UnauthorizedAccessException();
+            if (userAuthService.UserId != request.UserId && !userAuthService.UserIsAdmin) throw new UnauthorizedAccessException();
 
             var folder = await folderRepository.GetAsync(request.Id) ?? throw new EmptyReturnException("No folder found with that Id");
 
