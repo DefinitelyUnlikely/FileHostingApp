@@ -6,6 +6,9 @@
 	import ModalFolderDelete from './modal/modalFolderDelete.svelte';
 	import { onMount } from 'svelte';
 	import { formatDateTime } from '$lib/shared.svelte';
+	import ModalFileDelete from './modal/modalFileDelete.svelte';
+	import ModalFileEdit from './modal/modalFileEdit.svelte';
+	import ModalFileMove from './modal/modalFileMove.svelte';
 
 	export let resources: PageData;
 
@@ -41,6 +44,20 @@
 	}
 
 	function deleteFolder(id: string) {
+		isXModalVisible['delete' + id] = !isXModalVisible['delete' + id];
+	}
+
+	function downloadFile() {}
+
+	function editFile(id: string) {
+		isXModalVisible['edit' + id] = !isXModalVisible['edit' + id];
+	}
+
+	function moveFile(id: string) {
+		isXModalVisible['move' + id] = !isXModalVisible['move' + id];
+	}
+
+	function deleteFile(id: string) {
 		isXModalVisible['delete' + id] = !isXModalVisible['delete' + id];
 	}
 
@@ -118,7 +135,17 @@
 			<div class="file-options">
 				<div>Download</div>
 				<div>Edit</div>
+				<div>Move</div>
 				<div>Delete</div>
+				{#if isXModalVisible['edit' + file.id]}
+					<ModalFileEdit id={file.id} />
+				{/if}
+				{#if isXModalVisible['move' + file.id]}
+					<ModalFileMove id={file.id} />
+				{/if}
+				{#if isXModalVisible['delete' + file.id]}
+					<ModalFileDelete id={file.id} />
+				{/if}
 			</div>
 		{/if}
 	{/each}

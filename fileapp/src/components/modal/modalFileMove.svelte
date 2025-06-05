@@ -4,13 +4,11 @@
 	import { isXModalVisible } from '$lib/shared.svelte';
 	import { getCookie } from '../../utils/cookies';
 
-	let fileName = $state('');
-	let extension = $state('');
 	let message = $state('');
 
 	let { id } = $props();
 
-	async function RenameFile(event: SubmitEvent, id: String) {
+	async function MoveFile(event: SubmitEvent, id: String) {
 		event.preventDefault();
 		let response = await fetch(API_BASE_URL + '/file/' + id, {
 			method: 'PATCH',
@@ -18,10 +16,7 @@
 				authorization: 'Bearer ' + getCookie('token'),
 				'content-type': 'application/json'
 			},
-			body: JSON.stringify({
-				name: fileName,
-				extension: extension
-			})
+			body: JSON.stringify({})
 		});
 
 		if (!response.ok) {
@@ -37,16 +32,7 @@
 <div class="file-modal">
 	<h3>Rename File</h3>
 	<p>{message}</p>
-	<form
-		onsubmit={(event) => {
-			RenameFile(event, id);
-		}}
-	>
-		<label for="file-name">File name</label>
-		<input id="file-name" name="file-name" type="text" bind:value={fileName} />
-		<button type="submit">Rename</button>
-	</form>
-	<button class="close" onclick={() => (isXModalVisible['edit' + id] = false)}>X</button>
+	<button class="close" onclick={() => (isXModalVisible['move' + id] = false)}>X</button>
 </div>
 
 <style>
