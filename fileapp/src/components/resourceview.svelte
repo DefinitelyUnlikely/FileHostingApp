@@ -134,9 +134,33 @@
 		{#if openFiles.has(file.id)}
 			<div class="file-options">
 				<div>Download</div>
-				<div>Edit</div>
-				<div>Move</div>
-				<div>Delete</div>
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
+				<div
+					onclick={() => {
+						editFile(file.id);
+					}}
+				>
+					Edit
+				</div>
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
+				<div
+					onclick={() => {
+						moveFile(file.id);
+					}}
+				>
+					Move
+				</div>
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
+				<div
+					onclick={() => {
+						deleteFile(file.id);
+					}}
+				>
+					Delete
+				</div>
 				{#if isXModalVisible['edit' + file.id]}
 					<ModalFileEdit id={file.id} />
 				{/if}

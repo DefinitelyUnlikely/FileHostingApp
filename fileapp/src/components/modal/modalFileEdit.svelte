@@ -44,6 +44,8 @@
 	>
 		<label for="file-name">File name</label>
 		<input id="file-name" name="file-name" type="text" bind:value={fileName} />
+		<label for="file-extension">File Extension</label>
+		<input id="file-extension" name="file-extension" type="text" bind:value={extension} />
 		<button type="submit">Rename</button>
 	</form>
 	<button class="close" onclick={() => (isXModalVisible['edit' + id] = false)}>X</button>

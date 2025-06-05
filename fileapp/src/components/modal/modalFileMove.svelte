@@ -8,10 +8,11 @@
 	let folderId = $state('');
 	let message = $state('');
 
+	let folderJSON: any = $state();
+
 	let { id } = $props();
 
-	async function MoveFile(event: SubmitEvent, id: String) {
-		event.preventDefault();
+	async function MoveFile(id: String) {
 		let response = await fetch(API_BASE_URL + '/file/' + id, {
 			method: 'PATCH',
 			headers: {
@@ -33,13 +34,37 @@
 	}
 
 	onMount(async () => {
-		let folders = await fetch(API_BASE_URL + '/folder/folders/user/me');
+		console.log('onMount modalFileMove');
+		let folders = await fetch(API_BASE_URL + '/folder/folders/user/me', {
+			method: 'GET',
+			headers: {
+				authorization: 'Bearer ' + getCookie('token'),
+				'content-type': 'application/json'
+			},
+			body: undefined
+		});
+
+		if (!folders.ok) {
+			message = 'Could not get a list of available folders';
+			return;
+		}
+
+		folderJSON = await folders.json();
 	});
 </script>
 
 <div class="file-modal">
-	<h3>Rename File</h3>
+	<h3>Move File</h3>
 	<p>{message}</p>
+	<div class="folders">
+		{#each folderJSON as folder}
+			<button
+				onclick={() => {
+					MoveFile(folder.id);
+				}}>{folder.name}</button
+			>
+		{/each}
+	</div>
 	<button class="close" onclick={() => (isXModalVisible['move' + id] = false)}>X</button>
 </div>
 
