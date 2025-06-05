@@ -35,7 +35,7 @@
 
 	onMount(async () => {
 		console.log('onMount modalFileMove');
-		let folders = await fetch(API_BASE_URL + '/folder/folders/user/me', {
+		let folders = await fetch(API_BASE_URL + '/folder/folders/user', {
 			method: 'GET',
 			headers: {
 				authorization: 'Bearer ' + getCookie('token'),
