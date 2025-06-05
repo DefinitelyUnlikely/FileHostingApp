@@ -42,7 +42,6 @@
 	</div>
 	<hr style="width:90%;text-align:center;" />
 	<Resourceview resources={props} />
-	<button class="logout" onclick={Logout}>Logout</button>
 </div>
 
 <style>
@@ -67,10 +66,6 @@
 	.create:hover .create-dropdown {
 		display: flex;
 		flex-direction: column;
-	}
-
-	.logout {
-		margin-top: auto;
 	}
 
 	p {
