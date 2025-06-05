@@ -101,6 +101,11 @@ public class FolderController(IFolderService folderService) : ControllerBase
     {
         try
         {
+            if (userId == "me")
+            {
+                userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? throw new UnauthorizedAccessException();
+            }
+
             var response = await folderService.GetAllUserFoldersAsync(userId, Request.Headers.TryGetValue("X-Include-Files", out _));
             return Ok(response);
         }

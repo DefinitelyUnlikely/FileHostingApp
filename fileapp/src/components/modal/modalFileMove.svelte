@@ -2,8 +2,10 @@
 	import { invalidateAll } from '$app/navigation';
 	import { API_BASE_URL } from '$lib/config';
 	import { isXModalVisible } from '$lib/shared.svelte';
+	import { onMount } from 'svelte';
 	import { getCookie } from '../../utils/cookies';
 
+	let folderId = $state('');
 	let message = $state('');
 
 	let { id } = $props();
@@ -16,7 +18,9 @@
 				authorization: 'Bearer ' + getCookie('token'),
 				'content-type': 'application/json'
 			},
-			body: JSON.stringify({})
+			body: JSON.stringify({
+				folderId: folderId
+			})
 		});
 
 		if (!response.ok) {
@@ -27,6 +31,10 @@
 		message = 'file has been updated';
 		invalidateAll();
 	}
+
+	onMount(async () => {
+		let folders = await fetch(API_BASE_URL + '/folder/folders/user/me');
+	});
 </script>
 
 <div class="file-modal">
@@ -56,12 +64,6 @@
 
 	p {
 		text-align: center;
-	}
-	.file-modal form {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
 	}
 
 	button {
