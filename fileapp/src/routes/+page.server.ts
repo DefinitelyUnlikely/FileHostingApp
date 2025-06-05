@@ -1,7 +1,6 @@
 import { API_BASE_URL } from '$lib/config';
 import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { Logout } from '../stores/auth';
 
 export const load: PageServerLoad = async ({ params, cookies }) => {
     if (!cookies.get("userinfo")) {
