@@ -27,8 +27,6 @@ export const load: PageServerLoad = async ({ params, cookies }) => {
             body: JSON.stringify({ refreshtoken: refresh })
         });
 
-        console.log(refreshRespone);
-
         if (!refreshRespone.ok) {
             cookies.delete("userinfo", { path: "/" });
             cookies.delete("token", { path: "/" });
@@ -37,8 +35,8 @@ export const load: PageServerLoad = async ({ params, cookies }) => {
         }
 
         let refreshJson = await refreshRespone.json();
-        cookies.set("token", refreshJson.accessToken, { path: "/" })
-        cookies.set("refresh", refreshJson.refreshToken, { path: "/" })
+        cookies.set("token", refreshJson.accessToken, { path: "/" });
+        cookies.set("refresh", refreshJson.refreshToken, { path: "/" });
 
         response = await fetch(API_BASE_URL + "/folder/root", {
             method: 'GET',
@@ -51,7 +49,7 @@ export const load: PageServerLoad = async ({ params, cookies }) => {
         });
 
         if (!response.ok) {
-            error(500, "Cannot fetch valid response, try login in again")
+            error(500, "Cannot fetch valid response, try login in again");
         }
     }
 
