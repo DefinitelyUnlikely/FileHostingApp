@@ -19,9 +19,11 @@ export async function Login(tokenResponse: Response, userObj: User) {
 }
 
 export async function Logout() {
+    console.log("Before deletion:", document.cookie);
     deleteCookie("token");
     deleteCookie("refresh");
     deleteCookie("userinfo");
+    console.log("After deletion:", document.cookie);
     useremail.set('');
     isLoggedIn.set(false);
     goto("/login")
