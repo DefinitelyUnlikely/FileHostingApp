@@ -1,9 +1,8 @@
-import { get, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 import { getCookie, setCookie, deleteCookie } from '../utils/cookies';
 import { User } from '$lib/models';
 import { goto } from '$app/navigation';
 import { API_BASE_URL } from '$lib/config';
-import { redirect } from '@sveltejs/kit';
 
 export const isLoggedIn = writable(false);
 export const useremail = writable('');
@@ -40,13 +39,12 @@ export async function RefreshToken() {
     });
 
     if (!refreshRespone.ok) {
-        deleteCookie("userinfo");
-        deleteCookie("token");
-        deleteCookie("refresh");
-        redirect(303, "/login")
+        return false;
     }
 
     let refreshJson = await refreshRespone.json();
     setCookie("token", refreshJson.accessToken);
     setCookie("refresh", refreshJson.refreshToken);
+
+    return true;
 }

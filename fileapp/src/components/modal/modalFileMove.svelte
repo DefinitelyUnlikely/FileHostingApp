@@ -4,6 +4,7 @@
 	import { isXModalVisible } from '$lib/shared.svelte';
 	import { onMount } from 'svelte';
 	import { getCookie } from '../../utils/cookies';
+	import { RefreshToken } from '../../stores/auth';
 
 	let folderId = $state('');
 	let message = $state('');
@@ -20,13 +21,33 @@
 				'content-type': 'application/json'
 			},
 			body: JSON.stringify({
+				id: id,
 				folderId: folderId
 			})
 		});
 
 		if (!response.ok) {
-			message = 'File was not updated';
-			return;
+			if (!RefreshToken()) {
+				message = 'Unauthorized. If the problem persists, please log back in.';
+				return;
+			}
+
+			response = await fetch(API_BASE_URL + '/file/' + id, {
+				method: 'PATCH',
+				headers: {
+					authorization: 'Bearer ' + getCookie('token'),
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify({
+					id: id,
+					folderId: folderId
+				})
+			});
+
+			if (!response.ok) {
+				message = 'File was not updated';
+				return;
+			}
 		}
 
 		message = 'file has been updated';
@@ -34,7 +55,6 @@
 	}
 
 	onMount(async () => {
-		console.log('onMount modalFileMove');
 		let folders = await fetch(API_BASE_URL + '/folder/folders/user', {
 			method: 'GET',
 			headers: {

@@ -2,6 +2,7 @@
 	import { invalidateAll } from '$app/navigation';
 	import { API_BASE_URL } from '$lib/config';
 	import { isXModalVisible } from '$lib/shared.svelte';
+	import { RefreshToken } from '../../stores/auth';
 	import { getCookie } from '../../utils/cookies';
 
 	let fileName = $state('');
@@ -19,14 +20,35 @@
 				'content-type': 'application/json'
 			},
 			body: JSON.stringify({
+				id: id,
 				name: fileName,
 				extension: extension
 			})
 		});
 
 		if (!response.ok) {
-			message = 'File was not updated';
-			return;
+			if (!RefreshToken()) {
+				message = 'Unauthorized. If the problem persists, please log back in.';
+				return;
+			}
+
+			response = await fetch(API_BASE_URL + '/file/' + id, {
+				method: 'PATCH',
+				headers: {
+					authorization: 'Bearer ' + getCookie('token'),
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify({
+					id: id,
+					name: fileName,
+					extension: extension
+				})
+			});
+
+			if (!response.ok) {
+				message = 'File was not updated';
+				return;
+			}
 		}
 
 		message = 'file has been updated';

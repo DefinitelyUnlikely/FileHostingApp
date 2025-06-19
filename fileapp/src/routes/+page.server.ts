@@ -19,7 +19,9 @@ export const load: PageServerLoad = async ({ params, cookies }) => {
     });
 
     if (!response.ok) {
-        RefreshToken();
+        if (!RefreshToken()) {
+            error(401, "Your session has expired. Please log back in.")
+        }
 
         response = await fetch(API_BASE_URL + "/folder/root", {
             method: 'GET',
