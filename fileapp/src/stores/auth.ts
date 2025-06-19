@@ -29,7 +29,7 @@ export async function Logout() {
 }
 
 
-export async function Refresh() {
+export async function RefreshToken() {
     let refresh = getCookie("refresh");
     let refreshRespone = await fetch(API_BASE_URL + "/refresh", {
         method: 'POST',
